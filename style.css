@@ -1,0 +1,935 @@
+/* --- ZMIENNE I PODSTAWY --- */
+
+:root {
+
+    --gold: #d4af37;
+
+    --gold-bright: #f1d279;
+
+    --dark-bg: #050505;
+
+    --card-bg: #111111;
+
+    --text: #e0e0e0;
+
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+}
+
+
+
+* {
+
+    box-sizing: border-box;
+
+}
+
+
+
+body {
+
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+   
+
+    /* Tło: Nakładka gradientowa (przyciemnienie) + Twoje zdjęcie */
+
+    background:
+
+        linear-gradient(rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.9)),
+
+        url('tlo.jpg');
+
+   
+
+    /* Ustawienia wyświetlania zdjęcia */
+
+    background-size: cover;         /* Zdjęcie wypełni cały ekran */
+
+    background-position: center;    /* Środek zdjęcia zawsze na środku */
+
+    background-attachment: fixed;   /* Efekt "za szybą" - zdjęcie nie przesuwa się przy skrolowaniu */
+
+    background-repeat: no-repeat;
+
+   
+
+    color: var(--text);
+
+    margin: 0;
+
+    padding: 20px;
+
+    line-height: 1.6;
+
+}
+
+
+
+/* --- NAGŁÓWEK --- */
+
+header {
+
+    text-align: center;
+
+    padding: 40px 0;
+
+    border-bottom: 1px solid #222;
+
+}
+
+
+
+.logo-container {
+
+    position: relative;
+
+    display: inline-block;
+
+    cursor: help;
+
+    margin-bottom: 15px;
+
+}
+
+
+
+.main-logo {
+
+    max-width: 180px;
+
+    height: auto;
+
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.2));
+
+    transition: var(--transition);
+
+}
+
+
+
+.logo-container:hover .main-logo {
+
+    transform: scale(1.05);
+
+}
+
+
+
+.logo-description {
+
+    position: absolute;
+
+    top: 110%;
+
+    left: 50%;
+
+    transform: translateX(-50%) translateY(10px);
+
+    width: 280px;
+
+    background: rgba(15, 15, 15, 0.98);
+
+    border: 1px solid var(--gold);
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: var(--transition);
+
+    z-index: 2000;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+
+    backdrop-filter: blur(10px);
+
+    color: #fff;
+
+    font-size: 0.9rem;
+
+}
+
+
+
+.logo-container:hover .logo-description {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateX(-50%) translateY(0);
+
+}
+
+
+
+h1 {
+
+    margin: 10px 0 0 0;
+
+    letter-spacing: 7px;
+
+    font-size: 2.5rem;
+
+    font-weight: 300;
+
+    color: #fff;
+
+}
+
+
+
+.signature {
+
+    font-family: 'Brush Script MT', cursive;
+
+    color: var(--gold);
+
+    font-size: 2.2rem;
+
+    margin: -10px 0 10px 0;
+
+}
+
+
+
+.tagline {
+
+    font-size: 0.85rem;
+
+    text-transform: uppercase;
+
+    color: #666;
+
+    letter-spacing: 4px;
+
+}
+
+
+
+/* --- KONTENER I GRID --- */
+
+.calculator-container {
+
+    max-width: 1100px;
+
+    margin: 50px auto;
+
+    display: grid;
+
+    grid-template-columns: 1fr 350px;
+
+    gap: 40px;
+
+}
+
+
+
+.size-selector {
+
+    grid-column: 1 / -1;
+
+    background: var(--card-bg);
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    border: 1px solid #222;
+
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+
+}
+
+
+
+select {
+
+    padding: 12px 25px;
+
+    background: #000;
+
+    color: var(--gold);
+
+    border: 1px solid #444;
+
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+    outline: none;
+
+    transition: var(--transition);
+
+}
+
+
+
+select:hover {
+
+    border-color: var(--gold);
+
+}
+
+
+
+/* --- LISTA USŁUG I DYMKI --- */
+
+h3 {
+
+    color: var(--gold);
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    margin-top: 40px;
+
+    border-bottom: 1px solid #222;
+
+    padding-bottom: 10px;
+
+}
+
+
+
+.service-item {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 15px;
+
+    border-bottom: 1px solid #1a1a1a;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    position: relative;
+
+}
+
+
+
+.service-item:hover {
+
+    background: rgba(212, 175, 55, 0.05);
+
+    padding-left: 20px;
+
+}
+
+
+
+/* Tooltip (Dymek) */
+
+.service-item::after {
+
+    content: attr(data-tip);
+
+    position: absolute;
+
+    bottom: 110%;
+
+    left: 50%;
+
+    transform: translateX(-50%) translateY(10px);
+
+    background: rgba(15, 15, 15, 0.98);
+
+    color: #fff;
+
+    padding: 12px 18px;
+
+    border: 1px solid var(--gold);
+
+    border-radius: 8px;
+
+    width: 280px;
+
+    font-size: 0.85rem;
+
+    text-align: center;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    z-index: 2000;
+
+    transition: var(--transition);
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+
+    pointer-events: none;
+
+    line-height: 1.4;
+
+}
+
+
+
+.service-item:hover::after {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateX(-50%) translateY(0);
+
+}
+
+
+
+.service-name {
+
+    flex: 1;
+
+    margin-left: 10px;
+
+}
+
+
+
+.service-price {
+
+    color: var(--gold);
+
+    font-weight: bold;
+
+    font-family: 'Courier New', monospace;
+
+    font-size: 1.1rem;
+
+}
+
+
+
+/* --- KARTA PODSUMOWANIA --- */
+
+.summary-card {
+
+    background: var(--card-bg);
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    border-top: 4px solid var(--gold);
+
+    position: sticky;
+
+    top: 20px;
+
+    height: fit-content;
+
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+
+}
+
+
+
+.summary-card h4 {
+
+    margin-top: 0;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    border-bottom: 1px solid #333;
+
+    padding-bottom: 10px;
+
+}
+
+
+
+.grand-total {
+
+    font-size: 1.8rem;
+
+    font-weight: bold;
+
+    color: var(--gold);
+
+    margin: 20px 0;
+
+    display: flex;
+
+    justify-content: space-between;
+
+}
+
+
+
+.footer-info {
+
+    font-size: 0.8rem;
+
+    color: #666;
+
+    margin-top: 20px;
+
+    background: rgba(0,0,0,0.2);
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+}
+
+
+
+/* --- PRZYCISKI AKCJI --- */
+
+.print-btn, .book-btn {
+
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 15px;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    text-decoration: none;
+
+    display: block;
+
+    text-align: center;
+
+    letter-spacing: 1px;
+
+}
+
+
+
+.print-btn {
+
+    background: var(--gold);
+
+    border: none;
+
+    color: #000;
+
+}
+
+
+
+.print-btn:hover {
+
+    background: var(--gold-bright);
+
+    transform: translateY(-2px);
+
+}
+
+
+
+.book-btn {
+
+    background: transparent;
+
+    border: 2px solid var(--gold);
+
+    color: var(--gold);
+
+}
+
+
+
+.book-btn:hover {
+
+    background: var(--gold);
+
+    color: #000;
+
+    transform: translateY(-2px);
+
+}
+
+
+
+/* --- SEKCJA INSTAGRAM --- */
+
+.instagram-container {
+
+    max-width: 1100px;
+
+    margin: 60px auto;
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    background: rgba(255, 255, 255, 0.03);
+
+    border-radius: 20px;
+
+    border: 1px solid #222;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+
+}
+
+
+
+.insta-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.insta-icon {
+
+    width: 35px;
+
+}
+
+
+
+.insta-link-btn {
+
+    display: inline-block;
+
+    padding: 16px 40px;
+
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    border-radius: 50px;
+
+    transition: var(--transition);
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+}
+
+
+
+.insta-link-btn:hover {
+
+    transform: translateY(-5px);
+
+    filter: brightness(1.1);
+
+}
+
+
+
+/* --- FLOATY (WhatsApp i Info) --- */
+
+.whatsapp-float, .info-float {
+
+    position: fixed;
+
+    right: 20px;
+
+    width: 60px;
+
+    height: 60px;
+
+    border-radius: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 3000;
+
+    box-shadow: 2px 5px 15px rgba(0,0,0,0.5);
+
+    transition: var(--transition);
+
+    cursor: pointer;
+
+}
+
+
+
+.whatsapp-float {
+
+    bottom: 20px;
+
+    background-color: #25d366;
+
+}
+
+
+
+.info-float {
+
+    bottom: 90px;
+
+    background-color: var(--gold);
+
+    color: #000;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    text-decoration: none;
+
+}
+
+
+
+.whatsapp-float:hover, .info-float:hover {
+
+    transform: scale(1.1);
+
+}
+
+
+
+.info-float:hover {
+
+    background: white;
+
+}
+
+
+
+.whatsapp-float img {
+
+    width: 35px;
+
+}
+
+
+
+/* --- MODAL (Słowniczek) --- */
+
+.modal-overlay {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0; left: 0;
+
+    width: 100%; height: 100%;
+
+    background: rgba(0,0,0,0.85);
+
+    backdrop-filter: blur(5px);
+
+    z-index: 4000;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+
+.modal-content {
+
+    background: #1a1a1a;
+
+    width: 90%;
+
+    max-width: 500px;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    border: 1px solid var(--gold);
+
+    position: relative;
+
+    max-height: 85vh;
+
+    overflow-y: auto;
+
+}
+
+
+
+.close-modal {
+
+    position: absolute;
+
+    top: 15px; right: 20px;
+
+    font-size: 30px;
+
+    color: var(--gold);
+
+    cursor: pointer;
+
+}
+
+
+
+.knowledge-accordion details {
+
+    background: #222;
+
+    margin-bottom: 10px;
+
+    border-radius: 8px;
+
+    border-left: 3px solid var(--gold);
+
+}
+
+
+
+.knowledge-accordion summary {
+
+    padding: 15px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    list-style: none;
+
+}
+
+
+
+.knowledge-accordion p {
+
+    padding: 15px;
+
+    border-top: 1px solid #333;
+
+    color: #ccc;
+
+    font-size: 14px;
+
+    margin: 0;
+
+}
+
+
+
+/* --- RESPONSYWNOŚĆ --- */
+
+@media (max-width: 768px) {
+
+    body { padding: 10px; }
+
+    h1 { font-size: 1.6rem; letter-spacing: 3px; }
+
+    .signature { font-size: 1.8rem; }
+
+    .calculator-container { grid-template-columns: 1fr; margin: 20px auto; }
+
+   
+
+    .service-item { padding: 18px 10px; flex-wrap: wrap; }
+
+    .service-item::after { display: none; } /* Wyłącz dymki na mobile */
+
+   
+
+    .summary-card { position: relative; top: 0; margin-top: 20px; }
+
+   
+
+    .info-float {
+
+        bottom: 85px;
+
+        right: 15px;
+
+        width: 50px;
+
+        height: 50px;
+
+        font-size: 24px;
+
+    }
+
+    .whatsapp-float {
+
+        bottom: 20px;
+
+        right: 15px;
+
+        width: 50px;
+
+        height: 50px;
+
+    }
+
+}
+
+
+
+/* --- STOPKA --- */
+
+footer {
+
+    text-align: center;
+
+    padding: 40px;
+
+    color: #666;
+
+    font-size: 0.85rem;
+
+}
+
+
+
+/* --- DRUKOWANIE --- */
+
+@media print {
+
+    .print-btn, .book-btn, .whatsapp-float, .info-float, .instagram-container, .size-selector, .modal-overlay {
+
+        display: none !important;
+
+    }
+
+    body { background: #fff; color: #000; }
+
+    .summary-card { border: none; box-shadow: none; position: static; }
+
+}

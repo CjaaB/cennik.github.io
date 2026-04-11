@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Car All Detailing - Ekskluzywna pielęgnacja samochodowa Karola Zagórskiego. Kalkulator usług detailingowych online.">
+    <meta name="keywords" content="detailing, czyszczenie auta, pranie tapicerki, polerka, Karol Zagórski, car detailing">
+    <title>Car All Detailing | Karol Zagórski</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="logo1.png" alt="Car All Detailing Logo" class="main-logo">
+        <div class="logo-description">
+            <h4>Karol Zagórski</h4>
+            <p>Siemanko tu Karol, Witam na mojej stronie z cennikiem świadczonych przeze mnie usług, aktualnie działam na terenie Holandii a konkretnie Maarssen, aczkolwiek zamierzam rozpocząć działalność w Polsce. Zachęcam do zapoznania się z cennikiem oraz mam nadzieję że zobaczymy się w niedługim czasie a Twój samochód dostanie dawkę zasłużonej pielęgnacji, w końcu służy Ci codziennie więc i on czasem musi się troszkę odświeżyć :D </p>
+        </div>
+    </div>
+    <h1>CAR ALL DETAILING</h1>
+    <p class="signature">by Karol Zagórski</p>
+    <p class="tagline">EKSKLUZYWNA PIELĘGNACJA SAMOCHODOWA</p>
+</header>
+
+<main>
+    <div class="calculator-container">
+        <div class="size-selector">
+            <label for="car-size">WYBIERZ ROZMIAR POJAZDU: </label>
+            <select id="car-size">
+                <option value="S">S - Małe (np. Fiat 500, Toyota Aygo, Mini)</option>
+                <option value="M" selected>M - Średnie (np. VW Golf, BMW 3, Audi A3)</option>
+                <option value="L">L - Duże / Kombi (np. Audi A6, Passat, Volvo XC60)</option>
+                <option value="XL">XL - SUV / Terenowe (np. BMW X5, Audi Q7, GLE)</option>
+                <option value="XXL">XXL - VAN / Bus (np. V-Klasa, Multivan, Sprinter)</option>
+            </select>
+        </div>
+
+        <div class="services-selection">
+            <h3>Pakiety Główne</h3>
+            
+            <label class="service-item" data-tip="Bezpieczne mycie ręczne, czyszczenie felg oraz aplikacja Quick Detailera dla połysku i ochrony lakieru.">
+                <input type="checkbox" id="ext-basic" class="service" data-s="55" data-m="65" data-l="80" data-xl="95" data-xxl="115"> 
+                <span class="service-name"><strong>Exterior Basic</strong> (Mycie, felgi, QD)</span>
+                <span class="service-price">od €55</span>
+            </label>
+
+            <label class="service-item" data-tip="Dokładne odkurzanie, czyszczenie wnętrza i bagażnika, mycie szyb oraz odświeżenie plastików.">
+                <input type="checkbox" id="int-basic" class="service" data-s="65" data-m="75" data-l="90" data-xl="110" data-xxl="140"> 
+                <span class="service-name"><strong>Interior Basic</strong> (Wnętrze, odkurzanie, szyby)</span>
+                <span class="service-price">od €65</span>
+            </label>
+
+            <label class="service-item" data-tip="Kompletny pakiet: Exterieur + Interieur. Pełne standardowe odświeżenie auta wewnątrz i na zewnątrz.">
+                <input type="checkbox" id="full-combo" class="service" data-s="110" data-m="130" data-l="160" data-xl="190" data-xxl="240"> 
+                <span class="service-name"><strong>FULL DETAIL COMBO</strong> (Wnętrze + Zewnątrz)</span>
+                <span class="service-price">od €110</span>
+            </label>
+
+            <label class="service-item" data-tip="Głębokie pranie ekstrakcyjne foteli, podłogi i boczków. Usuwa plamy, roztocza i nieprzyjemne zapachy.">
+                <input type="checkbox" id="deep-clean" class="service" data-s="140" data-m="160" data-l="190" data-xl="230" data-xxl="290"> 
+                <span class="service-name"><strong>Deep Interior Clean</strong> (Pranie tapicerki)</span>
+                <span class="service-price">od €140</span>
+            </label>
+
+            <label class="service-item" data-tip="Najwyższy standard: Full Detail COMBO + Deep Interior PLUS glinkowanie lakieru i twardy wosk Premium.">
+                <input type="checkbox" id="showroom" class="service" data-s="240" data-m="280" data-l="330" data-xl="390" data-xxl="480"> 
+                <span class="service-name"><strong>Showroom Ready</strong> (Max efekt + Wosk)</span>
+                <span class="service-price">od €240</span>
+            </label>
+
+            <h3>Pielęgnacja Skóry</h3>
+            <label class="service-item" data-tip="Głębokie czyszczenie skór dedykowaną chemią i nawilżenie. Wybierz tę opcję, jeśli masz skórzaną tapicerkę.">
+                <input type="checkbox" id="leather-clean" class="service" data-static="85"> 
+                <span class="service-name">Leather Clean & Condition</span>
+                <span class="service-price">od €85</span>
+            </label>
+
+            <label class="service-item" data-tip="Dokładne czyszczenie i zabezpieczenie kierownicy - najczęściej dotykanego elementu.">
+                <input type="checkbox" id="steering-wheel" class="service" data-static="25"> 
+                <span class="service-name">Detailing Kierownicy</span>
+                <span class="service-price">€25</span>
+            </label>
+
+            <h3>Pielęgnacja tapicerki materiałowej</h3>
+            <label class="service-item" data-tip="Czyszczenie metodą bonetowania (na sucho) samych foteli oraz boczków drzwiowych.">
+                <input type="checkbox" id="boneting-seats" class="service" data-static="45"> 
+                <span class="service-name"><strong>Bonetowanie</strong> (Fotele + Boczki)</span>
+                <span class="service-price">€45</span>
+            </label>
+
+            <label class="service-item" data-tip="Pełny pakiet bonetowania: fotele, boczki oraz delikatne czyszczenie podsufitki.">
+                <input type="checkbox" id="boneting-full" class="service" data-static="75"> 
+                <span class="service-name"><strong>Bonetowanie Full</strong> (+ Podsufitka)</span>
+                <span class="service-price">€75</span>
+            </label>
+
+            <h3>Dodatki Premium</h3>
+            <label class="service-item" data-tip="Usunięcie osadów metalicznych i glinkowanie lakieru, by stał się idealnie gładki.">
+                <input type="checkbox" class="service" data-static="60"> 
+                <span class="service-name">Glinkowanie + Deironizacja</span>
+                <span class="service-price">od €60</span>
+            </label>
+
+            <label class="service-item" data-tip="Ręczna aplikacja wysokiej jakości twardego wosku dla głębi koloru i hydrofobowości.">
+                <input type="checkbox" class="service" data-static="65"> 
+                <span class="service-name">Premium Wax (Wosk twardy)</span>
+                <span class="service-price">€65</span>
+            </label>
+
+            <label class="service-item" data-tip="Usuwanie bakterii, wirusów i nieprzyjemnych zapachów (np. tytoniu) za pomocą ozonu.">
+                <input type="checkbox" class="service" data-static="50"> 
+                <span class="service-name">Ozonowanie wnętrza [Jeszcze nie dostępne]</span>
+                <span class="service-price">€50</span>
+            </label>
+
+            <label class="service-item" data-tip="Bezpieczne czyszczenie komory silnika oraz konserwacja plastików i gum.">
+                <input type="checkbox" class="service" data-static="55"> 
+                <span class="service-name">Engine Detail (Czyszczenie silnika)</span>
+                <span class="service-price">€55</span>
+            </label>
+
+            <label class="service-item" data-tip="Pracochłonne usuwanie wbitej w tapicerkę sierści zwierząt.">
+                <input type="checkbox" class="service" data-static="35"> 
+                <span class="service-name">Usuwanie sierści</span>
+                <span class="service-price">od €35</span>
+            </label>
+        </div>
+
+        <div class="summary-card">
+            <h4>Wstępna Wycena</h4>
+            <p class="grand-total">DO ZAPŁATY: <span><span id="res-gross">0</span> €</span></p>
+            
+            <div class="footer-info">
+                <p>• Ostateczna cena po oględzinach stanu pojazdu</p>
+            </div>
+            
+            <button class="print-btn" onclick="window.print()">Pobierz Ofertę (PDF)</button>
+            <button class="book-btn" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/yakasu1999/new-meeting'});return false;">Zarezerwuj Termin Online</button>
+        </div>
+    </div>
+
+    <section class="instagram-container">
+        <div class="insta-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="insta-icon">
+            <h3>Moje Realizacje</h3>
+        </div>
+        <div class="insta-feed">
+            <p>Zobacz jak odmieniam auta moich klientów na bieżąco!</p>
+            <a href="https://www.instagram.com/cjaab99/" target="_blank" class="insta-link-btn">
+                Obserwuj nas na Instagramie @cjaab99
+            </a>
+        </div>
+    </section>
+</main>
+
+<script src="script.js"></script>
+
+<a href="https://wa.me/48731693089?text=Cześć! Obliczyłem cenę w kalkulatorze i chciałbym zapytać o wolny termin." class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+<footer>
+    <p>&copy; 2026 Car All Detailing | Karol Zagórski</p>
+</footer>
+
+<div class="info-float" onclick="toggleInfoModal()">
+    <span>?</span>
+</div>
+
+<div id="infoModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal" onclick="toggleInfoModal()">&times;</span>
+        <h3>Słownik Detailera</h3>
+        <p class="modal-subtitle">Kliknij pojęcie, aby dowiedzieć się więcej:</p>
+        
+        <div class="knowledge-accordion">
+            <details>
+                <summary>🚿 Mycie Detailingowe (Zewnątrz)</summary>
+                <p>To nie jest zwykłe mycie na myjni bezdotykowej. To wieloetapowy proces, w którym używamy metody "na dwa wiadra" z separatorami brudu, pędzelkujemy wnęki, emblematy i felgi, a na koniec bezpiecznie osuszamy lakier dedykowanymi ręcznikami z mikrofibry, aby uniknąć zarysowań.</p>
+            </details>
+
+            <details>
+                <summary>🧴 Quick Detailer (QD)</summary>
+                <p>Szybki syntetyczny preparat w sprayu nakładany po myciu. Jego zadaniem jest usunięcie zacieków po twardej wodzie, podbicie śliskości lakieru oraz nadanie mu niesamowitego blasku. To idealne rozwiązanie, by auto wyglądało jak po woskowaniu w krótkim czasie.</p>
+            </details>
+
+            <details>
+                <summary>🧼 Dekontaminacja i Deironizacja</summary>
+                <p>Proces usuwania z lakieru niewidocznych gołym okiem zabrudzeń. <strong>Deironizacja</strong> rozpuszcza wbite w lakier opiłki metalu z tarcz hamulcowych (charakterystyczny efekt "krwawienia"). Usuwamy również smołę, asfalt oraz soki z drzew, których nie zmyje zwykły szampon.</p>
+            </details>
+
+            <details>
+                <summary>🧱 Glinkowanie Lakieru</summary>
+                <p>Mechaniczny etap oczyszczania za pomocą plastycznej masy (glinki). Wyciąga ona z porów lakieru resztki brudu, sprawiając, że powierzchnia staje się śliska jak szkło. Jest to krok niezbędny przed nałożeniem twardego wosku, aby zapewnić mu idealne wiązanie.</p>
+            </details>
+
+            <details>
+                <summary>🧽 Bonetowanie (Metoda Sucha)</summary>
+                <p>Specjalistyczna metoda czyszczenia delikatnych elementów, takich jak <strong>podsufitka</strong> czy boczki drzwi. Polega na wyciąganiu brudu za pomocą mikrofibry zwilżonej odpowiednim preparatem, bez nadmiernego przemaczania materiału. Chroni to podsufitkę przed odklejeniem się.</p>
+            </details>
+
+            <details>
+                <summary>🌀 Pranie Ekstrakcyjne (Metoda Mokra)</summary>
+                <p>Głębokie czyszczenie foteli i dywaników za pomocą odkurzacza piorącego. Pod ciśnieniem natryskujemy detergent, który rozpuszcza brud wewnątrz gąbki, a następnie odsysamy go wraz z wodą. Usuwa plamy, roztocza i nieprzyjemne zapachy.</p>
+            </details>
+
+            <details>
+                <summary>🐂 Pielęgnacja Skóry (Clean & Condition)</summary>
+                <p>Dwuetapowy proces: najpierw bezpiecznie czyścimy skórę dedykowanym cleanerem i szczoteczką, a następnie nakładamy balsam (odżywkę). Skóra odzyskuje matowy wygląd, staje się elastyczna i odporna na pękanie oraz wycieranie.</p>
+            </details>
+
+            <details>
+                <summary>🛡️ Wosk Premium (Twardy)</summary>
+                <p>Najwyższej klasy zabezpieczenie lakieru na bazie naturalnej carnauby lub polimerów. Tworzy twardą warstwę ochronną, która odpycha wodę (efekt hydrofobowy), chroni przed promieniami UV i nadaje lakierowi niesamowitą głębię koloru, tzw. "wet look".</p>
+            </details>
+
+            <details>
+                <summary>🌬️ Ozonowanie Wnętrza</summary>
+                <p>Usługa polegająca na generowaniu ozonu wewnątrz auta. Ozon dociera wszędzie tam, gdzie nie dotrze szmatka – do kanałów wentylacyjnych i wgłąb gąbek foteli. Zabija bakterie, wirusy i zarodniki grzybów, trwale usuwając zapach papierosów czy stęchlizny.</p>
+            </details>
+
+            <details>
+                <summary>👀 Niewidzialna Wycieraczka</summary>
+                <p>Powłoka hydrofobowa nakładana na szyby. Powoduje ona, że krople deszczu są "zdmuchiwane" z szyby przez pęd powietrza już przy prędkości 70-80 km/h. Znacznie poprawia widoczność i bezpieczeństwo w trudnych warunkach pogodowych.</p>
+            </details>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
