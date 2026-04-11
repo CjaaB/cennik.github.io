@@ -1,7 +1,9 @@
-/* --- POPRAWKA DLA SKALOWANIA MOBILNEGO --- */
+/* --- POPRAWKA DLA SKALOWANIA I UNIKNIĘCIA PŁYWANIA STRONY --- */
 html, body {
     max-width: 100%;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 /* --- ZMIENNE I PODSTAWY --- */
@@ -27,13 +29,12 @@ body {
         url('tlo.jpg');
     
     /* Ustawienia wyświetlania zdjęcia */
-    background-size: cover;         /* Zdjęcie wypełni cały ekran */
-    background-position: center;    /* Środek zdjęcia zawsze na środku */
-    background-attachment: fixed;   /* Efekt "za szybą" - zdjęcie nie przesuwa się przy skrolowaniu */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     background-repeat: no-repeat;
     
     color: var(--text);
-    margin: 0;
     padding: 20px;
     line-height: 1.6;
 }
@@ -130,6 +131,7 @@ h1 {
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
+/* Styl dla selecta */
 select {
     padding: 12px 25px;
     background: #000;
@@ -172,7 +174,7 @@ h3 {
     padding-left: 20px;
 }
 
-/* Tooltip (Dymek) */
+/* Tooltip (Dymek) - TYLKO DLA PC */
 .service-item::after {
     content: attr(data-tip);
     position: absolute;
@@ -214,7 +216,7 @@ h3 {
     font-size: 1.1rem;
 }
 
-/* --- KARTA PODSUMOWANIA --- */
+/* --- KARTA PODSUMOWANIA (CENA) --- */
 .summary-card {
     background: var(--card-bg);
     padding: 30px;
@@ -374,7 +376,7 @@ h3 {
     width: 35px;
 }
 
-/* --- MODAL (Słowniczek) --- */
+/* --- MODALE (Słowniczek i Powitanie) --- */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -429,18 +431,53 @@ h3 {
     margin: 0;
 }
 
-/* --- RESPONSYWNOŚĆ --- */
+/* --- RESPONSYWNOŚĆ (NAPRAWIONA DLA TELEFONÓW) --- */
 @media (max-width: 768px) {
-    body { padding: 10px; }
-    h1 { font-size: 1.6rem; letter-spacing: 3px; }
-    .signature { font-size: 1.8rem; }
-    .calculator-container { grid-template-columns: 1fr; margin: 20px auto; }
-    
-    .service-item { padding: 18px 10px; flex-wrap: wrap; }
-    .service-item::after { display: none; } /* Wyłącz dymki na mobile */
-    
-    .summary-card { position: relative; top: 0; margin-top: 20px; }
-    
+    body { 
+        padding: 10px; 
+    }
+
+    h1 { 
+        font-size: 1.6rem; 
+        letter-spacing: 3px; 
+    }
+
+    .signature { 
+        font-size: 1.8rem; 
+    }
+
+    /* Układamy wszystko w jednej kolumnie */
+    .calculator-container { 
+        grid-template-columns: 1fr; 
+        margin: 20px auto; 
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Naprawa ucinania ceny - karta na całą szerokość */
+    .summary-card { 
+        position: relative; 
+        top: 0; 
+        width: 100% !important; 
+        margin-top: 30px; 
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+
+    .grand-total {
+        font-size: 1.5rem;
+    }
+
+    .service-item { 
+        padding: 18px 10px; 
+        flex-wrap: wrap; 
+    }
+
+    /* Wyłączamy dymki na mobile, bo przeszkadzają w klikaniu */
+    .service-item::after { 
+        display: none !important; 
+    }
+
     .info-float {
         bottom: 85px;
         right: 15px;
@@ -448,6 +485,7 @@ h3 {
         height: 50px;
         font-size: 24px;
     }
+
     .whatsapp-float {
         bottom: 20px;
         right: 15px;
