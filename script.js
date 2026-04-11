@@ -134,3 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Uruchomienie przeliczenia na starcie
     calculate();
 });
+
+function closeWelcomeModal() {
+    document.getElementById('welcomeModal').style.display = 'none';
+}
