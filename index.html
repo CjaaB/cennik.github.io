@@ -12,32 +12,42 @@
 </head>
 <body>
 
-<header>
-    <div class="logo-container">
-        <img src="logo1.png" alt="Car All Detailing Logo" class="main-logo">
-        <div class="logo-description">
-            <h4>Karol Zagórski</h4>
-            <p>Siemanko tu Karol, Witam na mojej stronie z cennikiem świadczonych przeze mnie usług, aktualnie działam na terenie Holandii a konkretnie Maarssen, aczkolwiek zamierzam rozpocząć działalność w Polsce. Zachęcam do zapoznania się z cennikiem oraz mam nadzieję że zobaczymy się w niedługim czasie a Twój samochód dostanie dawkę zasłużonej pielęgnacji, w końcu służy Ci codziennie więc i on czasem musi się troszkę odświeżyć :D </p>
+<header class="main-header">
+    <video autoplay muted loop playsinline class="header-bg-video">
+        <source src="video2.mp4" type="video/mp4">
+    </video>
+    <div class="header-overlay"></div>
+
+    <div class="header-content">
+        <div class="logo-container">
+            <img src="logo1.png" alt="Car All Detailing Logo" class="main-logo">
+            <div class="logo-description">
+                <h4>Karol Zagórski</h4>
+                <p>Siemanko, tu Karol! Dbam o auta w Holandii (Maarssen), a już niedługo także w Polsce. Twój samochód służy Ci codziennie – zasługuje na chwilę profesjonalnego odświeżenia. Sprawdź cennik i do zobaczenia! :D </p>
+            </div>
+        </div>
+        <div class="brand-titles">
+            <h1>CAR ALL DETAILING</h1>
+            <p class="signature">by Karol Zagórski</p>
+            <p class="tagline">EKSKLUZYWNA PIELĘGNACJA SAMOCHODOWA</p>
         </div>
     </div>
-    <h1>CAR ALL DETAILING</h1>
-    <p class="signature">by Karol Zagórski</p>
-    <p class="tagline">EKSKLUZYWNA PIELĘGNACJA SAMOCHODOWA</p>
 </header>
 
 <main>
-    <div class="calculator-container">
-        <div class="size-selector">
-            <label for="car-size">WYBIERZ ROZMIAR POJAZDU: </label>
-            <select id="car-size">
-                <option value="S">S - Małe (np. Fiat 500, Toyota Aygo, Mini)</option>
-                <option value="M" selected>M - Średnie (np. VW Golf, BMW 3, Audi A3)</option>
-                <option value="L">L - Duże / Kombi (np. Audi A6, Passat, Volvo XC60)</option>
-                <option value="XL">XL - SUV / Terenowe (np. BMW X5, Audi Q7, GLE)</option>
-                <option value="XXL">XXL - VAN / Bus (np. V-Klasa, Multivan, Sprinter)</option>
-            </select>
-        </div>
+    <div class="size-selector">
+    <label for="car-size">KLASA POJAZDU</label>
+    <select id="car-size">
+        <option value="S">S - Małe (np. Fiat 500, Mini Cooper)</option>
+        <option value="M" selected>M - Średnie (np. VW Golf, BMW 3, Audi A3)</option>
+        <option value="L">L - Duże / Limuzyny (np. Audi A6, BMW 5, Passat)</option>
+        <option value="XL">XL - SUV / Crossover (np. Volvo XC60, BMW X5, Audi Q7)</option>
+        <option value="XXL">XXL - VAN / Bus (np. V-Klasa, Multivan, Sprinter)</option>
+    </select>
+</div>
 
+    <div class="calculator-container">
+        
         <div class="services-selection">
             <h3>Pakiety Główne</h3>
             
@@ -140,36 +150,42 @@
             <button class="print-btn" onclick="window.print()">Pobierz Ofertę (PDF)</button>
             <button class="book-btn" onclick="Calendly.showPopupWidget('https://calendly.com/yakasu1999/new-meeting');return false;">Zarezerwuj Termin Online</button>
         </div>
-    </div>
 
-  <section class="brands-section">
-    <h3 class="brands-title">Pracuję na profesjonalnych produktach</h3>
-    <div class="logos-slider">
-        <div class="logos-track">
-            <div class="brand-item"><img src="logos/adbl.png" alt="ADBL"></div>
-            <div class="brand-item"><img src="logos/fxprotect.png" alt="FX Protect"></div>
-            <div class="brand-item"><img src="logos/cleantle.png" alt="Cleantle"></div>
-            <div class="brand-item"><img src="logos/fresso.png" alt="Fresso"></div>
-            <div class="brand-item"><img src="logos/goodstuff.png" alt="Good Stuff"></div>
-            <div class="brand-item"><img src="logos/kiurlab.png" alt="KiurLab"></div>
-            <div class="brand-item"><img src="logos/swag.png" alt="Swag"></div>
-            <div class="brand-item"><img src="logos/workstuff.png" alt="Work Stuff"></div>
-            <div class="brand-item"><img src="logos/monstershine.png" alt="Monster Shine"></div>
-            
-            <div class="brand-item"><img src="logos/adbl.png" alt="ADBL"></div>
-            <div class="brand-item"><img src="logos/fxprotect.png" alt="FX Protect"></div>
-            <div class="brand-item"><img src="logos/cleantle.png" alt="Cleantle"></div>
-            <div class="brand-item"><img src="logos/fresso.png" alt="Fresso"></div>
-            <div class="brand-item"><img src="logos/goodstuff.png" alt="Good Stuff"></div>
-            <div class="brand-item"><img src="logos/kiurlab.png" alt="KiurLab"></div>
-            <div class="brand-item"><img src="logos/swag.png" alt="Swag"></div>
-            <div class="brand-item"><img src="logos/workstuff.png" alt="Work Stuff"></div>
-            <div class="brand-item"><img src="logos/monstershine.png" alt="Monster Shine"></div>
+    </div> <section class="brands-section">
+        <h3 class="brands-title">Pracuję na profesjonalnych produktach</h3>
+        <div class="logos-slider">
+            <div class="logos-track">
+                <div class="brand-item"><img src="logos/adbl.png" alt="ADBL"></div>
+                <div class="brand-item"><img src="logos/fxprotect.png" alt="FX Protect"></div>
+                <div class="brand-item"><img src="logos/cleantle.png" alt="Cleantle"></div>
+                <div class="brand-item"><img src="logos/fresso.png" alt="Fresso"></div>
+                <div class="brand-item"><img src="logos/goodstuff.png" alt="Good Stuff"></div>
+                <div class="brand-item"><img src="logos/kiurlab.png" alt="KiurLab"></div>
+                <div class="brand-item"><img src="logos/swag.png" alt="Swag"></div>
+                <div class="brand-item"><img src="logos/workstuff.png" alt="Work Stuff"></div>
+                <div class="brand-item"><img src="logos/monstershine.png" alt="Monster Shine"></div>
+                <div class="brand-item"><img src="logos/adbl.png" alt="ADBL"></div>
+                <div class="brand-item"><img src="logos/fxprotect.png" alt="FX Protect"></div>
+                <div class="brand-item"><img src="logos/cleantle.png" alt="Cleantle"></div>
+                <div class="brand-item"><img src="logos/fresso.png" alt="Fresso"></div>
+                <div class="brand-item"><img src="logos/goodstuff.png" alt="Good Stuff"></div>
+                <div class="brand-item"><img src="logos/kiurlab.png" alt="KiurLab"></div>
+                <div class="brand-item"><img src="logos/swag.png" alt="Swag"></div>
+                <div class="brand-item"><img src="logos/workstuff.png" alt="Work Stuff"></div>
+                <div class="brand-item"><img src="logos/monstershine.png" alt="Monster Shine"></div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section class="instagram-container">
+    <video autoplay muted loop playsinline class="insta-bg-video">
+        <source src="video1.mp4" type="video/mp4">
+        Twój model przeglądarki nie wspiera wideo.
+    </video>
+    
+    <div class="insta-overlay"></div>
+
+    <div class="insta-content">
         <div class="insta-header">
             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="insta-icon">
             <h3>Moje Realizacje</h3>
@@ -177,10 +193,11 @@
         <div class="insta-feed">
             <p>Zobacz jak odmieniam auta moich klientów na bieżąco!</p>
             <a href="https://www.instagram.com/cjaab99/" target="_blank" class="insta-link-btn">
-                Obserwuj nas na Instagramie @cjaab99
+                Obserwuj mnie na Instagramie @cjaab99
             </a>
         </div>
-    </section>
+    </div>
+</section>
 </main>
 
 <script src="script.js"></script>
