@@ -21,6 +21,7 @@ html, body {
     box-sizing: border-box;
 }
 
+/* --- GŁÓWNE USTAWIENIA BODY --- */
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background:
@@ -33,79 +34,156 @@ body {
     color: var(--text);
     padding: 20px;
     line-height: 1.6;
+    margin: 0;
+    /* Kluczowe dla działania position: sticky wewnątrz body */
+    overflow-x: hidden; 
 }
 
-/* --- NAGŁÓWEK --- */
+/* --- NAGŁÓWEK (CINEMATIC HERO SECTION) --- */
 header {
+    position: relative;
+    min-height: 80vh; /* Zajmuje 80% wysokości ekranu */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 40px 0;
-    border-bottom: 1px solid #222;
+    padding: 60px 20px;
+    overflow: hidden;
+    background: #000; /* Kolor zapasowy */
+}
+
+/* Wideo/Obraz w tle headera */
+.header-bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    object-fit: cover;
+    opacity: 0.5; /* Przyciemnienie wideo, żeby tekst był czytelny */
+}
+
+/* Nakładka dla klimatu */
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.9) 100%);
+    z-index: 2;
+}
+
+/* --- NAGŁÓWEK (POWRÓT DO HOVER + MAX CZYTELNOŚĆ) --- */
+.header-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
 }
 
 .logo-container {
-    position: relative;
-    display: inline-block;
+    position: relative; /* Kluczowe dla pozycjonowania dymka */
+    margin-bottom: 20px;
     cursor: help;
-    margin-bottom: 15px;
 }
 
 .main-logo {
-    max-width: 180px;
+    max-width: 200px;
     height: auto;
-    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.2));
-    transition: var(--transition);
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+    transition: transform 0.4s ease;
 }
 
 .logo-container:hover .main-logo {
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
+/* POPRAWIONY OPIS: Teraz jako solidny, czytelny dymek */
 .logo-description {
     position: absolute;
-    top: 110%;
+    top: 100%; /* Pojawia się pod logo */
     left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    width: 280px;
-    background: rgba(15, 15, 15, 0.98);
-    border: 1px solid var(--gold);
-    padding: 20px;
-    border-radius: 12px;
+    transform: translateX(-50%) translateY(20px);
+    width: 350px;
+    /* Pełny czarny kolor, aby film nie przebijał przez tekst */
+    background: #050505; 
+    border: 1px solid var(--gold, #d4af37);
+    padding: 25px;
+    border-radius: 15px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: left;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+    z-index: 9999;
+    
+    /* Ukrycie domyślne */
     opacity: 0;
     visibility: hidden;
-    transition: var(--transition);
-    z-index: 2000;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.9);
-    backdrop-filter: blur(10px);
-    color: #fff;
-    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
 }
 
+/* Pokazywanie po najechaniu */
 .logo-container:hover .logo-description {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(10px);
+}
+
+/* Mały trójkącik u góry dymka */
+.logo-description::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent var(--gold, #d4af37) transparent;
 }
 
 h1 {
-    margin: 10px 0 0 0;
-    letter-spacing: 7px;
-    font-size: 2.5rem;
-    font-weight: 300;
+    margin: 10px 0 5px 0;
+    letter-spacing: 10px;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 800;
     color: #fff;
+    text-transform: uppercase;
 }
 
 .signature {
     font-family: 'Brush Script MT', cursive;
-    color: var(--gold);
-    font-size: 2.2rem;
+    color: var(--gold, #d4af37);
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
     margin: -10px 0 10px 0;
 }
 
 .tagline {
     font-size: 0.85rem;
     text-transform: uppercase;
-    color: #666;
-    letter-spacing: 4px;
+    color: #888;
+    letter-spacing: 5px;
+    font-weight: 400;
+}
+
+/* Poprawka na Mobile - na dotyk dymek może być kłopotliwy, więc go upraszczamy */
+@media (max-width: 768px) {
+    .logo-description {
+        width: 280px;
+        font-size: 0.85rem;
+        padding: 15px;
+    }
+    
+    h1 {
+        letter-spacing: 5px;
+    }
 }
 
 /* --- KONTENER I GRID (ZACHOWANE PARAMETRY + FIX PŁYWANIA) --- */
@@ -113,50 +191,168 @@ h1 {
     max-width: 1100px;
     margin: 50px auto;
     display: grid;
-    grid-template-columns: 1fr 350px;
+    /* Gwarancja: Lewa elastyczna, prawa ZAWSZE 350px - zapobiega rozjeżdżaniu */
+    grid-template-columns: minmax(0, 1fr) 350px; 
     gap: 40px;
-    align-items: start; /* To sprawia, że prawa kolumna nie "ciągnie się" do dołu i może pływać */
+    align-items: start; 
     position: relative;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
-/* --- KARTA PODSUMOWANIA (DODANE PŁYWANIE) --- */
+/* FIX: Izolacja lewej kolumny usług */
+.services-selection {
+    grid-column: 1;
+    min-width: 0; /* Zapobiega rozrywaniu grida przez długie nazwy lub tooltipy */
+}
+
+/* FIX: Karta podsumowania zawsze po prawej stronie */
 .summary-card {
-    /* Twoje obecne style karty (tło, padding itp.) zostają, dodaj tylko to: */
-    position: -webkit-sticky; /* Wsparcie dla Safari */
+    grid-column: 2;
     position: sticky;
-    top: 20px; /* Odstęp od góry ekranu podczas scrolowania */
+    top: 20px; 
     z-index: 10;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
-/* --- RESZTA TWOJEGO KODU BEZ ZMIAN --- */
-.size-selector {
-    grid-column: 1 / -1;
+/* RESPONSIVE: Na telefonach układamy elementy jeden pod drugim */
+@media (max-width: 992px) {
+    .calculator-container {
+        grid-template-columns: 1fr; /* Zmiana na jedną kolumnę */
+        margin: 20px auto;
+        gap: 20px;
+    }
+    
+    .services-selection, 
+    .summary-card {
+        grid-column: 1 / -1;
+    }
+    
+    .summary-card {
+        position: relative; 
+        top: 0;
+        order: 2; /* Cena ląduje pod usługami */
+    }
+    
+    .services-selection {
+        order: 1;
+    }
+}
+
+/* --- KARTA PODSUMOWANIA (STICKY) --- */
+.summary-card {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20px;
+    z-index: 100;
     background: var(--card-bg);
-    padding: 25px;
-    border-radius: 15px;
-    text-align: center;
-    border: 1px solid #222;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    width: 100%;
+    /* Tutaj trafiają Twoje pozostałe style karty */
 }
 
-select {
+/* --- LUKSUSOWY PANEL WYBORU POJAZDU (IZOLOWANY) --- */
+.size-selector {
+    /* Usuwamy grid-column, jeśli psuje układ - zamiast tego używamy szerokości */
     width: 100%;
-    max-width: 400px;
-    padding: 12px 25px;
-    background: #000;
-    color: var(--gold);
-    border: 1px solid #444;
-    border-radius: 50px;
-    cursor: pointer;
+    max-width: 900px; 
+    margin: 0 auto 30px auto; /* Centrowanie i odstęp od dołu */
+    
+    background: linear-gradient(135deg, rgba(25, 25, 25, 0.9) 0%, rgba(10, 10, 10, 0.98) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    padding: 40px 20px;
+    border-radius: 30px;
+    text-align: center;
+    
+    /* Złota poświata i krawędź */
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.6),
+        inset 0 0 15px rgba(212, 175, 55, 0.03);
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.size-selector:hover {
+    transform: translateY(-5px);
+    border-color: rgba(212, 175, 55, 0.4);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.05);
+}
+
+.size-selector label {
+    display: block;
+    color: var(--gold, #d4af37);
+    text-transform: uppercase;
+    letter-spacing: 6px; /* Ekskluzywny rozstaw liter */
+    font-size: 0.7rem;
+    margin-bottom: 25px;
+    font-weight: 800;
+    opacity: 0.9;
+}
+
+/* STYLIZACJA ELEMENTU SELECT */
+.size-selector select {
+    width: 100%;
+    max-width: 500px;
+    height: 60px; /* Stała, konkretna wysokość */
+    padding: 0 40px;
+    
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    
+    border: 1px solid #333;
+    border-radius: 50px; /* Pełny "pill style" */
+    
     font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    
+    cursor: pointer;
     outline: none;
-    transition: var(--transition);
+    appearance: none; /* Ukrycie domyślnej strzałki */
+    -webkit-appearance: none;
+    
+    /* Wyśrodkowanie tekstu */
     text-align: center;
+    text-align-last: center;
+    
+    /* Złota ikona strzałki */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 25px center;
+    background-size: 18px;
+    
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-select:hover {
-    border-color: var(--gold);
+.size-selector select:hover {
+    border-color: var(--gold, #d4af37);
+    background-color: rgba(15, 15, 15, 0.95);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+/* Stylowanie listy po rozwinięciu */
+.size-selector select option {
+    background: #111;
+    color: #fff;
+    padding: 20px;
+    font-size: 1rem;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .size-selector {
+        padding: 30px 15px;
+        border-radius: 20px;
+    }
+    .size-selector select {
+        font-size: 0.9rem;
+        padding: 0 30px;
+    }
 }
 
 /* --- LISTA USŁUG --- */
@@ -314,17 +510,50 @@ h3 {
     100% { transform: translateX(calc(-180px * 9)); }
 }
 
-/* --- SEKCJA INSTAGRAM (DEEP GLOW + INSTA BUTTON) --- */
+/* --- SEKCJA INSTAGRAM (VIDEO BACKGROUND + DEEP GLOW) --- */
 .instagram-container {
+    position: relative; /* Kluczowe dla tła video */
     max-width: 1100px;
     margin: 60px auto;
     text-align: center;
-    padding: 50px 20px;
-    background: #0a0a0a;
-    background: linear-gradient(145deg, #0f0f0f, #050505);
+    padding: 80px 20px; /* Nieco większy padding dla lepszej ekspozycji wideo */
+    background: #050505; /* Tło zapasowe */
     border-radius: 25px;
-    border: 1px solid #222;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    overflow: hidden; /* Przycina wideo do zaokrąglonych rogów */
     box-shadow: 0 0 40px rgba(212, 175, 55, 0.05), 0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* Plik wideo w tle */
+.insta-bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    opacity: 0.6; /* Delikatna przezroczystość dla klimatu */
+}
+
+/* Nakładka przyciemniająca (Overlay) - zapewnia czytelność tekstu */
+.insta-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%);
+    z-index: 2;
+}
+
+/* Kontener na treść (musi być nad wideo i nakładką) */
+.insta-content {
+    position: relative;
+    z-index: 3;
 }
 
 .insta-header {
@@ -336,29 +565,53 @@ h3 {
 }
 
 .insta-icon {
-    width: 35px;
-    filter: drop-shadow(0 0 5px var(--gold));
+    width: 45px; /* Nieco większa ikona dla lepszego balansu */
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+}
+
+.insta-header h3 {
+    color: #fff;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+.insta-feed p {
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
 }
 
 .insta-link-btn {
     display: inline-block;
     padding: 16px 40px;
-    /* Oryginalny gradient Instagrama */
     background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     color: white;
     text-decoration: none;
     font-weight: bold;
     border-radius: 50px;
-    transition: var(--transition);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .insta-link-btn:hover {
-    transform: translateY(-5px);
-    filter: brightness(1.1);
-    box-shadow: 0 10px 25px rgba(220, 39, 67, 0.3);
+    transform: translateY(-5px) scale(1.05);
+    filter: brightness(1.2);
+    box-shadow: 0 15px 30px rgba(220, 39, 67, 0.4);
+}
+
+/* RWD - poprawki na mniejsze ekrany */
+@media (max-width: 768px) {
+    .instagram-container {
+        margin: 40px 15px;
+        padding: 60px 20px;
+    }
+    .insta-header h3 {
+        font-size: 1.4rem;
+    }
 }
 /* --- FLOATY (WhatsApp i Info) --- */
 .whatsapp-float, .info-float {
