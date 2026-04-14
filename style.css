@@ -39,10 +39,10 @@ body {
     overflow-x: hidden; 
 }
 
-/* --- NAGŁÓWEK (CINEMATIC HERO SECTION) --- */
+/* --- NAGŁÓWEK GŁÓWNY (CINEMATIC HERO) --- */
 header {
     position: relative;
-    min-height: 80vh; /* Zajmuje 80% wysokości ekranu */
+    min-height: 80vh; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,10 +50,10 @@ header {
     text-align: center;
     padding: 60px 20px;
     overflow: hidden;
-    background: #000; /* Kolor zapasowy */
+    background: #000; /* Baza musi być czarna, żeby dół filmu się wtopił */
 }
 
-/* Wideo/Obraz w tle headera */
+/* Wideo w tle */
 .header-bg-video {
     position: absolute;
     top: 50%;
@@ -63,32 +63,40 @@ header {
     transform: translate(-50%, -50%);
     z-index: 1;
     object-fit: cover;
-    opacity: 0.5; /* Przyciemnienie wideo, żeby tekst był czytelny */
+    opacity: 0.6;
 }
 
-/* Nakładka dla klimatu */
+/* FIX: Maska wideo - likwiduje efekt "ramki" i płynnie przechodzi w czerń strony */
 .header-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.9) 100%);
+    background: linear-gradient(
+        to bottom, 
+        rgba(0,0,0,0.6) 0%,      /* Góra lekko ciemniejsza */
+        transparent 30%,          /* Środek filmu jasny */
+        transparent 70%,          /* Zaczynamy wygaszać */
+        rgba(0,0,0,0.8) 90%,     /* Mocne wygaszanie przed końcem */
+        #000 100%                 /* Dół idealnie czarny - tu kończy się "ramka" */
+    );
     z-index: 2;
 }
 
-/* --- NAGŁÓWEK (POWRÓT DO HOVER + MAX CZYTELNOŚĆ) --- */
+/* Treść nad wideo (Logo, napisy) */
 .header-content {
     position: relative;
-    z-index: 10;
+    z-index: 10; /* Wyżej niż wideo i nakładka */
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 1200px;
 }
 
+/* Kontener Logo + Dymek */
 .logo-container {
-    position: relative; /* Kluczowe dla pozycjonowania dymka */
+    position: relative;
     margin-bottom: 20px;
     cursor: help;
 }
@@ -96,7 +104,7 @@ header {
 .main-logo {
     max-width: 200px;
     height: auto;
-    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
     transition: transform 0.4s ease;
 }
 
@@ -104,15 +112,14 @@ header {
     transform: scale(1.08);
 }
 
-/* POPRAWIONY OPIS: Teraz jako solidny, czytelny dymek */
+/* Opis po najechaniu (Dymek) - Gwarancja czytelności */
 .logo-description {
     position: absolute;
-    top: 100%; /* Pojawia się pod logo */
+    top: 105%; 
     left: 50%;
     transform: translateX(-50%) translateY(20px);
     width: 350px;
-    /* Pełny czarny kolor, aby film nie przebijał przez tekst */
-    background: #050505; 
+    background: #050505; /* Solidny czarny - zero prześwitów filmu */
     border: 1px solid var(--gold, #d4af37);
     padding: 25px;
     border-radius: 15px;
@@ -120,24 +127,23 @@ header {
     font-size: 0.95rem;
     line-height: 1.6;
     text-align: left;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.9);
-    z-index: 9999;
+    box-shadow: 0 20px 50px rgba(0,0,0,1);
+    z-index: 9999; /* Musi być na samym wierzchu wszystkiego */
     
-    /* Ukrycie domyślne */
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
 }
 
-/* Pokazywanie po najechaniu */
+/* Pokazywanie dymka */
 .logo-container:hover .logo-description {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(10px);
+    transform: translateX(-50%) translateY(0);
 }
 
-/* Mały trójkącik u góry dymka */
+/* Trójkącik dymka */
 .logo-description::before {
     content: '';
     position: absolute;
@@ -149,6 +155,7 @@ header {
     border-color: transparent transparent var(--gold, #d4af37) transparent;
 }
 
+/* Napisy Brandowe */
 h1 {
     margin: 10px 0 5px 0;
     letter-spacing: 10px;
@@ -168,24 +175,25 @@ h1 {
 .tagline {
     font-size: 0.85rem;
     text-transform: uppercase;
-    color: #888;
+    color: #aaa;
     letter-spacing: 5px;
     font-weight: 400;
 }
 
-/* Poprawka na Mobile - na dotyk dymek może być kłopotliwy, więc go upraszczamy */
+/* Responsywność */
 @media (max-width: 768px) {
+    header {
+        min-height: 70vh;
+        padding: 40px 15px;
+    }
     .logo-description {
         width: 280px;
         font-size: 0.85rem;
-        padding: 15px;
     }
-    
     h1 {
         letter-spacing: 5px;
     }
 }
-
 /* --- KONTENER I GRID (ZACHOWANE PARAMETRY + FIX PŁYWANIA) --- */
 .calculator-container {
     max-width: 1100px;
@@ -362,6 +370,18 @@ h1 {
         padding: 0 35px;
     }
 }
+/* Responsywność */
+@media (max-width: 768px) {
+    .size-selector {
+        padding: 30px 15px;
+        border-radius: 20px;
+    }
+    .size-selector select {
+        font-size: 0.9rem;
+        padding: 0 30px;
+    }
+}
+
 /* --- LISTA USŁUG --- */
 h3 {
     color: var(--gold);
@@ -842,7 +862,29 @@ html, body {
     transform: translateX(-50%) translateY(0);
 }
 
+/* --- RESPONSYWNOŚĆ I STOPKA --- */
+@media (max-width: 768px) {
+    body { padding: 10px; width: 100%; }
+    h1 { font-size: 1.6rem; letter-spacing: 3px; }
+    .signature { font-size: 1.8rem; }
+    .calculator-container { 
+        display: flex; 
+        flex-direction: column; 
+        width: 100%; 
+    }
+    .summary-card { 
+        position: relative; 
+        top: 0; 
+        margin-top: 30px; 
+        width: 100% !important; 
+    }
+    .service-item::after { display: none !important; }
+    .logo-description { width: 280px; }
+    .brand-item { width: 130px; }
+    @keyframes scroll-loop { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-130px * 9)); } }
+}
 
+footer { text-align: center; padding: 40px; color: #666; font-size: 0.85rem; }
 /* --- STYLIZACJA PASKA PRZEWIJANIA (SCROLLBAR) --- */
 
 /* 1. Szerokość całego paska */
@@ -873,38 +915,6 @@ html, body {
     scrollbar-width: thin;
     scrollbar-color: #d4af37 #050505;
 }
-
-/* --- RESPONSYWNOŚĆ I STOPKA --- */
-@media (max-width: 768px) {
-    body { padding: 10px; width: 100%; }
-    h1 { font-size: 1.6rem; letter-spacing: 3px; }
-    .signature { font-size: 1.8rem; }
-    .calculator-container { 
-        display: flex; 
-        flex-direction: column; 
-        width: 100%; 
-    }
-    .summary-card { 
-        position: relative; 
-        top: 0; 
-        margin-top: 30px; 
-        width: 100% !important; 
-    }
-    .service-item::after { display: none !important; }
-    .logo-description { width: 280px; }
-    .brand-item { width: 130px; }
-    @keyframes scroll-loop { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-130px * 9)); } }
-}
-
-footer { text-align: center; padding: 40px; color: #666; font-size: 0.85rem; }
-
-
-
-
-
-
-
-
 
 .brand-pillars-minimal {
     padding: 60px 0;
@@ -970,3 +980,4 @@ footer { text-align: center; padding: 40px; color: #666; font-size: 0.85rem; }
         min-width: 140px;
     }
 }
+
