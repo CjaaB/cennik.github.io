@@ -842,6 +842,38 @@ html, body {
     transform: translateX(-50%) translateY(0);
 }
 
+
+/* --- STYLIZACJA PASKA PRZEWIJANIA (SCROLLBAR) --- */
+
+/* 1. Szerokość całego paska */
+::-webkit-scrollbar {
+    width: 12px; /* Szerokość suwaka pionowego */
+}
+
+/* 2. Tło paska (to, po czym porusza się suwak) */
+::-webkit-scrollbar-track {
+    background: #050505; /* Bardzo ciemne tło pasujące do strony */
+    border-left: 1px solid #1a1a1a; /* Delikatne oddzielenie od krawędzi strony */
+}
+
+/* 3. Część ruchoma suwaka (uchwyt) */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #d4af37, #8a6d1d); /* Złoty gradient */
+    border-radius: 10px; /* Zaokrąglone końce */
+    border: 3px solid #050505; /* Efekt odstępu - suwak wydaje się cieńszy i bardziej "pływający" */
+}
+
+/* 4. Efekt po najechaniu na suwak */
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #f1c40f, #d4af37); /* Rozjaśnienie przy najechaniu */
+}
+
+/* Opcjonalnie: Dla Firefox (ma mniejsze możliwości personalizacji) */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #d4af37 #050505;
+}
+
 /* --- RESPONSYWNOŚĆ I STOPKA --- */
 @media (max-width: 768px) {
     body { padding: 10px; width: 100%; }
@@ -865,3 +897,76 @@ html, body {
 }
 
 footer { text-align: center; padding: 40px; color: #666; font-size: 0.85rem; }
+
+
+
+
+
+
+
+
+
+.brand-pillars-minimal {
+    padding: 60px 0;
+    background: transparent; /* Całkowity brak tła */
+    width: 100%;
+}
+
+.pillars-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+}
+
+.pillar-item {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+}
+
+/* Klasa dodawana przez JS */
+.pillar-item.appear {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(var(--i) * 0.2s);
+}
+
+.icon-glow {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+    /* Złota poświata wokół samej ikony */
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
+    transition: transform 0.3s ease;
+}
+
+.pillar-item:hover .icon-glow {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.9));
+}
+
+.pillar-item h3 {
+    color: #fff;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+    font-weight: 500;
+    /* Delikatny cień napisu dla czytelności */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Dostosowanie do mobile */
+@media (max-width: 768px) {
+    .pillars-wrapper {
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+    .pillar-item {
+        min-width: 140px;
+    }
+}
