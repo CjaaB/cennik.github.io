@@ -138,3 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
 function closeWelcomeModal() {
     document.getElementById('welcomeModal').style.display = 'none';
 }
+
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.pillar-item').forEach(item => {
+                item.classList.add('appear');
+            });
+        }
+    });
+}, { threshold: 0.3 });
+
+const section = document.querySelector('.brand-pillars-minimal');
+if (section) observer.observe(section);
