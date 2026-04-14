@@ -140,6 +140,57 @@ function closeWelcomeModal() {
 }
 
 
+function setGreeting() {
+    const date = new Date();
+    const hour = date.getHours();
+    const greetingElement = document.getElementById('greeting-text');
+    
+    let greeting;
+
+    if (hour >= 5 && hour < 12) {
+        greeting = "Dzień dobry! Poranna kawa i detailing?";
+    } else if (hour >= 12 && hour < 18) {
+        greeting = "Siemanko! Czas na popołudniowe odświeżenie auta?";
+    } else if (hour >= 18 && hour < 22) {
+        // TO SIĘ WYŚWIETLI TERAZ (18:48)
+        greeting = "Dobry wieczór!";
+    } else {
+        greeting = "Witaj nocny marku";
+    }
+
+    if (greetingElement) {
+        greetingElement.innerText = greeting;
+    }
+}
+
+window.addEventListener('DOMContentLoaded', setGreeting);
+
+
+
+// Funkcja otwierania/zamykania okna
+function toggleCompareModal() {
+    const modal = document.getElementById('compareModal');
+    if (modal.style.display === "flex") {
+        modal.style.display = "none";
+    } else {
+        modal.style.display = "flex";
+    }
+}
+
+// Logika samego suwaka (podpięta pod ten sam input co wcześniej)
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('before-after-slider');
+    const sliderInput = container.querySelector('.slider-input');
+    const imgBefore = container.querySelector('.img-before');
+    const sliderHandle = container.querySelector('.slider-handle');
+
+    sliderInput.addEventListener('input', (e) => {
+        const value = e.target.value + "%";
+        imgBefore.style.width = value;
+        sliderHandle.style.left = value;
+    });
+});
+
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
