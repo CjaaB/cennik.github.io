@@ -251,14 +251,18 @@ h1 {
     /* Tutaj trafiają Twoje pozostałe style karty */
 }
 
-/* --- LUKSUSOWY PANEL WYBORU POJAZDU (IZOLOWANY) --- */
+/* --- LUKSUSOWY PANEL WYBORU POJAZDU (IZOLOWANY + FIX WARSTW) --- */
 .size-selector {
-    /* Usuwamy grid-column, jeśli psuje układ - zamiast tego używamy szerokości */
+    /* FIX: Pozycjonowanie i warstwy */
+    position: relative;
+    z-index: 50; /* Wysoka wartość, aby panel był nad tłem video */
+    
     width: 100%;
     max-width: 900px; 
-    margin: 0 auto 30px auto; /* Centrowanie i odstęp od dołu */
+    /* Margines górny (80px) chroni przed stykaniem się z headerem */
+    margin: 80px auto 40px auto; 
     
-    background: linear-gradient(135deg, rgba(25, 25, 25, 0.9) 0%, rgba(10, 10, 10, 0.98) 100%);
+    background: linear-gradient(135deg, rgba(25, 25, 25, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     
@@ -272,39 +276,45 @@ h1 {
         0 20px 40px rgba(0,0,0,0.6),
         inset 0 0 15px rgba(212, 175, 55, 0.03);
     
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                box-shadow 0.3s ease, 
+                border-color 0.3s ease;
     box-sizing: border-box;
 }
 
 .size-selector:hover {
-    transform: translateY(-5px);
-    border-color: rgba(212, 175, 55, 0.4);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.05);
+    /* Delikatne uniesienie - zredukowane, by nie wjeżdżało na wideo */
+    transform: translateY(-8px);
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.9), 0 0 30px rgba(212, 175, 55, 0.1);
+    /* Przy najechaniu upewniamy się, że warstwa jest najwyżej */
+    z-index: 51; 
 }
 
 .size-selector label {
     display: block;
     color: var(--gold, #d4af37);
     text-transform: uppercase;
-    letter-spacing: 6px; /* Ekskluzywny rozstaw liter */
-    font-size: 0.7rem;
+    letter-spacing: 6px;
+    font-size: 0.75rem;
     margin-bottom: 25px;
     font-weight: 800;
-    opacity: 0.9;
+    opacity: 1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* STYLIZACJA ELEMENTU SELECT */
 .size-selector select {
     width: 100%;
     max-width: 500px;
-    height: 60px; /* Stała, konkretna wysokość */
-    padding: 0 40px;
+    height: 60px;
+    padding: 0 45px;
     
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
     color: #ffffff;
     
     border: 1px solid #333;
-    border-radius: 50px; /* Pełny "pill style" */
+    border-radius: 50px;
     
     font-size: 1rem;
     font-family: 'Montserrat', sans-serif;
@@ -312,49 +322,46 @@ h1 {
     
     cursor: pointer;
     outline: none;
-    appearance: none; /* Ukrycie domyślnej strzałki */
+    appearance: none;
     -webkit-appearance: none;
     
-    /* Wyśrodkowanie tekstu */
     text-align: center;
     text-align-last: center;
     
-    /* Złota ikona strzałki */
+    /* Ikona strzałki */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 25px center;
     background-size: 18px;
     
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
 .size-selector select:hover {
     border-color: var(--gold, #d4af37);
-    background-color: rgba(15, 15, 15, 0.95);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    background-color: rgba(20, 20, 20, 1);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
 }
 
-/* Stylowanie listy po rozwinięciu */
+/* Stylowanie opcji (wspierane tylko przez niektóre przeglądarki) */
 .size-selector select option {
-    background: #111;
+    background: #0a0a0a;
     color: #fff;
     padding: 20px;
-    font-size: 1rem;
 }
 
-/* Responsywność */
+/* Dodatkowy fix dla bardzo małych ekranów */
 @media (max-width: 768px) {
     .size-selector {
+        margin: 40px 15px 30px 15px;
         padding: 30px 15px;
-        border-radius: 20px;
     }
     .size-selector select {
         font-size: 0.9rem;
-        padding: 0 30px;
+        padding: 0 35px;
     }
 }
-
 /* --- LISTA USŁUG --- */
 h3 {
     color: var(--gold);
