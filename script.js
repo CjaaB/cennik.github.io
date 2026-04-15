@@ -37,7 +37,72 @@ function setGreeting() {
 }
 
 /**
- * 3. GŁÓWNA LOGIKA PO ZAŁADOWANIU DOM
+ * 3. GENEROWANIE OFERTY (Pobieranie tylko wybranych usług)
+ */
+function generateOfferPDF() {
+    const sizeSelect = document.getElementById('car-size');
+    const selectedSize = sizeSelect ? sizeSelect.options[sizeSelect.selectedIndex].text : "Nieokreślony";
+    const selectedServices = document.querySelectorAll('.service:checked');
+    const total = document.getElementById('res-gross').innerText;
+
+    // Tworzenie ukrytego elementu do druku
+    const printWindow = window.open('', '_blank');
+    let content = `
+        <html>
+        <head>
+            <title>Twoja Oferta - Car All Detailing</title>
+            <style>
+                body { font-family: 'Arial', sans-serif; padding: 40px; color: #333; }
+                .header { text-align: center; border-bottom: 2px solid #d4af37; padding-bottom: 20px; }
+                .logo { font-size: 24px; font-weight: bold; color: #000; }
+                .details { margin: 20px 0; font-size: 14px; }
+                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                th { text-align: left; border-bottom: 1px solid #d4af37; padding: 10px; color: #d4af37; }
+                td { padding: 10px; border-bottom: 1px solid #eee; }
+                .total { text-align: right; font-size: 20px; margin-top: 30px; font-weight: bold; }
+                .footer { margin-top: 50px; font-size: 12px; color: #777; text-align: center; }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <div class="logo">CAR ALL DETAILING</div>
+                <p>PROFESJONALNA PIELĘGNACJA POJAZDÓW</p>
+            </div>
+            <div class="details">
+                <p><strong>Data:</strong> ${new Date().toLocaleDateString()}</p>
+                <p><strong>Wielkość pojazdu:</strong> ${selectedSize}</p>
+            </div>
+            <table>
+                <thead>
+                    <tr><th>Usługa</th><th style="text-align:right">Cena</th></tr>
+                </thead>
+                <tbody>`;
+
+    selectedServices.forEach(s => {
+        const row = s.closest('.service-item');
+        const name = row.querySelector('.service-name').innerText;
+        const price = row.querySelector('.service-price').innerText;
+        content += `<tr><td>${name}</td><td style="text-align:right">${price}</td></tr>`;
+    });
+
+    content += `
+                </tbody>
+            </table>
+            <div class="total">Suma całkowita: €${total}</div>
+            <div class="footer">
+                <p>Oferta wygenerowana automatycznie. Zapraszam do kontaktu w celu umówienia terminu.</p>
+                <p>www.cjaab.github.io/cennik.github.io</p>
+            </div>
+        </body>
+        </html>`;
+
+    printWindow.document.write(content);
+    printWindow.document.close();
+    printWindow.print();
+}
+
+/**
+ * 4. GŁÓWNA LOGIKA PO ZAŁADOWANIU DOM
  */
 document.addEventListener('DOMContentLoaded', () => {
     setGreeting();
@@ -55,6 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const leatherClean = document.getElementById('leather-clean');
     const bonetingSeats = document.getElementById('boneting-seats');
     const bonetingFull = document.getElementById('boneting-full');
+    const premiumWax = document.getElementById('premiumWax'); // Referencja do Premium Wax
+    const quickWax = document.getElementById('quickWax');     // Referencja do Quick Wax
 
     // --- ANIMACJA LICZNIKA CENY ---
     function animatePrice(endValue) {
@@ -78,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleExclusions(e) {
         const target = e.target;
         if (target === showroom && showroom.checked) {
-            [extBasic, intBasic, fullCombo, deepClean, leatherClean, bonetingSeats, bonetingFull].forEach(el => { if (el) el.checked = false; });
+            [extBasic, intBasic, fullCombo, deepClean, leatherClean, bonetingSeats, bonetingFull, premiumWax, quickWax].forEach(el => { if (el) el.checked = false; });
         }
         if (target === leatherClean && leatherClean.checked) {
             [deepClean, bonetingSeats, bonetingFull, showroom].forEach(el => { if (el) el.checked = false; });
@@ -105,6 +172,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (fullCombo) fullCombo.checked = false;
             if (showroom) showroom.checked = false;
         }
+        
+        // Wykluczenia wosków
+        if (target === premiumWax && premiumWax.checked) {
+            if (quickWax) quickWax.checked = false;
+        }
+        if (target === quickWax && quickWax.checked) {
+            if (premiumWax) premiumWax.checked = false;
+        }
     }
 
     // --- OBLICZENIA ---
@@ -123,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animatePrice(total);
     }
 
-    // --- MAGNETYCZNE PRZYCISKI (Zostaje!) ---
+    // --- MAGNETYCZNE PRZYCISKI ---
     const magneticElements = document.querySelectorAll('.whatsapp-float, .info-float');
     magneticElements.forEach(el => {
         el.addEventListener('mousemove', (e) => {
@@ -135,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener('mouseleave', () => el.style.transform = `translate(0px, 0px)`);
     });
 
-    // --- TILT EFEKT (3D) DLA KART (Zostaje!) ---
+    // --- TILT EFEKT (3D) DLA KART ---
     document.querySelectorAll('.service-item').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -148,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('mouseleave', () => card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`);
     });
 
-    // --- SUWAK BEFORE/AFTER (Zostaje!) ---
+    // --- SUWAK BEFORE/AFTER ---
     const container = document.getElementById('before-after-slider');
     if (container) {
         const sliderInput = container.querySelector('.slider-input');
@@ -161,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
- // --- STABILNY TYPEWRITER (BEZ SKAKANIA LOGO) ---
+    // --- TYPEWRITER ---
     const tagline = document.querySelector('.tagline');
     if (tagline) {
         const words = ["Premium Car Care", "Showroom Excellence", "Passion for Perfection"];
@@ -169,13 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function typeEffect() {
             const currentWord = words[wordIdx];
-            
-            // Zamiast skracać tekst, zawijamy go w niewidzialny kontener
             const visibleText = currentWord.substring(0, charIdx);
             const invisibleText = currentWord.substring(charIdx);
-            
-            // Tworzymy tekst, gdzie reszta liter jest ukryta (opacity: 0), 
-            // dzięki czemu szerokość elementu się nie zmienia!
             tagline.innerHTML = `${visibleText}<span style="opacity: 0">${invisibleText}</span>`;
 
             if (!isDeleting && charIdx < currentWord.length) {
@@ -205,6 +275,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Przycisk pobierania oferty
+    const downloadBtn = document.getElementById('download-offer-btn');
+    if (downloadBtn) downloadBtn.addEventListener('click', generateOfferPDF);
+
     window.addEventListener('click', (e) => {
         const infoM = document.getElementById('infoModal');
         const compareM = document.getElementById('compareModal');
@@ -216,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * 4. SCROLL REVEAL (Intersection Observer - Zostaje!)
+ * 5. SCROLL REVEAL
  */
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
