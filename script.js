@@ -1,27 +1,52 @@
 /**
- * FUNKCJA MODALA (SŁOWNICZKA)
- * Musi być poza głównym blokiem, aby przycisk w HTML mógł ją wywołać przez onclick
+ * 1. FUNKCJE MODALI (Słowniczek, Powitanie, Porównanie)
  */
 function toggleInfoModal() {
     const modal = document.getElementById('infoModal');
     if (modal) {
-        // Przełączanie między widoczny (flex) a ukryty (none)
-        if (modal.style.display === "flex") {
-            modal.style.display = "none";
-        } else {
-            modal.style.display = "flex";
-        }
+        modal.style.display = (modal.style.display === "flex") ? "none" : "flex";
+    }
+}
+
+function closeWelcomeModal() {
+    const welcome = document.getElementById('welcomeModal');
+    if (welcome) welcome.style.display = 'none';
+}
+
+function toggleCompareModal() {
+    const modal = document.getElementById('compareModal');
+    if (modal) {
+        modal.style.display = (modal.style.display === "flex") ? "none" : "flex";
     }
 }
 
 /**
- * GŁÓWNA LOGIKA KALKULATORA
+ * 2. POWITANIE CZASOWE
+ */
+function setGreeting() {
+    const hour = new Date().getHours();
+    const greetingElement = document.getElementById('greeting-text');
+    let greeting;
+
+    if (hour >= 5 && hour < 12) greeting = "Dzień dobry! Poranna kawa i detailing?";
+    else if (hour >= 12 && hour < 18) greeting = "Siemanko! Czas na popołudniowe odświeżenie auta?";
+    else if (hour >= 18 && hour < 22) greeting = "Dobry wieczór!";
+    else greeting = "Witaj nocny marku";
+
+    if (greetingElement) greetingElement.innerText = greeting;
+}
+
+/**
+ * 3. GŁÓWNA LOGIKA PO ZAŁADOWANIU DOM
  */
 document.addEventListener('DOMContentLoaded', () => {
+    setGreeting();
+
     const sizeSelect = document.getElementById('car-size');
     const services = document.querySelectorAll('.service');
+    let currentTotal = 0;
 
-    // Pobranie elementów do logiki wykluczeń (aby pakiety się nie nakładały)
+    // Referencje do usług
     const extBasic = document.getElementById('ext-basic');
     const intBasic = document.getElementById('int-basic');
     const fullCombo = document.getElementById('full-combo');
@@ -31,175 +56,178 @@ document.addEventListener('DOMContentLoaded', () => {
     const bonetingSeats = document.getElementById('boneting-seats');
     const bonetingFull = document.getElementById('boneting-full');
 
-    // Funkcja zarządzająca wykluczeniami (logika: co odznaczyć, gdy kliknę coś innego)
+    // --- ANIMACJA LICZNIKA CENY ---
+    function animatePrice(endValue) {
+        const obj = document.getElementById('res-gross');
+        if (!obj) return;
+        const startValue = currentTotal;
+        const duration = 500;
+        let startTimestamp = null;
+
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            obj.innerHTML = Math.floor(progress * (endValue - startValue) + startValue);
+            if (progress < 1) window.requestAnimationFrame(step);
+        };
+        window.requestAnimationFrame(step);
+        currentTotal = endValue;
+    }
+
+    // --- LOGIKA WYKLUCZEŃ ---
     function handleExclusions(e) {
         const target = e.target;
-
-        // Jeśli wybierzesz MAX (Showroom Ready), odznacz wszystko inne
         if (target === showroom && showroom.checked) {
-            [extBasic, intBasic, fullCombo, deepClean, leatherClean, bonetingSeats, bonetingFull].forEach(el => {
-                if (el) el.checked = false;
-            });
+            [extBasic, intBasic, fullCombo, deepClean, leatherClean, bonetingSeats, bonetingFull].forEach(el => { if (el) el.checked = false; });
         }
-
-        // Jeśli wybierzesz Leather Clean, odznacz inne prania tapicerki
         if (target === leatherClean && leatherClean.checked) {
-            [deepClean, bonetingSeats, bonetingFull, showroom].forEach(el => {
-                if (el) el.checked = false;
-            });
+            [deepClean, bonetingSeats, bonetingFull, showroom].forEach(el => { if (el) el.checked = false; });
         }
-
-        // Pranie/Bonetowanie odznacza czyszczenie skóry
         if ((target === deepClean || target === bonetingSeats || target === bonetingFull) && target.checked) {
             if (leatherClean) leatherClean.checked = false;
             if (showroom) showroom.checked = false;
         }
-
-        // Deep Clean (Pranie) odznacza podstawowe wnętrze i showroom
         if (target === deepClean && deepClean.checked) {
-            [intBasic, fullCombo, showroom, bonetingSeats, bonetingFull].forEach(el => {
-                if (el) el.checked = false;
-            });
+            [intBasic, fullCombo, showroom, bonetingSeats, bonetingFull].forEach(el => { if (el) el.checked = false; });
         }
-
-        // Bonetowanie Full odznacza bonetowanie samych foteli
         if (target === bonetingFull && bonetingFull.checked) {
             if (bonetingSeats) bonetingSeats.checked = false;
             if (deepClean) deepClean.checked = false;
         }
-
         if (target === bonetingSeats && bonetingSeats.checked) {
             if (bonetingFull) bonetingFull.checked = false;
             if (deepClean) deepClean.checked = false;
         }
-
-        // Full Combo odznacza pojedyncze pakiety basic
         if (target === fullCombo && fullCombo.checked) {
-            [extBasic, intBasic, deepClean, showroom].forEach(el => {
-                if (el) el.checked = false;
-            });
+            [extBasic, intBasic, deepClean, showroom].forEach(el => { if (el) el.checked = false; });
         }
-
-        // Basic odznacza Combo i Showroom
         if ((target === extBasic || target === intBasic) && target.checked) {
             if (fullCombo) fullCombo.checked = false;
             if (showroom) showroom.checked = false;
         }
     }
 
-    // Funkcja obliczająca sumę
+    // --- OBLICZENIA ---
     function calculate() {
-        const currentSize = sizeSelect.value; // Pobiera S, M, L, XL lub XXL
+        if (!sizeSelect) return;
+        const currentSize = sizeSelect.value;
         let total = 0;
 
         services.forEach(checkbox => {
             if (checkbox.checked) {
-                // Pobiera cenę dla wybranego rozmiaru (data-s, data-m itd.)
                 const sizePrice = checkbox.getAttribute(`data-${currentSize.toLowerCase()}`);
-                // Pobiera cenę stałą (jeśli usługa nie zależy od rozmiaru)
                 const staticPrice = checkbox.getAttribute('data-static');
-
-                if (sizePrice) {
-                    total += parseFloat(sizePrice);
-                } else if (staticPrice) {
-                    total += parseFloat(staticPrice);
-                }
+                total += sizePrice ? parseFloat(sizePrice) : (staticPrice ? parseFloat(staticPrice) : 0);
             }
         });
-
-        // Wyświetlenie wyniku
-        const resultElement = document.getElementById('res-gross');
-        if (resultElement) {
-            resultElement.innerText = total;
-        }
+        animatePrice(total);
     }
 
-    // Obsługa zamknięcia modala przez kliknięcie w ciemne tło
-    window.addEventListener('click', (event) => {
-        const modal = document.getElementById('infoModal');
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
+    // --- MAGNETYCZNE PRZYCISKI (Zostaje!) ---
+    const magneticElements = document.querySelectorAll('.whatsapp-float, .info-float');
+    magneticElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const pos = el.getBoundingClientRect();
+            const x = e.clientX - pos.left - pos.width / 2;
+            const y = e.clientY - pos.top - pos.height / 2;
+            el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        el.addEventListener('mouseleave', () => el.style.transform = `translate(0px, 0px)`);
     });
 
-    // Eventy: zmiana rozmiaru auta lub kliknięcie w usługę
-    sizeSelect.addEventListener('change', calculate);
+    // --- TILT EFEKT (3D) DLA KART (Zostaje!) ---
+    document.querySelectorAll('.service-item').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const rotateX = (y - rect.height/2) / 25; 
+            const rotateY = (rect.width/2 - x) / 25; 
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        card.addEventListener('mouseleave', () => card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`);
+    });
+
+    // --- SUWAK BEFORE/AFTER (Zostaje!) ---
+    const container = document.getElementById('before-after-slider');
+    if (container) {
+        const sliderInput = container.querySelector('.slider-input');
+        const imgBefore = container.querySelector('.img-before');
+        const sliderHandle = container.querySelector('.slider-handle');
+        sliderInput.addEventListener('input', (e) => {
+            const value = e.target.value + "%";
+            imgBefore.style.width = value;
+            sliderHandle.style.left = value;
+        });
+    }
+
+ // --- STABILNY TYPEWRITER (BEZ SKAKANIA LOGO) ---
+    const tagline = document.querySelector('.tagline');
+    if (tagline) {
+        const words = ["Premium Car Care", "Showroom Excellence", "Passion for Perfection"];
+        let wordIdx = 0, charIdx = 0, isDeleting = false;
+
+        function typeEffect() {
+            const currentWord = words[wordIdx];
+            
+            // Zamiast skracać tekst, zawijamy go w niewidzialny kontener
+            const visibleText = currentWord.substring(0, charIdx);
+            const invisibleText = currentWord.substring(charIdx);
+            
+            // Tworzymy tekst, gdzie reszta liter jest ukryta (opacity: 0), 
+            // dzięki czemu szerokość elementu się nie zmienia!
+            tagline.innerHTML = `${visibleText}<span style="opacity: 0">${invisibleText}</span>`;
+
+            if (!isDeleting && charIdx < currentWord.length) {
+                charIdx++;
+                setTimeout(typeEffect, 100);
+            } else if (isDeleting && charIdx > 0) {
+                charIdx--;
+                setTimeout(typeEffect, 50);
+            } else if (!isDeleting && charIdx === currentWord.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, 2000);
+            } else {
+                isDeleting = false;
+                wordIdx = (wordIdx + 1) % words.length;
+                setTimeout(typeEffect, 500);
+            }
+        }
+        typeEffect();
+    }
+
+    // --- EVENT LISTENERS ---
+    if (sizeSelect) sizeSelect.addEventListener('change', calculate);
     services.forEach(s => {
         s.addEventListener('change', (e) => {
             handleExclusions(e); 
-            calculate();        
+            calculate();         
         });
     });
 
-    // Uruchomienie przeliczenia na starcie
-    calculate();
-});
-
-function closeWelcomeModal() {
-    document.getElementById('welcomeModal').style.display = 'none';
-}
-
-
-function setGreeting() {
-    const date = new Date();
-    const hour = date.getHours();
-    const greetingElement = document.getElementById('greeting-text');
-    
-    let greeting;
-
-    if (hour >= 5 && hour < 12) {
-        greeting = "Dzień dobry! Poranna kawa i detailing?";
-    } else if (hour >= 12 && hour < 18) {
-        greeting = "Siemanko! Czas na popołudniowe odświeżenie auta?";
-    } else if (hour >= 18 && hour < 22) {
-        // TO SIĘ WYŚWIETLI TERAZ (18:48)
-        greeting = "Dobry wieczór!";
-    } else {
-        greeting = "Witaj nocny marku";
-    }
-
-    if (greetingElement) {
-        greetingElement.innerText = greeting;
-    }
-}
-
-window.addEventListener('DOMContentLoaded', setGreeting);
-
-
-
-// Funkcja otwierania/zamykania okna
-function toggleCompareModal() {
-    const modal = document.getElementById('compareModal');
-    if (modal.style.display === "flex") {
-        modal.style.display = "none";
-    } else {
-        modal.style.display = "flex";
-    }
-}
-
-// Logika samego suwaka (podpięta pod ten sam input co wcześniej)
-document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('before-after-slider');
-    const sliderInput = container.querySelector('.slider-input');
-    const imgBefore = container.querySelector('.img-before');
-    const sliderHandle = container.querySelector('.slider-handle');
-
-    sliderInput.addEventListener('input', (e) => {
-        const value = e.target.value + "%";
-        imgBefore.style.width = value;
-        sliderHandle.style.left = value;
+    window.addEventListener('click', (e) => {
+        const infoM = document.getElementById('infoModal');
+        const compareM = document.getElementById('compareModal');
+        if (e.target === infoM) infoM.style.display = "none";
+        if (e.target === compareM) compareM.style.display = "none";
     });
+
+    calculate(); 
 });
 
-const observer = new IntersectionObserver((entries) => {
+/**
+ * 4. SCROLL REVEAL (Intersection Observer - Zostaje!)
+ */
+const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.pillar-item').forEach(item => {
-                item.classList.add('appear');
-            });
+            entry.target.classList.add('revealed');
+            entry.target.querySelectorAll('.pillar-item').forEach(p => p.classList.add('appear'));
         }
     });
-}, { threshold: 0.3 });
+}, { threshold: 0.1 });
 
-const section = document.querySelector('.brand-pillars-minimal');
-if (section) observer.observe(section);
+document.querySelectorAll('.service-item, .size-selector, .brands-section, .pillar-item, .brand-pillars-minimal').forEach(el => {
+    el.classList.add('reveal-hidden');
+    revealObserver.observe(el);
+});
