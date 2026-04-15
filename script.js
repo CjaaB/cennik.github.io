@@ -37,7 +37,7 @@ function setGreeting() {
 }
 
 /**
- * 3. GENEROWANIE OFERTY (Pobieranie tylko wybranych usług)
+ * 3. GENEROWANIE OFERTY (Metoda Iframe - odporna na blokady GitHub Pages)
  */
 function generateOfferPDF() {
     const sizeSelect = document.getElementById('car-size');
@@ -45,60 +45,98 @@ function generateOfferPDF() {
     const selectedServices = document.querySelectorAll('.service:checked');
     const total = document.getElementById('res-gross').innerText;
 
-    // Tworzenie ukrytego elementu do druku
-    const printWindow = window.open('', '_blank');
-    let content = `
-        <html>
-        <head>
-            <title>Twoja Oferta - Car All Detailing</title>
-            <style>
-                body { font-family: 'Arial', sans-serif; padding: 40px; color: #333; }
-                .header { text-align: center; border-bottom: 2px solid #d4af37; padding-bottom: 20px; }
-                .logo { font-size: 24px; font-weight: bold; color: #000; }
-                .details { margin: 20px 0; font-size: 14px; }
-                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                th { text-align: left; border-bottom: 1px solid #d4af37; padding: 10px; color: #d4af37; }
-                td { padding: 10px; border-bottom: 1px solid #eee; }
-                .total { text-align: right; font-size: 20px; margin-top: 30px; font-weight: bold; }
-                .footer { margin-top: 50px; font-size: 12px; color: #777; text-align: center; }
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <div class="logo">CAR ALL DETAILING</div>
-                <p>PROFESJONALNA PIELĘGNACJA POJAZDÓW</p>
-            </div>
-            <div class="details">
-                <p><strong>Data:</strong> ${new Date().toLocaleDateString()}</p>
-                <p><strong>Wielkość pojazdu:</strong> ${selectedSize}</p>
-            </div>
-            <table>
-                <thead>
-                    <tr><th>Usługa</th><th style="text-align:right">Cena</th></tr>
-                </thead>
-                <tbody>`;
+    if (selectedServices.length === 0) {
+        alert("Najpierw wybierz usługi, aby wygenerować ofertę!");
+        return;
+    }
 
+    // Tworzenie niewidocznego iframe do obsługi druku
+    let iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    document.body.appendChild(iframe);
+
+    let rows = "";
     selectedServices.forEach(s => {
         const row = s.closest('.service-item');
         const name = row.querySelector('.service-name').innerText;
         const price = row.querySelector('.service-price').innerText;
-        content += `<tr><td>${name}</td><td style="text-align:right">${price}</td></tr>`;
+        rows += `
+            <tr>
+                <td style="padding: 12px; border-bottom: 1px solid #eee;">${name}</td>
+                <td style="padding: 12px; border-bottom: 1px solid #eee; text-align: right; font-weight: bold;">${price}</td>
+            </tr>`;
     });
 
-    content += `
+    let content = `
+        <html>
+        <head>
+            <title>Oferta Car All Detailing</title>
+            <style>
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; color: #333; line-height: 1.6; }
+                .header { text-align: center; border-bottom: 3px solid #d4af37; padding-bottom: 20px; margin-bottom: 30px; }
+                .logo { font-size: 32px; font-weight: bold; color: #000; letter-spacing: 2px; margin: 0; }
+                .subheader { color: #d4af37; font-size: 14px; text-transform: uppercase; letter-spacing: 4px; margin-top: 5px; }
+                .info-box { margin-bottom: 30px; font-size: 14px; color: #555; }
+                table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                th { text-align: left; background: #f9f9f9; padding: 12px; border-bottom: 2px solid #d4af37; text-transform: uppercase; font-size: 13px; }
+                .total-section { text-align: right; margin-top: 40px; padding: 20px; background: #f9f9f9; border-radius: 8px; }
+                .total-label { font-size: 16px; color: #777; }
+                .total-amount { font-size: 28px; color: #000; font-weight: bold; display: block; }
+                .footer { margin-top: 60px; font-size: 11px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 20px; }
+                @media print { .no-print { display: none; } }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1 class="logo">CAR ALL DETAILING</h1>
+                <div class="subheader">Premium Car Care Excellence</div>
+            </div>
+            
+            <div class="info-box">
+                <p><strong>Data:</strong> ${new Date().toLocaleDateString()}</p>
+                <p><strong>Wielkość pojazdu:</strong> ${selectedSize}</p>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Wybrana usługa</th>
+                        <th style="text-align: right;">Cena szacunkowa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rows}
                 </tbody>
             </table>
-            <div class="total">Suma całkowita: €${total}</div>
+
+            <div class="total-section">
+                <span class="total-label">Suma całkowita (brutto):</span>
+                <span class="total-amount">${total} €</span>
+            </div>
+
             <div class="footer">
-                <p>Oferta wygenerowana automatycznie. Zapraszam do kontaktu w celu umówienia terminu.</p>
-                <p>www.cjaab.github.io/cennik.github.io</p>
+                <p>Przedstawiona wycena ma charakter informacyjny i nie stanowi oferty handlowej w rozumieniu przepisów prawa.</p>
+                <p>Ostateczny koszt usługi jest ustalany po inspekcji stanu pojazdu na miejscu.</p>
+                <p><strong>CAR ALL DETAILING</strong> | www.cjaab.github.io/cennik.github.io</p>
             </div>
         </body>
         </html>`;
 
-    printWindow.document.write(content);
-    printWindow.document.close();
-    printWindow.print();
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(content);
+    doc.close();
+
+    setTimeout(() => {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+        document.body.removeChild(iframe);
+    }, 500);
 }
 
 /**
@@ -111,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const services = document.querySelectorAll('.service');
     let currentTotal = 0;
 
-    // Referencje do usług
+    // Referencje do usług dla wykluczeń
     const extBasic = document.getElementById('ext-basic');
     const intBasic = document.getElementById('int-basic');
     const fullCombo = document.getElementById('full-combo');
@@ -120,10 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const leatherClean = document.getElementById('leather-clean');
     const bonetingSeats = document.getElementById('boneting-seats');
     const bonetingFull = document.getElementById('boneting-full');
-    const premiumWax = document.getElementById('premiumWax'); // Referencja do Premium Wax
-    const quickWax = document.getElementById('quickWax');     // Referencja do Quick Wax
+    const premiumWax = document.getElementById('premiumWax'); 
+    const quickWax = document.getElementById('quickWax');     
 
-    // --- ANIMACJA LICZNIKA CENY ---
     function animatePrice(endValue) {
         const obj = document.getElementById('res-gross');
         if (!obj) return;
@@ -141,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTotal = endValue;
     }
 
-    // --- LOGIKA WYKLUCZEŃ ---
     function handleExclusions(e) {
         const target = e.target;
         if (target === showroom && showroom.checked) {
@@ -172,8 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (fullCombo) fullCombo.checked = false;
             if (showroom) showroom.checked = false;
         }
-        
-        // Wykluczenia wosków
         if (target === premiumWax && premiumWax.checked) {
             if (quickWax) quickWax.checked = false;
         }
@@ -182,7 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- OBLICZENIA ---
     function calculate() {
         if (!sizeSelect) return;
         const currentSize = sizeSelect.value;
@@ -266,7 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
         typeEffect();
     }
 
-    // --- EVENT LISTENERS ---
     if (sizeSelect) sizeSelect.addEventListener('change', calculate);
     services.forEach(s => {
         s.addEventListener('change', (e) => {
@@ -275,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Przycisk pobierania oferty
+    // Podpięcie przycisku pobierania
     const downloadBtn = document.getElementById('download-offer-btn');
     if (downloadBtn) downloadBtn.addEventListener('click', generateOfferPDF);
 
