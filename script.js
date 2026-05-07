@@ -139,17 +139,35 @@ function generateOfferPDF() {
     }, 500);
 }
 
-/**
- * 4. GŁÓWNA LOGIKA PO ZAŁADOWANIU DOM
- */
+//* --- KOMPLETNY SILNIK WITRYNY (KALKULATOR + LOGO ENGINE + EFEKTY) --- *//
 document.addEventListener('DOMContentLoaded', () => {
-    setGreeting();
-
-    const sizeSelect = document.getElementById('car-size');
-    const services = document.querySelectorAll('.service');
+    
+    // --- 1. ZMIENNE GLOBALNE (Zawsze na górze!) ---
+    let easterEggDiscount = 1; 
+    let clickCount = 0;
+    let clickTimer;
     let currentTotal = 0;
 
-    // Referencje do usług dla wykluczeń
+    const detailingTips = [
+        "Lakier na nowoczesnych autach jest cieńszy niż ludzki włos.",
+        "Mycie na dwa wiadra redukuje ryzyko rys o 90%.",
+        "Glinkowanie usuwa brud, którego nie ruszy żadna piana.",
+        "Powłoka ceramiczna to twardość 9H – niemal jak szafir.",
+        "Niewidzialna wycieraczka poprawia widoczność w deszczu o 40%.",
+        "Ozonowanie zabija bakterie, a nie tylko maskuje zapach.",
+        "Deironizacja to proces, w którym felgi 'krwawią' na fioletowo.",
+        "Dressingi do plastików chronią przed UV i blaknięciem."
+    ];
+
+    // --- 2. REFERENCJE DO ELEMENTÓW ---
+    const sizeSelect = document.getElementById('car-size');
+    const services = document.querySelectorAll('.service');
+    const logoContainer = document.querySelector('.logo-container');
+    const logoImg = document.querySelector('.main-logo');
+    const logoDescTitle = document.querySelector('.logo-description b');
+    const logoDescText = document.querySelector('.logo-description p');
+
+    // Referencje do usług (ID muszą się zgadzać z HTML)
     const extBasic = document.getElementById('ext-basic');
     const intBasic = document.getElementById('int-basic');
     const fullCombo = document.getElementById('full-combo');
@@ -159,8 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const bonetingSeats = document.getElementById('boneting-seats');
     const bonetingFull = document.getElementById('boneting-full');
     const premiumWax = document.getElementById('premiumWax'); 
-    const quickWax = document.getElementById('quickWax');     
+    const quickWax = document.getElementById('quickWax'); 
 
+    // --- 3. LOGIKA KALKULATORA I ANIMACJI CENY ---
     function animatePrice(endValue) {
         const obj = document.getElementById('res-gross');
         if (!obj) return;
@@ -178,44 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTotal = endValue;
     }
 
-    function handleExclusions(e) {
-        const target = e.target;
-        if (target === showroom && showroom.checked) {
-            [extBasic, intBasic, fullCombo, deepClean, leatherClean, bonetingSeats, bonetingFull, premiumWax, quickWax].forEach(el => { if (el) el.checked = false; });
-        }
-        if (target === leatherClean && leatherClean.checked) {
-            [deepClean, bonetingSeats, bonetingFull, showroom].forEach(el => { if (el) el.checked = false; });
-        }
-        if ((target === deepClean || target === bonetingSeats || target === bonetingFull) && target.checked) {
-            if (leatherClean) leatherClean.checked = false;
-            if (showroom) showroom.checked = false;
-        }
-        if (target === deepClean && deepClean.checked) {
-            [intBasic, fullCombo, showroom, bonetingSeats, bonetingFull].forEach(el => { if (el) el.checked = false; });
-        }
-        if (target === bonetingFull && bonetingFull.checked) {
-            if (bonetingSeats) bonetingSeats.checked = false;
-            if (deepClean) deepClean.checked = false;
-        }
-        if (target === bonetingSeats && bonetingSeats.checked) {
-            if (bonetingFull) bonetingFull.checked = false;
-            if (deepClean) deepClean.checked = false;
-        }
-        if (target === fullCombo && fullCombo.checked) {
-            [extBasic, intBasic, deepClean, showroom].forEach(el => { if (el) el.checked = false; });
-        }
-        if ((target === extBasic || target === intBasic) && target.checked) {
-            if (fullCombo) fullCombo.checked = false;
-            if (showroom) showroom.checked = false;
-        }
-        if (target === premiumWax && premiumWax.checked) {
-            if (quickWax) quickWax.checked = false;
-        }
-        if (target === quickWax && quickWax.checked) {
-            if (premiumWax) premiumWax.checked = false;
-        }
-    }
-
     function calculate() {
         if (!sizeSelect) return;
         const currentSize = sizeSelect.value;
@@ -228,98 +209,215 @@ document.addEventListener('DOMContentLoaded', () => {
                 total += sizePrice ? parseFloat(sizePrice) : (staticPrice ? parseFloat(staticPrice) : 0);
             }
         });
-        animatePrice(total);
+
+        if (easterEggDiscount < 1) {
+            total = total * easterEggDiscount;
+            const discountLabel = document.getElementById('discount-status');
+            if (discountLabel) {
+                discountLabel.innerHTML = `<span style="color: #d4af37; font-size: 0.8rem; font-weight: bold;">AKTYWNA ZNIŻKA -15% 🏆</span>`;
+                discountLabel.style.display = 'block';
+            }
+        }
+        animatePrice(Math.round(total));
     }
 
-    // --- MAGNETYCZNE PRZYCISKI ---
-    const magneticElements = document.querySelectorAll('.whatsapp-float, .info-float');
-    magneticElements.forEach(el => {
+    // --- 4. LOGIKA WYKLUCZEŃ I SUGESTII ---
+    function handleExclusions(e) {
+        const target = e.target;
+        if (!target.checked) { calculate(); return; }
+
+        // Toasty sugestii
+        if (target === deepClean) showSuggestion("Dodaj Ozonowanie, aby pozbyć się zapachów!");
+        if (target === quickWax) showSuggestion("Sprawdź Premium Wax dla lepszej ochrony!");
+        if (target === showroom) showSuggestion("Pakiet Showroom to najlepszy wybór!");
+
+        // System wykluczeń
+        if (target === showroom) {
+            [extBasic, intBasic, fullCombo, deepClean, leatherClean, bonetingSeats, bonetingFull, premiumWax, quickWax].forEach(el => {
+                if (el && el !== showroom) el.checked = false;
+            });
+        }
+        if (target === fullCombo) {
+            [extBasic, intBasic, deepClean, showroom].forEach(el => { if (el) el.checked = false; });
+        }
+        if (target === leatherClean) {
+            [deepClean, bonetingSeats, bonetingFull, showroom].forEach(el => { if (el) el.checked = false; });
+        }
+        if (target === deepClean) {
+            [intBasic, fullCombo, showroom, bonetingSeats, bonetingFull, leatherClean].forEach(el => { if (el) el.checked = false; });
+        }
+        if (target === bonetingFull) {
+            [bonetingSeats, deepClean, showroom, leatherClean].forEach(el => { if (el) el.checked = false; });
+        }
+        if (target === bonetingSeats) {
+            [bonetingFull, deepClean, showroom, leatherClean].forEach(el => { if (el) el.checked = false; });
+        }
+        if (target === premiumWax) { if (quickWax) quickWax.checked = false; if (showroom) showroom.checked = false; }
+        if (target === quickWax) { if (premiumWax) premiumWax.checked = false; if (showroom) showroom.checked = false; }
+        
+        if (target === extBasic || target === intBasic) {
+            if (fullCombo) fullCombo.checked = false;
+            if (showroom) showroom.checked = false;
+        }
+
+        calculate();
+    }
+
+    function showSuggestion(text) {
+        if (document.querySelector('.upsell-toast')) return;
+        const toast = document.createElement('div');
+        toast.className = 'upsell-toast';
+        Object.assign(toast.style, {
+            position: 'fixed', bottom: '100px', left: '50%', transform: 'translateX(-50%)',
+            background: '#1a1a1a', color: '#d4af37', border: '1px solid #d4af37',
+            padding: '12px 25px', borderRadius: '30px', zIndex: '10000', fontWeight: 'bold', textAlign: 'center'
+        });
+        toast.innerHTML = `✨ Sugestia: ${text}`;
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.remove(); }, 3500);
+    }
+
+    // --- 5. LOGIKA LOGO (TILT + EASTER EGG) ---
+    if (logoContainer && logoImg) {
+        logoContainer.addEventListener('mousemove', (e) => {
+            const rect = logoContainer.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width - 0.5) * 30;
+            const y = ((e.clientY - rect.top) / rect.height - 0.5) * -30;
+            logoImg.style.transform = `rotateX(${y}deg) rotateY(${x}deg) scale(1.1)`;
+        });
+
+        logoContainer.addEventListener('mouseleave', () => logoImg.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`);
+
+        logoContainer.addEventListener('click', () => {
+            clickCount++;
+            // Wyświetl ciekawostkę
+            if (logoDescTitle) logoDescTitle.innerText = "CZY WIESZ, ŻE...";
+            const tip = detailingTips[Math.floor(Math.random() * detailingTips.length)];
+            if (logoDescText) logoDescText.innerHTML = `<i>"${tip}"</i>`;
+
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => { clickCount = 0; }, 400);
+
+            if (clickCount === 3) {
+                easterEggDiscount = 0.85;
+                logoContainer.classList.add('easter-egg-active');
+                if (logoDescTitle) logoDescTitle.innerText = "🏆 SEKRET ODKRYTY!";
+                if (logoDescText) logoDescText.innerHTML = "ZNIŻKA -15% AKTYWNA!<br>Ceny spadły.";
+                calculate();
+                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+            }
+        });
+    }
+
+   // --- 6. POZOSTAŁE EFEKTY (MAGNETYCZNE, TILT KART, SLIDER, TYPEWRITER) ---
+    // Magnetyczne przyciski
+    document.querySelectorAll('.whatsapp-float, .info-float').forEach(el => {
         el.addEventListener('mousemove', (e) => {
             const pos = el.getBoundingClientRect();
-            const x = e.clientX - pos.left - pos.width / 2;
-            const y = e.clientY - pos.top - pos.height / 2;
-            el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            el.style.transform = `translate(${(e.clientX - pos.left - pos.width/2) * 0.3}px, ${(e.clientY - pos.top - pos.height/2) * 0.3}px)`;
         });
         el.addEventListener('mouseleave', () => el.style.transform = `translate(0px, 0px)`);
     });
 
-    // --- TILT EFEKT (3D) DLA KART ---
+    // Tilt kart
     document.querySelectorAll('.service-item').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const rotateX = (y - rect.height/2) / 25; 
-            const rotateY = (rect.width/2 - x) / 25; 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            card.style.transform = `perspective(1000px) rotateX(${(e.clientY - rect.top - rect.height/2) / 25}deg) rotateY(${(rect.width/2 - (e.clientX - rect.left)) / 25}deg)`;
         });
         card.addEventListener('mouseleave', () => card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`);
     });
 
-    // --- SUWAK BEFORE/AFTER ---
-    const container = document.getElementById('before-after-slider');
-    if (container) {
-        const sliderInput = container.querySelector('.slider-input');
-        const imgBefore = container.querySelector('.img-before');
-        const sliderHandle = container.querySelector('.slider-handle');
-        sliderInput.addEventListener('input', (e) => {
-            const value = e.target.value + "%";
-            imgBefore.style.width = value;
-            sliderHandle.style.left = value;
+    // Suwak Before/After
+    const sliderContainer = document.getElementById('before-after-slider');
+    if (sliderContainer) {
+        const input = sliderContainer.querySelector('.slider-input');
+        const imgBefore = sliderContainer.querySelector('.img-before');
+        const handle = sliderContainer.querySelector('.slider-handle');
+        input.addEventListener('input', (e) => {
+            imgBefore.style.width = e.target.value + "%";
+            handle.style.left = e.target.value + "%";
         });
     }
 
-    // --- TYPEWRITER ---
+    // Typewriter
     const tagline = document.querySelector('.tagline');
     if (tagline) {
         const words = ["Premium Car Care", "Showroom Excellence", "Passion for Perfection"];
         let wordIdx = 0, charIdx = 0, isDeleting = false;
-
         function typeEffect() {
             const currentWord = words[wordIdx];
-            const visibleText = currentWord.substring(0, charIdx);
-            const invisibleText = currentWord.substring(charIdx);
-            tagline.innerHTML = `${visibleText}<span style="opacity: 0">${invisibleText}</span>`;
-
-            if (!isDeleting && charIdx < currentWord.length) {
-                charIdx++;
-                setTimeout(typeEffect, 100);
-            } else if (isDeleting && charIdx > 0) {
-                charIdx--;
-                setTimeout(typeEffect, 50);
-            } else if (!isDeleting && charIdx === currentWord.length) {
-                isDeleting = true;
-                setTimeout(typeEffect, 2000);
-            } else {
-                isDeleting = false;
-                wordIdx = (wordIdx + 1) % words.length;
-                setTimeout(typeEffect, 500);
-            }
+            const visible = currentWord.substring(0, charIdx);
+            tagline.innerHTML = `${visible}<span style="opacity: 0">${currentWord.substring(charIdx)}</span>`;
+            if (!isDeleting && charIdx < currentWord.length) charIdx++;
+            else if (isDeleting && charIdx > 0) charIdx--;
+            else if (!isDeleting && charIdx === currentWord.length) { isDeleting = true; setTimeout(typeEffect, 2000); return; }
+            else { isDeleting = false; wordIdx = (wordIdx + 1) % words.length; }
+            setTimeout(typeEffect, isDeleting ? 50 : 100);
         }
         typeEffect();
     }
 
-    if (sizeSelect) sizeSelect.addEventListener('change', calculate);
-    services.forEach(s => {
-        s.addEventListener('change', (e) => {
-            handleExclusions(e); 
-            calculate();         
+    // Akordeon
+    document.querySelectorAll('.knowledge-accordion details').forEach((item) => {
+        item.querySelector('summary').addEventListener('click', () => {
+            if (!item.hasAttribute('open') && navigator.vibrate) navigator.vibrate(5);
         });
     });
 
-    // Podpięcie przycisku pobierania
-    const downloadBtn = document.getElementById('download-offer-btn');
-    if (downloadBtn) downloadBtn.addEventListener('click', generateOfferPDF);
+    // --- 7. OBSŁUGA KLIKNIĘĆ W KAFELKI (Wewnątrz DOMContentLoaded) ---
+    const sizeOptions = document.querySelectorAll('.size-option');
+    // carSizeSelect jest zdefiniowany na początku DOMContentLoaded jako sizeSelect
+    
+    sizeOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            sizeOptions.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
+            const selectedValue = option.getAttribute('data-value');
 
-    window.addEventListener('click', (e) => {
-        const infoM = document.getElementById('infoModal');
-        const compareM = document.getElementById('compareModal');
-        if (e.target === infoM) infoM.style.display = "none";
-        if (e.target === compareM) compareM.style.display = "none";
+            if (sizeSelect) {
+                sizeSelect.value = selectedValue;
+                console.log("Kafelek ustawia rozmiar na:", selectedValue);
+                calculate(); // To odpali animatePrice
+                if (navigator.vibrate) navigator.vibrate(15);
+            }
+        });
     });
 
-    calculate(); 
-});
+    // --- 8. EVENT LISTENERY I START ---
+    services.forEach(cb => cb.addEventListener('change', (e) => {
+        handleExclusions(e);
+        calculate();
+    }));
+
+    if (sizeSelect) {
+        sizeSelect.addEventListener('change', calculate);
+    }
+    
+    window.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('infoModal')) document.getElementById('infoModal').style.display = "none";
+        if (e.target === document.getElementById('compareModal')) document.getElementById('compareModal').style.display = "none";
+    });
+
+    if (typeof setGreeting === 'function') setGreeting();
+    
+    // Startowe przeliczenie
+    calculate();
+}); // TU SIĘ KOŃCZY DOMContentLoaded
+
+// Funkcje globalne (dostępne dla atrybutów onclick w HTML)
+function toggleInfoModal() {
+    const modal = document.getElementById('infoModal');
+    if (!modal) return;
+    if (modal.style.display === "flex") {
+        modal.style.opacity = "0";
+        setTimeout(() => modal.style.display = "none", 300);
+    } else {
+        modal.style.display = "flex";
+        setTimeout(() => modal.style.opacity = "1", 10);
+    }
+}
+
 
 /**
  * 5. SCROLL REVEAL
