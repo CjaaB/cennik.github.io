@@ -1,70 +1,58 @@
-/**
- * 1. FUNKCJE MODALI (Słowniczek, Powitanie, Porównanie)
- */
 function toggleInfoModal() {
-    const modal = document.getElementById('infoModal');
-    if (modal) {
-        modal.style.display = (modal.style.display === "flex") ? "none" : "flex";
-    }
+    const modal = document.getElementById("infoModal");
+    if (!modal) return;
+    modal.style.display = modal.style.display === "flex" ? "none" : "flex";
 }
 
 function closeWelcomeModal() {
-    const welcome = document.getElementById('welcomeModal');
-    if (welcome) welcome.style.display = 'none';
+    const welcome = document.getElementById("welcomeModal");
+    if (welcome) welcome.style.display = "none";
 }
 
 function toggleCompareModal() {
-    const modal = document.getElementById('compareModal');
-    if (modal) {
-        modal.style.display = (modal.style.display === "flex") ? "none" : "flex";
-    }
+    const modal = document.getElementById("compareModal");
+    if (!modal) return;
+    modal.style.display = modal.style.display === "flex" ? "none" : "flex";
 }
 
-/**
- * 2. POWITANIE CZASOWE
- */
 function setGreeting() {
     const hour = new Date().getHours();
-    const greetingElement = document.getElementById('greeting-text');
-    let greeting;
+    const greetingElement = document.getElementById("greeting-text");
+    if (!greetingElement) return;
 
-    if (hour >= 5 && hour < 12) greeting = "Dzień dobry! Poranna kawa i detailing?";
-    else if (hour >= 12 && hour < 18) greeting = "Siemanko! Czas na popołudniowe odświeżenie auta?";
-    else if (hour >= 18 && hour < 22) greeting = "Dobry wieczór!";
-    else greeting = "Witaj nocny marku";
-
-    if (greetingElement) greetingElement.innerText = greeting;
+    if (hour >= 5 && hour < 12) greetingElement.innerText = "Dzień dobry! Poranna kawa i detailing?";
+    else if (hour >= 12 && hour < 18) greetingElement.innerText = "Siemanko! Czas na popołudniowe odświeżenie auta?";
+    else if (hour >= 18 && hour < 22) greetingElement.innerText = "Dobry wieczór!";
+    else greetingElement.innerText = "Witaj nocny marku";
 }
 
-/**
- * 3. GENEROWANIE OFERTY (Metoda Iframe - odporna na blokady GitHub Pages)
- */
 function generateOfferPDF() {
-    const sizeSelect = document.getElementById('car-size');
+    const sizeSelect = document.getElementById("car-size");
     const selectedSize = sizeSelect ? sizeSelect.options[sizeSelect.selectedIndex].text : "Nieokreślony";
-    const selectedServices = document.querySelectorAll('.service:checked');
-    const total = document.getElementById('res-gross').innerText;
+    const selectedServices = document.querySelectorAll(".service:checked");
+    const totalNode = document.getElementById("res-gross");
+    const total = totalNode ? totalNode.innerText : "0";
 
     if (selectedServices.length === 0) {
         alert("Najpierw wybierz usługi, aby wygenerować ofertę!");
         return;
     }
 
-    // Tworzenie niewidocznego iframe do obsługi druku
-    let iframe = document.createElement('iframe');
-    iframe.style.position = 'fixed';
-    iframe.style.right = '0';
-    iframe.style.bottom = '0';
-    iframe.style.width = '0';
-    iframe.style.height = '0';
-    iframe.style.border = '0';
+    const iframe = document.createElement("iframe");
+    iframe.style.position = "fixed";
+    iframe.style.right = "0";
+    iframe.style.bottom = "0";
+    iframe.style.width = "0";
+    iframe.style.height = "0";
+    iframe.style.border = "0";
     document.body.appendChild(iframe);
 
     let rows = "";
-    selectedServices.forEach(s => {
-        const row = s.closest('.service-item');
-        const name = row.querySelector('.service-name').innerText;
-        const price = row.querySelector('.service-price').innerText;
+    selectedServices.forEach((s) => {
+        const row = s.closest(".service-item");
+        if (!row) return;
+        const name = row.querySelector(".service-name")?.innerText || "Usługa";
+        const price = row.querySelector(".service-price")?.innerText || "-";
         rows += `
             <tr>
                 <td style="padding: 12px; border-bottom: 1px solid #eee;">${name}</td>
@@ -127,23 +115,21 @@ function generateOfferPDF() {
         </body>
         </html>`;
 
-    const doc = iframe.contentWindow.document;
+    const doc = iframe.contentWindow?.document;
+    if (!doc) return;
     doc.open();
     doc.write(content);
     doc.close();
 
     setTimeout(() => {
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
+        iframe.contentWindow?.focus();
+        iframe.contentWindow?.print();
         document.body.removeChild(iframe);
     }, 500);
 }
 
-//* --- KOMPLETNY SILNIK WITRYNY (KALKULATOR + LOGO ENGINE + EFEKTY) --- *//
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- 1. ZMIENNE GLOBALNE (Zawsze na górze!) ---
-    let easterEggDiscount = 1; 
+document.addEventListener("DOMContentLoaded", () => {
+    let easterEggDiscount = 1;
     let clickCount = 0;
     let clickTimer;
     let currentTotal = 0;
@@ -159,192 +145,448 @@ document.addEventListener('DOMContentLoaded', () => {
         "Dressingi do plastików chronią przed UV i blaknięciem."
     ];
 
-    // --- 2. REFERENCJE DO ELEMENTÓW ---
-    const sizeSelect = document.getElementById('car-size');
-    const services = document.querySelectorAll('.service');
-    const logoContainer = document.querySelector('.logo-container');
-    const logoImg = document.querySelector('.main-logo');
-    const logoDescTitle = document.querySelector('.logo-description b');
-    const logoDescText = document.querySelector('.logo-description p');
+    const sizeSelect = document.getElementById("car-size");
+    const services = Array.from(document.querySelectorAll(".service"));
+    const logoImg = document.querySelector(".main-logo");
+    const logoContainer = document.querySelector(".logo-container");
+    const logoDescTitle = document.querySelector(".logo-description h4");
+    const logoDescText = document.getElementById("logo-tip-text");
+    const resGrossElement = document.getElementById("res-gross");
+    const promoBar = document.getElementById("promo-bar");
+    const promoText = document.getElementById("promo-text");
+    const promoCloseBtn = document.getElementById("promo-close-btn");
+    const visitCountEl = document.getElementById("visit-count");
+    const timeResultEl = document.getElementById("res-time");
+    const upsellEl = document.getElementById("upsell-suggestion");
+    const storageKey = "cad_calculator_state_v1";
 
-    // Referencje do usług (ID muszą się zgadzać z HTML)
-    const extBasic = document.getElementById('ext-basic');
-    const intBasic = document.getElementById('int-basic');
-    const fullCombo = document.getElementById('full-combo');
-    const deepClean = document.getElementById('deep-clean');
-    const showroom = document.getElementById('showroom');
-    const leatherClean = document.getElementById('leather-clean');
-    const bonetingSeats = document.getElementById('boneting-seats');
-    const bonetingFull = document.getElementById('boneting-full');
-    const premiumWax = document.getElementById('premiumWax'); 
-    const quickWax = document.getElementById('quickWax'); 
+    const extBasic = document.getElementById("ext-basic");
+    const intBasic = document.getElementById("int-basic");
+    const fullCombo = document.getElementById("full-combo");
+    const deepClean = document.getElementById("deep-clean");
+    const showroom = document.getElementById("showroom");
+    const leatherClean = document.getElementById("leather-clean");
+    const bonetingSeats = document.getElementById("boneting-seats");
+    const bonetingFull = document.getElementById("boneting-full");
+    const premiumWax = document.getElementById("premiumWax");
+    const quickWax = document.getElementById("quickWax");
+    const serviceTimeMap = {
+        "ext-basic": [120, 180],
+        "int-basic": [180, 270],
+        "full-combo": [300, 420],
+        "deep-clean": [320, 480],
+        "showroom": [480, 720],
+        "leather-clean": [120, 180],
+        "steering-wheel": [45, 75],
+        "boneting-seats": [90, 135],
+        "boneting-full": [150, 240],
+        "premiumWax": [75, 120],
+        "quickWax": [45, 70]
+    };
 
-    // --- 3. LOGIKA KALKULATORA I ANIMACJI CENY ---
+    setGreeting();
+    setupPromoBar();
+    applyLightMobileMode();
+    updateVisitCounter();
+    restoreCalculatorState();
+    setupHeroParallax();
+
+    function setupPromoBar() {
+        if (!promoBar || !promoText) return;
+
+        // Promocja aktywna tylko do końca maja 2026 (włącznie).
+        const now = new Date();
+        const promoStart = new Date("2026-05-01T00:00:00");
+        const promoEnd = new Date("2026-05-31T23:59:59");
+        const isPromoActive = now >= promoStart && now <= promoEnd;
+        if (!isPromoActive) {
+            promoBar.style.display = "none";
+            return;
+        }
+
+        const promoDismissed = localStorage.getItem("cad_promo_dismissed") === "1";
+        if (promoDismissed) {
+            promoBar.style.display = "none";
+            return;
+        }
+
+        const hasVisited = localStorage.getItem("cad_has_visited") === "1";
+        if (!hasVisited) {
+            promoText.innerHTML = "<strong>Witamy pierwszy raz!</strong> Odbierz -10% kodem <strong>START10</strong> na pierwszą usługę.";
+            localStorage.setItem("cad_has_visited", "1");
+        } else {
+            promoText.innerHTML = "<strong>Wracasz do nas? Super!</strong> Poleć usługę znajomemu i odbierz bonus przy kolejnej wizycie.";
+        }
+
+        promoCloseBtn?.addEventListener("click", () => {
+            promoBar.style.display = "none";
+            localStorage.setItem("cad_promo_dismissed", "1");
+        });
+    }
+
+    function applyLightMobileMode() {
+        const isSmallScreen = window.matchMedia("(max-width: 900px)").matches;
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const isSaveData = navigator.connection && navigator.connection.saveData;
+        const shouldUseLightMode = isSmallScreen || prefersReducedMotion || isSaveData;
+
+        if (!shouldUseLightMode) return;
+        document.body.classList.add("light-mobile-mode");
+
+        document.querySelectorAll("video").forEach((videoEl) => {
+            videoEl.pause();
+            videoEl.removeAttribute("autoplay");
+            videoEl.setAttribute("preload", "none");
+        });
+    }
+
+    async function updateVisitCounter() {
+        if (!visitCountEl) return;
+        const namespace = "car-all-detailing";
+        const key = "homepage-visits";
+        const endpoint = `https://api.countapi.xyz/hit/${namespace}/${key}`;
+
+        try {
+            const response = await fetch(endpoint, { method: "GET" });
+            if (!response.ok) throw new Error("Counter request failed");
+            const data = await response.json();
+            const value = typeof data.value === "number" ? data.value : null;
+            visitCountEl.innerText = value !== null ? value.toLocaleString("pl-PL") : "brak danych";
+        } catch (error) {
+            visitCountEl.innerText = "niedostępny";
+        }
+    }
+
+    function renderEstimatedTime(minMinutes, maxMinutes) {
+        if (!timeResultEl) return;
+        if (minMinutes === 0 && maxMinutes === 0) {
+            timeResultEl.innerText = "0h";
+            return;
+        }
+        const minHours = (minMinutes / 60).toFixed(1);
+        const maxHours = (maxMinutes / 60).toFixed(1);
+        timeResultEl.innerText = `${minHours}h - ${maxHours}h`;
+    }
+
+    function renderUpsellSuggestion(currentTotal, sizeValue) {
+        if (!upsellEl) return;
+        const comboPriceRaw = fullCombo?.getAttribute(`data-${sizeValue.toLowerCase()}`);
+        const showroomPriceRaw = showroom?.getAttribute(`data-${sizeValue.toLowerCase()}`);
+        const comboPrice = comboPriceRaw ? parseFloat(comboPriceRaw) : null;
+        const showroomPrice = showroomPriceRaw ? parseFloat(showroomPriceRaw) : null;
+
+        if (comboPrice && !fullCombo?.checked && currentTotal > comboPrice) {
+            const diff = Math.round(currentTotal - comboPrice);
+            upsellEl.innerHTML = `Tip: w pakiecie <strong>COMBO</strong> możesz zaoszczędzić ok. <strong>${diff} €</strong>.`;
+            upsellEl.classList.add("show");
+            return;
+        }
+
+        if (showroomPrice && !showroom?.checked && currentTotal > showroomPrice) {
+            const diff = Math.round(currentTotal - showroomPrice);
+            upsellEl.innerHTML = `Tip: rozważ <strong>Pakiet Showroom</strong> (oszczędność ok. <strong>${diff} €</strong> i pełniejszy efekt).`;
+            upsellEl.classList.add("show");
+            return;
+        }
+
+        upsellEl.classList.remove("show");
+        upsellEl.innerHTML = "";
+    }
+
+    function persistCalculatorState() {
+        if (!sizeSelect) return;
+        const selectedServiceIds = services.filter((el) => el.checked && el.id).map((el) => el.id);
+        const state = {
+            size: sizeSelect.value,
+            selectedServiceIds,
+            ts: Date.now()
+        };
+        localStorage.setItem(storageKey, JSON.stringify(state));
+    }
+
+    function restoreCalculatorState() {
+        if (!sizeSelect) return;
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return;
+
+        try {
+            const parsed = JSON.parse(raw);
+            if (!parsed || !parsed.size) return;
+
+            sizeSelect.value = parsed.size;
+            document.querySelectorAll(".size-option").forEach((opt) => {
+                const isActive = opt.getAttribute("data-value") === parsed.size;
+                opt.classList.toggle("active", isActive);
+            });
+
+            services.forEach((checkbox) => {
+                const shouldCheck = Array.isArray(parsed.selectedServiceIds) && parsed.selectedServiceIds.includes(checkbox.id);
+                checkbox.checked = !!shouldCheck;
+            });
+        } catch (error) {
+            localStorage.removeItem(storageKey);
+        }
+    }
+
+    function setupHeroParallax() {
+        const header = document.querySelector(".main-header");
+        const headerContent = document.querySelector(".header-content");
+        const headerVideo = document.querySelector(".header-bg-video");
+        if (!header || !headerContent || !headerVideo) return;
+        if (window.matchMedia("(pointer: coarse)").matches) return;
+
+        const applyParallax = () => {
+            const rect = header.getBoundingClientRect();
+            if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+            const progress = Math.min(Math.max(-rect.top / Math.max(rect.height, 1), 0), 1);
+            headerContent.style.transform = `translateY(${progress * 22}px)`;
+            headerVideo.style.transform = `translate(-50%, calc(-50% + ${progress * 30}px)) scale(1.04)`;
+        };
+
+        window.addEventListener("scroll", () => window.requestAnimationFrame(applyParallax), { passive: true });
+        applyParallax();
+    }
+
+    function syncServiceVisualState() {
+        services.forEach((checkbox) => {
+            const item = checkbox.closest(".service-item");
+            if (!item) return;
+            const isChecked = checkbox.checked;
+            item.classList.toggle("service-active", isChecked);
+
+            if (isChecked) {
+                item.classList.remove("service-pop");
+                void item.offsetWidth;
+                item.classList.add("service-pop");
+            } else {
+                item.classList.remove("service-pop");
+            }
+        });
+    }
+
+
     function animatePrice(endValue) {
-        const obj = document.getElementById('res-gross');
-        if (!obj) return;
+        if (!resGrossElement) return;
         const startValue = currentTotal;
-        const duration = 500;
+        const duration = 650;
         let startTimestamp = null;
+        resGrossElement.classList.add("price-flip");
 
         const step = (timestamp) => {
             if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            obj.innerHTML = Math.floor(progress * (endValue - startValue) + startValue);
-            if (progress < 1) window.requestAnimationFrame(step);
+            const calculatedVal = Math.floor(progress * (endValue - startValue) + startValue);
+            resGrossElement.innerText = calculatedVal;
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                resGrossElement.innerText = endValue;
+                currentTotal = endValue;
+                setTimeout(() => resGrossElement.classList.remove("price-flip"), 180);
+            }
         };
         window.requestAnimationFrame(step);
-        currentTotal = endValue;
     }
 
     function calculate() {
         if (!sizeSelect) return;
         const currentSize = sizeSelect.value;
         let total = 0;
+        let minMinutes = 0;
+        let maxMinutes = 0;
 
-        services.forEach(checkbox => {
+        services.forEach((checkbox) => {
             if (checkbox.checked) {
                 const sizePrice = checkbox.getAttribute(`data-${currentSize.toLowerCase()}`);
-                const staticPrice = checkbox.getAttribute('data-static');
+                const staticPrice = checkbox.getAttribute("data-static");
                 total += sizePrice ? parseFloat(sizePrice) : (staticPrice ? parseFloat(staticPrice) : 0);
+                const timeRange = serviceTimeMap[checkbox.id] || [25, 45];
+                minMinutes += timeRange[0];
+                maxMinutes += timeRange[1];
             }
         });
 
-        if (easterEggDiscount < 1) {
-            total = total * easterEggDiscount;
-            const discountLabel = document.getElementById('discount-status');
-            if (discountLabel) {
-                discountLabel.innerHTML = `<span style="color: #d4af37; font-size: 0.8rem; font-weight: bold;">AKTYWNA ZNIŻKA -15% 🏆</span>`;
-                discountLabel.style.display = 'block';
-            }
-        }
+        total = total * easterEggDiscount;
         animatePrice(Math.round(total));
+        renderEstimatedTime(minMinutes, maxMinutes);
+        renderUpsellSuggestion(total, currentSize);
+        persistCalculatorState();
+        syncServiceVisualState();
     }
 
-    // --- 4. LOGIKA WYKLUCZEŃ I SUGESTII ---
     function handleExclusions(e) {
         const target = e.target;
-        if (!target.checked) { calculate(); return; }
+        if (!target || !target.checked) {
+            calculate();
+            return;
+        }
 
-        // Toasty sugestii
+        const uncheck = (elements) => {
+            elements.forEach((el) => {
+                if (el && el !== target) el.checked = false;
+            });
+        };
+
         if (target === deepClean) showSuggestion("Dodaj Ozonowanie, aby pozbyć się zapachów!");
         if (target === quickWax) showSuggestion("Sprawdź Premium Wax dla lepszej ochrony!");
         if (target === showroom) showSuggestion("Pakiet Showroom to najlepszy wybór!");
 
-        // System wykluczeń
+        // Showroom = najwyższy pakiet, wyklucza wszystkie główne i wnętrzowe alternatywy.
         if (target === showroom) {
-            [extBasic, intBasic, fullCombo, deepClean, leatherClean, bonetingSeats, bonetingFull, premiumWax, quickWax].forEach(el => {
-                if (el && el !== showroom) el.checked = false;
-            });
+            uncheck([extBasic, intBasic, fullCombo, deepClean, leatherClean, bonetingSeats, bonetingFull, premiumWax, quickWax]);
         }
+
+        // COMBO to pakiet wnętrze+zewnątrz, więc wyklucza alternatywy wnętrza i pełny showroom.
         if (target === fullCombo) {
-            [extBasic, intBasic, deepClean, showroom].forEach(el => { if (el) el.checked = false; });
+            uncheck([extBasic, intBasic, deepClean, bonetingSeats, bonetingFull, showroom]);
         }
+
+        // Czyszczenie skóry to alternatywa dla prania/bonetowania materiałowej tapicerki.
         if (target === leatherClean) {
-            [deepClean, bonetingSeats, bonetingFull, showroom].forEach(el => { if (el) el.checked = false; });
+            uncheck([deepClean, bonetingSeats, bonetingFull, showroom, fullCombo]);
         }
+
+        // Pranie ekstrakcyjne wyklucza bonetowanie i pakiety zawierające wnętrze.
         if (target === deepClean) {
-            [intBasic, fullCombo, showroom, bonetingSeats, bonetingFull, leatherClean].forEach(el => { if (el) el.checked = false; });
+            uncheck([intBasic, fullCombo, showroom, bonetingSeats, bonetingFull, leatherClean]);
         }
+
+        // Bonetowanie full i seats to warianty tej samej usługi + kolizja z pakietami wnętrza.
         if (target === bonetingFull) {
-            [bonetingSeats, deepClean, showroom, leatherClean].forEach(el => { if (el) el.checked = false; });
+            uncheck([bonetingSeats, deepClean, intBasic, fullCombo, showroom, leatherClean]);
         }
         if (target === bonetingSeats) {
-            [bonetingFull, deepClean, showroom, leatherClean].forEach(el => { if (el) el.checked = false; });
+            uncheck([bonetingFull, deepClean, intBasic, fullCombo, showroom, leatherClean]);
         }
-        if (target === premiumWax) { if (quickWax) quickWax.checked = false; if (showroom) showroom.checked = false; }
-        if (target === quickWax) { if (premiumWax) premiumWax.checked = false; if (showroom) showroom.checked = false; }
+
+        // Woski są alternatywne między sobą i niepotrzebne przy showroom.
+        if (target === premiumWax) uncheck([quickWax, showroom]);
+        if (target === quickWax) uncheck([premiumWax, showroom]);
         
+        // Podstawowe mycia nie łączą się z gotowymi pakietami.
         if (target === extBasic || target === intBasic) {
-            if (fullCombo) fullCombo.checked = false;
-            if (showroom) showroom.checked = false;
+            uncheck([fullCombo, showroom]);
         }
 
         calculate();
     }
 
     function showSuggestion(text) {
-        if (document.querySelector('.upsell-toast')) return;
-        const toast = document.createElement('div');
-        toast.className = 'upsell-toast';
+        if (document.querySelector(".upsell-toast")) return;
+        const toast = document.createElement("div");
+        toast.className = "upsell-toast";
         Object.assign(toast.style, {
-            position: 'fixed', bottom: '100px', left: '50%', transform: 'translateX(-50%)',
-            background: '#1a1a1a', color: '#d4af37', border: '1px solid #d4af37',
-            padding: '12px 25px', borderRadius: '30px', zIndex: '10000', fontWeight: 'bold', textAlign: 'center'
+            position: "fixed",
+            bottom: "110px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "#1a1a1a",
+            color: "#d4af37",
+            border: "1px solid #d4af37",
+            padding: "12px 25px",
+            borderRadius: "30px",
+            zIndex: "10000",
+            fontWeight: "bold",
+            textAlign: "center"
         });
         toast.innerHTML = `✨ Sugestia: ${text}`;
         document.body.appendChild(toast);
-        setTimeout(() => { toast.remove(); }, 3500);
+        setTimeout(() => toast.remove(), 3500);
     }
 
-    // --- 5. LOGIKA LOGO (TILT + EASTER EGG) ---
     if (logoContainer && logoImg) {
-        logoContainer.addEventListener('mousemove', (e) => {
+        logoContainer.addEventListener("mousemove", (e) => {
+            if (window.matchMedia("(pointer: coarse)").matches) return;
             const rect = logoContainer.getBoundingClientRect();
             const x = ((e.clientX - rect.left) / rect.width - 0.5) * 30;
             const y = ((e.clientY - rect.top) / rect.height - 0.5) * -30;
             logoImg.style.transform = `rotateX(${y}deg) rotateY(${x}deg) scale(1.1)`;
         });
 
-        logoContainer.addEventListener('mouseleave', () => logoImg.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`);
+        logoContainer.addEventListener("mouseleave", () => {
+            logoImg.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+        });
 
-        logoContainer.addEventListener('click', () => {
+        logoContainer.addEventListener("click", () => {
             clickCount++;
-            // Wyświetl ciekawostkę
+
             if (logoDescTitle) logoDescTitle.innerText = "CZY WIESZ, ŻE...";
             const tip = detailingTips[Math.floor(Math.random() * detailingTips.length)];
             if (logoDescText) logoDescText.innerHTML = `<i>"${tip}"</i>`;
 
             clearTimeout(clickTimer);
-            clickTimer = setTimeout(() => { clickCount = 0; }, 400);
+            clickTimer = setTimeout(() => { clickCount = 0; }, 600);
 
-            if (clickCount === 3) {
+            if (clickCount === 5) {
                 easterEggDiscount = 0.85;
-                logoContainer.classList.add('easter-egg-active');
+                logoContainer.classList.add("easter-egg-active");
                 if (logoDescTitle) logoDescTitle.innerText = "🏆 SEKRET ODKRYTY!";
                 if (logoDescText) logoDescText.innerHTML = "ZNIŻKA -15% AKTYWNA!<br>Ceny spadły.";
                 calculate();
-                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                if (navigator.vibrate) navigator.vibrate([80, 40, 80]);
             }
         });
     }
 
-   // --- 6. POZOSTAŁE EFEKTY (MAGNETYCZNE, TILT KART, SLIDER, TYPEWRITER) ---
-    // Magnetyczne przyciski
-    document.querySelectorAll('.whatsapp-float, .info-float').forEach(el => {
-        el.addEventListener('mousemove', (e) => {
+    services.forEach((s) => s.addEventListener("change", handleExclusions));
+
+    document.querySelectorAll(".size-option").forEach((opt) => {
+        opt.addEventListener("click", function () {
+            document.querySelectorAll(".size-option").forEach((o) => o.classList.remove("active"));
+            this.classList.add("active");
+            const val = this.getAttribute("data-value");
+            if (sizeSelect) {
+                sizeSelect.value = val;
+                calculate();
+                if (navigator.vibrate) navigator.vibrate(10);
+            }
+        });
+    });
+
+    if (sizeSelect) {
+        sizeSelect.addEventListener("change", calculate);
+    }
+
+    document.querySelectorAll(".whatsapp-float, .info-float").forEach((el) => {
+        el.addEventListener("mousemove", (e) => {
+            if (window.matchMedia("(pointer: coarse)").matches) return;
             const pos = el.getBoundingClientRect();
-            el.style.transform = `translate(${(e.clientX - pos.left - pos.width/2) * 0.3}px, ${(e.clientY - pos.top - pos.height/2) * 0.3}px)`;
+            el.style.transform = `translate(${(e.clientX - pos.left - pos.width / 2) * 0.2}px, ${(e.clientY - pos.top - pos.height / 2) * 0.2}px)`;
         });
-        el.addEventListener('mouseleave', () => el.style.transform = `translate(0px, 0px)`);
+        el.addEventListener("mouseleave", () => {
+            el.style.transform = "translate(0px, 0px)";
+        });
     });
 
-    // Tilt kart
-    document.querySelectorAll('.service-item').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
+    document.querySelectorAll(".service-item").forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+            if (window.matchMedia("(pointer: coarse)").matches) return;
             const rect = card.getBoundingClientRect();
-            card.style.transform = `perspective(1000px) rotateX(${(e.clientY - rect.top - rect.height/2) / 25}deg) rotateY(${(rect.width/2 - (e.clientX - rect.left)) / 25}deg)`;
+            card.style.transform = `perspective(1000px) rotateX(${(e.clientY - rect.top - rect.height / 2) / 35}deg) rotateY(${(rect.width / 2 - (e.clientX - rect.left)) / 35}deg)`;
         });
-        card.addEventListener('mouseleave', () => card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`);
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+        });
     });
 
-    // Suwak Before/After
-    const sliderContainer = document.getElementById('before-after-slider');
+    const sliderContainer = document.getElementById("before-after-slider");
     if (sliderContainer) {
-        const input = sliderContainer.querySelector('.slider-input');
-        const imgBefore = sliderContainer.querySelector('.img-before');
-        const handle = sliderContainer.querySelector('.slider-handle');
-        input.addEventListener('input', (e) => {
+        const input = sliderContainer.querySelector(".slider-input");
+        const imgBefore = sliderContainer.querySelector(".img-before");
+        const handle = sliderContainer.querySelector(".slider-handle");
+        input?.addEventListener("input", (e) => {
+            if (!imgBefore || !handle) return;
             imgBefore.style.width = e.target.value + "%";
             handle.style.left = e.target.value + "%";
         });
     }
 
-    // Typewriter
-    const tagline = document.querySelector('.tagline');
+    const tagline = document.querySelector(".tagline");
     if (tagline) {
         const words = ["Premium Car Care", "Showroom Excellence", "Passion for Perfection"];
-        let wordIdx = 0, charIdx = 0, isDeleting = false;
+        let wordIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
         function typeEffect() {
             const currentWord = words[wordIdx];
             const visible = currentWord.substring(0, charIdx);
@@ -358,80 +600,32 @@ document.addEventListener('DOMContentLoaded', () => {
         typeEffect();
     }
 
-    // Akordeon
-    document.querySelectorAll('.knowledge-accordion details').forEach((item) => {
-        item.querySelector('summary').addEventListener('click', () => {
-            if (!item.hasAttribute('open') && navigator.vibrate) navigator.vibrate(5);
+    document.querySelectorAll(".knowledge-accordion details").forEach((item) => {
+        item.querySelector("summary")?.addEventListener("click", () => {
+            if (!item.hasAttribute("open") && navigator.vibrate) navigator.vibrate(5);
         });
     });
 
-    // --- 7. OBSŁUGA KLIKNIĘĆ W KAFELKI (Wewnątrz DOMContentLoaded) ---
-    const sizeOptions = document.querySelectorAll('.size-option');
-    // carSizeSelect jest zdefiniowany na początku DOMContentLoaded jako sizeSelect
-    
-    sizeOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            sizeOptions.forEach(opt => opt.classList.remove('active'));
-            option.classList.add('active');
-            const selectedValue = option.getAttribute('data-value');
+    window.addEventListener("click", (e) => {
+        const infoModal = document.getElementById("infoModal");
+        const compareModal = document.getElementById("compareModal");
+        if (e.target === infoModal && infoModal) infoModal.style.display = "none";
+        if (e.target === compareModal && compareModal) compareModal.style.display = "none";
+    });
 
-            if (sizeSelect) {
-                sizeSelect.value = selectedValue;
-                console.log("Kafelek ustawia rozmiar na:", selectedValue);
-                calculate(); // To odpali animatePrice
-                if (navigator.vibrate) navigator.vibrate(15);
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                entry.target.querySelectorAll(".pillar-item").forEach((p) => p.classList.add("appear"));
             }
         });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".service-item, .size-selector, .brands-section, .pillar-item, .brand-pillars-minimal").forEach((el) => {
+        el.classList.add("reveal-hidden");
+        revealObserver.observe(el);
     });
 
-    // --- 8. EVENT LISTENERY I START ---
-    services.forEach(cb => cb.addEventListener('change', (e) => {
-        handleExclusions(e);
-        calculate();
-    }));
-
-    if (sizeSelect) {
-        sizeSelect.addEventListener('change', calculate);
-    }
-    
-    window.addEventListener('click', (e) => {
-        if (e.target === document.getElementById('infoModal')) document.getElementById('infoModal').style.display = "none";
-        if (e.target === document.getElementById('compareModal')) document.getElementById('compareModal').style.display = "none";
-    });
-
-    if (typeof setGreeting === 'function') setGreeting();
-    
-    // Startowe przeliczenie
     calculate();
-}); // TU SIĘ KOŃCZY DOMContentLoaded
-
-// Funkcje globalne (dostępne dla atrybutów onclick w HTML)
-function toggleInfoModal() {
-    const modal = document.getElementById('infoModal');
-    if (!modal) return;
-    if (modal.style.display === "flex") {
-        modal.style.opacity = "0";
-        setTimeout(() => modal.style.display = "none", 300);
-    } else {
-        modal.style.display = "flex";
-        setTimeout(() => modal.style.opacity = "1", 10);
-    }
-}
-
-
-/**
- * 5. SCROLL REVEAL
- */
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            entry.target.querySelectorAll('.pillar-item').forEach(p => p.classList.add('appear'));
-        }
-    });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.service-item, .size-selector, .brands-section, .pillar-item, .brand-pillars-minimal').forEach(el => {
-    el.classList.add('reveal-hidden');
-    revealObserver.observe(el);
 });
