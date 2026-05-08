@@ -40,6 +40,43 @@ body {
     overflow-x: hidden;
 }
 
+body.light-mobile-mode {
+    background-attachment: scroll;
+}
+
+.promo-bar {
+    position: sticky;
+    top: 0;
+    z-index: 5000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.95), rgba(241, 210, 121, 0.95));
+    color: #111;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+
+.promo-bar p {
+    margin: 0;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.promo-close {
+    border: none;
+    background: transparent;
+    color: #111;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 1;
+}
+
 /* ============================================
    SCROLLBAR
    ============================================ */
@@ -437,6 +474,29 @@ h3 {
     padding-left: 20px;
 }
 
+.service-item.service-active {
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.16), rgba(212, 175, 55, 0.03));
+    border-left: 3px solid var(--gold);
+}
+
+.service-item.service-active .service-name {
+    color: #fff7d6;
+}
+
+.service-item.service-active .service-price {
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.35);
+}
+
+.service-item.service-pop {
+    animation: servicePop 0.36s ease;
+}
+
+@keyframes servicePop {
+    0% { transform: scale(0.99); }
+    50% { transform: scale(1.01); }
+    100% { transform: scale(1); }
+}
+
 /* TOOLTIPY (Opisy po najechaniu) */
 .service-item::after {
     content: attr(data-tip);
@@ -470,6 +530,35 @@ h3 {
 .service-name {
     flex: 1;
     margin-left: 15px;
+}
+
+.service-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    background: rgba(212, 175, 55, 0.18);
+    border: 1px solid rgba(212, 175, 55, 0.65);
+    color: #f1d279;
+    animation: pulseBadge 1.8s infinite;
+    vertical-align: middle;
+}
+
+.service-badge-dark {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.25);
+    color: #fff;
+    animation-delay: 0.6s;
+}
+
+@keyframes pulseBadge {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(212,175,55,0.3); }
+    50% { transform: scale(1.04); box-shadow: 0 0 12px rgba(212,175,55,0.35); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(212,175,55,0.3); }
 }
 
 .service-price {
@@ -511,10 +600,51 @@ h3 {
     color: var(--gold);
 }
 
+#res-gross {
+    display: inline-block;
+    transform-origin: center;
+}
+
+#res-gross.price-flip {
+    animation: priceFlip 0.65s ease;
+}
+
+@keyframes priceFlip {
+    0% { transform: rotateX(0deg) scale(1); opacity: 0.82; }
+    45% { transform: rotateX(35deg) scale(1.05); opacity: 1; }
+    100% { transform: rotateX(0deg) scale(1); opacity: 1; }
+}
+
+.estimated-time {
+    margin: -5px 0 16px;
+    color: #d0d0d0;
+    font-size: 0.92rem;
+}
+
+.estimated-time strong {
+    color: var(--gold);
+}
+
 .footer-info {
     font-size: 0.8rem;
     color: #666;
     margin-bottom: 25px;
+}
+
+.upsell-suggestion {
+    display: none;
+    margin-bottom: 18px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    background: rgba(212, 175, 55, 0.08);
+    color: #f1d279;
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.upsell-suggestion.show {
+    display: block;
 }
 
 /* PRZYCISKI W KARCIE */
@@ -855,6 +985,7 @@ h3 {
     box-shadow: 0 15px 30px rgba(220, 39, 67, 0.4);
 }
 
+
 /* ============================================
    FILARY MARKI
    ============================================ */
@@ -862,6 +993,19 @@ h3 {
     padding: 60px 0;
     background: transparent;
     width: 100%;
+}
+
+.trust-counter {
+    margin: 32px auto 0;
+    text-align: center;
+    font-size: 1rem;
+    color: #cfcfcf;
+    letter-spacing: 0.4px;
+}
+
+.trust-counter strong {
+    color: var(--gold);
+    font-size: 1.15rem;
 }
 
 .pillars-wrapper {
@@ -1380,4 +1524,95 @@ footer {
     font-size: 3rem;
     color: var(--gold);
     margin-bottom: 20px;
+}
+
+.logo-description h4 {
+    margin: 0 0 8px;
+}
+
+.logo-description p {
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .summary-card {
+        position: static !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        z-index: 100 !important;
+        border-width: 1px !important;
+        border-radius: 14px !important;
+    }
+
+    .calculator-container {
+        padding-bottom: 0 !important;
+    }
+
+    .service-item {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .service-name {
+        margin-left: 10px;
+        min-width: 0;
+    }
+
+    .service-price {
+        margin-left: auto;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .promo-bar {
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .promo-bar p {
+        font-size: 0.8rem;
+    }
+
+    .size-picker {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .size-option {
+        padding: 12px 8px;
+    }
+
+    .size-option span {
+        font-size: 1.25rem;
+    }
+
+    .size-option small {
+        font-size: 0.58rem;
+    }
+
+    .logo-description {
+        max-width: min(92vw, 320px);
+    }
+
+    .trust-counter {
+        font-size: 0.9rem;
+        padding: 0 12px;
+    }
+
+}
+
+body.light-mobile-mode .header-bg-video,
+body.light-mobile-mode .insta-bg-video {
+    display: none !important;
+}
+
+body.light-mobile-mode .header-overlay,
+body.light-mobile-mode .insta-overlay {
+    background: rgba(0,0,0,0.72);
+}
+
+body.light-mobile-mode .logos-track {
+    animation-duration: 90s;
 }
