@@ -12,6 +12,10 @@
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
+<div class="promo-bar" id="promo-bar">
+    <p id="promo-text"><strong>Oferta specjalna:</strong> -10% na pierwszą wizytę z kodem <strong>START10</strong>.</p>
+    <button type="button" class="promo-close" id="promo-close-btn" aria-label="Zamknij pasek promocji">&times;</button>
+</div>
 
 <header class="main-header">
     <video autoplay muted loop playsinline class="header-bg-video">
@@ -23,7 +27,8 @@
         <div class="logo-container">
             <img src="logo1.png" alt="Car All Detailing Logo" class="main-logo">
             <div class="logo-description">
-                <h4 id="greeting-text">Siemanko!</h4> tu Karol! Dbam o auta w Holandii (Maarssen), a już niedługo także w Polsce. Twój samochód służy Ci codziennie – zasługuje na chwilę profesjonalnego odświeżenia. Sprawdź cennik i do zobaczenia! :D </p>
+                <h4 id="greeting-text">Siemanko!</h4>
+                <p id="logo-tip-text">Tu Karol! Dbam o auta w Holandii (Maarssen), a już niedługo także w Polsce. Twój samochód służy Ci codziennie - zasługuje na chwilę profesjonalnego odświeżenia. Sprawdź cennik i do zobaczenia! :D</p>
             </div>
         </div>
         <div class="brand-titles">
@@ -94,7 +99,7 @@
 
         <label class="service-item" data-tip="Kompletny pakiet: Exterieur + Interieur. Pełne standardowe odświeżenie auta wewnątrz i na zewnątrz.">
             <input type="checkbox" id="full-combo" class="service" data-s="110" data-m="130" data-l="160" data-xl="190" data-xxl="240"> 
-            <span class="service-name"><strong>PAKIET COMBO</strong> (Wnętrze + Zewnątrz)</span>
+            <span class="service-name"><strong>PAKIET COMBO</strong> (Wnętrze + Zewnątrz) <span class="service-badge">Najczęściej wybierany</span></span>
             <span class="service-price">od €110</span>
         </label>
 
@@ -106,7 +111,7 @@
 
         <label class="service-item" data-tip="Najwyższy standard: Full Detail COMBO + Deep Interior PLUS glinkowanie lakieru i twardy wosk Premium.">
             <input type="checkbox" id="showroom" class="service" data-s="240" data-m="280" data-l="330" data-xl="390" data-xxl="480"> 
-            <span class="service-name"><strong>Pakiet Showroom</strong> (Max efekt + Wosk twardy)</span>
+            <span class="service-name"><strong>Pakiet Showroom</strong> (Max efekt + Wosk twardy) <span class="service-badge service-badge-dark">Premium</span></span>
             <span class="service-price">od €240</span>
         </label>
 
@@ -178,10 +183,12 @@
     <div class="summary-card">
         <h4>Wstępna Wycena</h4>
         <p class="grand-total">DO ZAPŁATY: <span><span id="res-gross">0</span> €</span></p>
+        <p class="estimated-time">Szacowany czas: <strong id="res-time">0h</strong></p>
         
         <div class="footer-info">
             <p>• Ostateczna cena po oględzinach stanu pojazdu</p>
         </div>
+        <div class="upsell-suggestion" id="upsell-suggestion" aria-live="polite"></div>
         
         <button id="download-offer-btn" class="print-btn" onclick="generateOfferPDF()">
             <i class="fas fa-file-pdf"></i> Pobierz Ofertę (PDF)
@@ -262,6 +269,7 @@
             <h3>Gwarancja</h3>
         </div>
     </div>
+    <p class="trust-counter">Dlaczego warto? Stronę odwiedzono już <strong id="visit-count">...</strong> razy.</p>
 </section>
 
 <section class="instagram-container">
