@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Car All Detailing - Ekskluzywna pielęgnacja samochodowa Karola Zagórskiego. Kalkulator usług detailingowych online.">
+    <meta name="keywords" content="detailing, czyszczenie auta, pranie tapicerki, polerka, Karol Zagórski, car detailing">
+    <!-- Open Graph – podgląd linku w WhatsApp, Facebook, Messenger itd. -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Car All Detailing | Karol Zagórski">
+    <meta property="og:description" content="Ekskluzywna pielęgnacja samochodowa. Kalkulator cen detailingowych online – Maarssen (NL) i wkrótce Polska.">
+    <!-- Po wdrożeniu ustaw pełny URL obrazka, np. https://twoja-domena.pl/logo1.png -->
+    <meta property="og:image" content="https://cjaab.github.io/cennik.github.io/logo1.png">
+    <meta property="og:url" content="https://cjaab.github.io/cennik.github.io/">
+    <meta property="og:locale" content="pl_PL">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Car All Detailing | Karol Zagórski">
+    <meta name="twitter:description" content="Kalkulator usług detailingowych – sprawdź wycenę i umów termin.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="logo1.png" type="image/png">
+    <title>Car All Detailing | Karol Zagórski</title>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AutoDetailing",
+        "name": "Car All Detailing",
+        "description": "Ekskluzywna pielęgnacja samochodowa – kalkulator cen online.",
+        "url": "https://cjaab.github.io/cennik.github.io/",
+        "image": "https://cjaab.github.io/cennik.github.io/logo1.png",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Maarssen",
+            "addressCountry": "NL"
+        },
+        "founder": { "@type": "Person", "name": "Karol Zagórski" },
+        "priceRange": "€€",
+        "sameAs": ["https://www.instagram.com/cjaab99/"]
+    }
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+</head>
+<body>
+<div class="promo-bar" id="promo-bar">
+    <p id="promo-text"><strong>Oferta specjalna:</strong> −10% na pierwszą wizytę z kodem <strong>START10</strong> — podaj go przy rezerwacji (WhatsApp / Calendly).</p>
+    <button type="button" class="promo-close" id="promo-close-btn" aria-label="Zamknij pasek promocji">&times;</button>
+</div>
+
+<header class="main-header">
+    <video autoplay muted loop playsinline class="header-bg-video">
+        <source src="video2.mp4" type="video/mp4">
+    </video>
+    <div class="header-overlay"></div>
+
+    <div class="header-content">
+        <div class="logo-container">
+            <img src="logo1.png" alt="Car All Detailing Logo" class="main-logo">
+            <div class="logo-description">
+                <h4 id="greeting-text">Siemanko!</h4>
+                <p id="logo-tip-text">Tu Karol! Dbam o auta w Holandii (Maarssen), a już niedługo także w Polsce. Twój samochód służy Ci codziennie - zasługuje na chwilę profesjonalnego odświeżenia. Sprawdź cennik i do zobaczenia! :D</p>
+            </div>
+        </div>
+        <div class="brand-titles">
+            <h1>CAR ALL DETAILING</h1>
+            <p class="signature">by Karol Zagórski</p>
+            <p class="tagline">EKSKLUZYWNA PIELĘGNACJA SAMOCHODOWA</p>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- SEKCJA WYBORU ROZMIARU -->
+<div class="size-selector">
+    <label>KLASA POJAZDU</label>
+    
+    <!-- To są Twoje nowe, interaktywne kafelki -->
+    <div class="size-picker">
+        <div class="size-option" data-value="S">
+            <span>S</span>
+            <small>Małe (np. Fiat 500)</small>
+        </div>
+        <div class="size-option active" data-value="M">
+            <span>M</span>
+            <small>Średnie (np. Golf, Audi A3)</small>
+        </div>
+        <div class="size-option" data-value="L">
+            <span>L</span>
+            <small>Duże (np. Audi A6, BMW 5)</small>
+        </div>
+        <div class="size-option" data-value="XL">
+            <span>XL</span>
+            <small>SUV (np. BMW X5, Q7)</small>
+        </div>
+        <div class="size-option" data-value="XXL">
+            <span>XXL</span>
+            <small>VAN / BUS (np. Sprinter)</small>
+        </div>
+    </div>
+
+    <!-- Oryginalny select zostaje ukryty w CSS, ale musi być w HTML, 
+         żeby reszta Twojego starego kodu JS nadal wiedziała, co liczyć -->
+    <select id="car-size">
+        <option value="S">S</option>
+        <option value="M" selected>M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+    </select>
+</div>
+
+    <div class="calculator-container">
+
+    <!-- LEWA STRONA: LISTA USŁUG -->
+    <div class="services-selection">
+        <h3>Pakiety Główne</h3>
+        
+        <label class="service-item" data-tip="Bezpieczne mycie ręczne, czyszczenie felg oraz opon">
+            <input type="checkbox" id="ext-basic" class="service" data-s="55" data-m="65" data-l="80" data-xl="95" data-xxl="115"> 
+            <span class="service-name"><strong>Podstawowe mycie zewnętrzne</strong> (Zewnątrz, felgi)</span>
+            <span class="service-price">od €55</span>
+        </label>
+
+        <label class="service-item" data-tip="Dokładne odkurzanie, czyszczenie wnętrza i bagażnika, mycie szyb oraz odświeżenie plastików.">
+            <input type="checkbox" id="int-basic" class="service" data-s="65" data-m="75" data-l="90" data-xl="110" data-xxl="140"> 
+            <span class="service-name"><strong>Podstawowe czyszczenie wnętrza</strong> (Odkurzanie, szyby, plastiki)</span>
+            <span class="service-price">od €65</span>
+        </label>
+
+        <label class="service-item" data-tip="Kompletny pakiet: Exterieur + Interieur. Pełne standardowe odświeżenie auta wewnątrz i na zewnątrz.">
+            <input type="checkbox" id="full-combo" class="service" data-s="110" data-m="130" data-l="160" data-xl="190" data-xxl="240"> 
+            <span class="service-name"><strong>PAKIET COMBO</strong> (Wnętrze + Zewnątrz) <span class="service-badge">Najczęściej wybierany</span></span>
+            <span class="service-price">od €110</span>
+        </label>
+
+        <label class="service-item" data-tip="Głębokie pranie ekstrakcyjne foteli, podłogi i boczków. Usuwa plamy, roztocza i nieprzyjemne zapachy.">
+            <input type="checkbox" id="deep-clean" class="service" data-s="140" data-m="160" data-l="190" data-xl="230" data-xxl="290" disabled> 
+            <span class="service-name"><strong>Pranie Tapicerki</strong> (Głębokie czyszczenie) WKRÓTCE DOSTĘPNE</span>
+            <span class="service-price">od €140</span>
+        </label>
+
+        <label class="service-item" data-tip="Najwyższy standard: Full Detail COMBO + Deep Interior PLUS glinkowanie lakieru i twardy wosk Premium.">
+            <input type="checkbox" id="showroom" class="service" data-s="240" data-m="280" data-l="330" data-xl="390" data-xxl="480"> 
+            <span class="service-name"><strong>Pakiet Showroom</strong> (Max efekt + Wosk twardy) <span class="service-badge service-badge-dark">Premium</span></span>
+            <span class="service-price">od €240</span>
+        </label>
+
+        <h3>Pielęgnacja Skóry</h3>
+        <label class="service-item" data-tip="Głębokie czyszczenie skór dedykowaną chemią i nawilżenie. Wybierz tę opcję, jeśli masz skórzaną tapicerkę.">
+            <input type="checkbox" id="leather-clean" class="service" data-static="85"> 
+            <span class="service-name">Czyszczenie i Odżywienie Skór</span>
+            <span class="service-price">od €85</span>
+        </label>
+
+        <label class="service-item" data-tip="Dokładne czyszczenie i zabezpieczenie kierownicy - najczęściej dotykanego elementu.">
+            <input type="checkbox" id="steering-wheel" class="service" data-static="25"> 
+            <span class="service-name">Detailing Kierownicy</span>
+            <span class="service-price">€25</span>
+        </label>
+
+        <h3>Tapicerka Materiałowa</h3>
+        <label class="service-item" data-tip="Czyszczenie metodą bonetowania (na sucho) samych foteli oraz boczków drzwiowych.">
+            <input type="checkbox" id="boneting-seats" class="service" data-static="45"> 
+            <span class="service-name">Bonetowanie (Fotele + Boczki)</span>
+            <span class="service-price">€45</span>
+        </label>
+
+        <label class="service-item" data-tip="Pełny pakiet bonetowania: fotele, boczki oraz delikatne czyszczenie podsufitki.">
+            <input type="checkbox" id="boneting-full" class="service" data-static="75"> 
+            <span class="service-name">Bonetowanie Full (+ Podsufitka)</span>
+            <span class="service-price">€75</span>
+        </label>
+
+        <h3>Dodatki Premium</h3>
+        <label class="service-item" data-tip="Usunięcie osadów metalicznych i glinkowanie lakieru, by stał się idealnie gładki.">
+            <input type="checkbox" id="clay-deiron" class="service" data-static="60"> 
+            <span class="service-name">Glinkowanie + Deironizacja Lakieru</span>
+            <span class="service-price">od €60</span>
+        </label>
+
+        <label class="service-item" data-tip="Ręczna aplikacja wysokiej jakości twardego wosku dla głębi koloru i hydrofobowości.">
+            <input type="checkbox" id="premiumWax" class="service" data-static="65"> 
+            <span class="service-name">Wosk Premium (Twardy wosk)</span>
+            <span class="service-price">€65</span>
+        </label>
+
+        <label class="service-item" data-tip="Szybka aplikacja płynnego wosku/sealantu, która nadaje lakierowi natychmiastowy blask.">
+            <input type="checkbox" id="quickWax" class="service" data-static="30"> 
+            <span class="service-name">Quick Wax (Wosk na szybko)</span>
+            <span class="service-price">€30</span>
+        </label>
+
+        <label class="service-item" data-tip="Usuwanie bakterii, wirusów i nieprzyjemnych zapachów (np. tytoniu) za pomocą ozonu.">
+            <input type="checkbox" class="service" data-static="50" disabled> 
+            <span class="service-name">Ozonowanie Wnętrza (WKRÓTCE DOSTĘPNE)</span>
+            <span class="service-price">€50</span>
+        </label>
+
+        <label class="service-item" data-tip="Bezpieczne czyszczenie komory silnika oraz konserwacja plastików i gum.">
+            <input type="checkbox" id="engine-bay" class="service" data-static="55"> 
+            <span class="service-name">Czyszczenie Komory Silnika</span>
+            <span class="service-price">€55</span>
+        </label>
+
+        <label class="service-item" data-tip="Pracochłonne usuwanie wbitej w tapicerkę sierści zwierząt.">
+            <input type="checkbox" id="pet-hair" class="service" data-static="35"> 
+            <span class="service-name">Usuwanie Sierści</span>
+            <span class="service-price">od €35</span>
+        </label>
+
+    </div>
+
+    <!-- PRAWA STRONA: KALKULATOR -->
+    <div class="summary-card">
+        <h4>Wstępna Wycena</h4>
+        <p class="grand-total"><span id="pay-label">DO ZAPŁATY:</span> <span><span id="res-gross" data-eur-total="0">0</span> <span id="currency-symbol">€</span></span></p>
+        <p class="estimated-time">Szacowany czas: <strong id="res-time">0h</strong></p>
+        
+        <div class="footer-info">
+            <p>• Ostateczna cena po oględzinach stanu pojazdu</p>
+        </div>
+        <div class="upsell-suggestion" id="upsell-suggestion" aria-live="polite"></div>
+        <p class="whatsapp-hint" id="whatsapp-hint">Masz wycenę? Użyj zielonego przycisku WhatsApp — wyśle gotową listę usług.</p>
+        
+        <button id="download-offer-btn" class="print-btn" onclick="generateOfferPDF()">
+            <i class="fas fa-file-pdf"></i> Pobierz Ofertę (PDF)
+        </button>
+
+        <button type="button" class="book-btn" onclick="Calendly.showPopupWidget('https://calendly.com/yakasu1999/new-meeting');return false;">
+            <i class="fas fa-calendar-alt"></i> Zarezerwuj Termin Online
+        </button>
+    </div>
+
+</div> <!-- KONIEC  -->
+
+<section class="gallery-section reveal-hidden" id="realizacje">
+    <h3 class="section-title">Efekt przed i po</h3>
+    <p class="gallery-note">Przesuń suwak w środku. Wgraj swoje zdjęcia jako <strong>gallery-before.jpg</strong> i <strong>gallery-after.jpg</strong> do folderu strony.</p>
+    <div class="before-after-slider" id="before-after-slider">
+        <div class="ba-image ba-before">
+            <img src="gallery-before.jpg" alt="Przed detailingiem" loading="lazy" onerror="this.parentElement.classList.add('ba-fallback')">
+            <span class="ba-label">Przed</span>
+        </div>
+        <div class="ba-image ba-after">
+            <img src="gallery-after.jpg" alt="Po detailingu" loading="lazy" onerror="this.parentElement.classList.add('ba-fallback')">
+            <span class="ba-label ba-label-after">Po</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" class="slider-input" aria-label="Porównanie przed i po">
+        <div class="slider-handle" aria-hidden="true"></div>
+    </div>
+</section>
+
+<section class="reviews-section reveal-hidden" id="opinie">
+    <h3 class="section-title">Opinie klientów</h3>
+    <div class="reviews-grid">
+        <blockquote class="review-card">
+            <p>„Auto wygląda jak z salonu. Pakiet COMBO w pełni wystarczył — polecam Karola.”</p>
+            <footer>— Klient, Golf · Maarssen</footer>
+            <div class="review-stars" aria-hidden="true">★★★★★</div>
+        </blockquote>
+        <blockquote class="review-card">
+            <p>„Showroom to inna liga. Widać pasję do detalu i dbałość o każdy element.”</p>
+            <footer>— Klient, Audi · NL</footer>
+            <div class="review-stars" aria-hidden="true">★★★★★</div>
+        </blockquote>
+        <blockquote class="review-card">
+            <p>„Wycena z kalkulatora, potem szybki kontakt na WhatsApp. Profesjonalnie.”</p>
+            <footer>— Klient, SUV</footer>
+            <div class="review-stars" aria-hidden="true">★★★★★</div>
+        </blockquote>
+    </div>
+</section>
+
+<section class="safety-section reveal-hidden">
+    <div class="container">
+        <div class="safety-card" style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <i class="fas fa-shield-alt gold-icon"></i>
+            <h3>Profesjonalna Dokumentacja i Bezpieczeństwo</h3>
+            
+            <p style="text-align: justify; margin-bottom: 25px;">
+                Bezpieczeństwo Twojego pojazdu jest dla mnie priorytetem, dlatego każda realizacja oparta jest na jasnych i przejrzystych zasadach. Przed przystąpieniem do prac przeprowadzam szczegółową inspekcję wizualną, której wynik dokumentuję w profesjonalnym protokole przyjęcia – dzięki temu masz pewność co do stanu auta w momencie przekazania go w moje ręce. Wszystkie usługi realizowane są zgodnie z ustalonym regulaminem, który precyzyjnie określa zakres mojej odpowiedzialności oraz standardy opieki nad powierzonym mieniem. Zachęcam do zapoznania się z wzorami dokumentów poniżej.
+            </p>
+            
+            <div class="download-buttons" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="protokol-wzor.pdf" download="Protokol_Inspekcji_Car_All_Detailing.pdf" class="btn-outline">
+                    <i class="fas fa-download"></i> Pobierz wzór protokołu
+                </a>
+                
+                <a href="regulamin.pdf" download="Regulamin_Car_All_Detailing.pdf" class="btn-outline">
+                    <i class="fas fa-download"></i> Pobierz regulamin
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="brands-section">
+        <h3 class="brands-title">Pracuję na profesjonalnych produktach</h3>
+        <div class="logos-slider">
+            <div class="logos-track">
+                <div class="brand-item"><img src="logos/adbl.png" alt="ADBL"></div>
+                <div class="brand-item"><img src="logos/fxprotect.png" alt="FX Protect"></div>
+                <div class="brand-item"><img src="logos/cleantle.png" alt="Cleantle"></div>
+                <div class="brand-item"><img src="logos/fresso.png" alt="Fresso"></div>
+                <div class="brand-item"><img src="logos/goodstuff.png" alt="Good Stuff"></div>
+                <div class="brand-item"><img src="logos/kiurlab.png" alt="KiurLab"></div>
+                <div class="brand-item"><img src="logos/swag.png" alt="Swag"></div>
+                <div class="brand-item"><img src="logos/workstuff.png" alt="Work Stuff"></div>
+                <div class="brand-item"><img src="logos/monstershine.png" alt="Monster Shine"></div>
+                <div class="brand-item"><img src="logos/adbl.png" alt="ADBL"></div>
+                <div class="brand-item"><img src="logos/fxprotect.png" alt="FX Protect"></div>
+                <div class="brand-item"><img src="logos/cleantle.png" alt="Cleantle"></div>
+                <div class="brand-item"><img src="logos/fresso.png" alt="Fresso"></div>
+                <div class="brand-item"><img src="logos/goodstuff.png" alt="Good Stuff"></div>
+                <div class="brand-item"><img src="logos/kiurlab.png" alt="KiurLab"></div>
+                <div class="brand-item"><img src="logos/swag.png" alt="Swag"></div>
+                <div class="brand-item"><img src="logos/workstuff.png" alt="Work Stuff"></div>
+                <div class="brand-item"><img src="logos/monstershine.png" alt="Monster Shine"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="brand-pillars-minimal">
+    <div class="pillars-wrapper">
+        <div class="pillar-item" style="--d: 1">
+            <div class="icon-glow">🚗</div>
+            <h3>Twój samochód</h3>
+        </div>
+        <div class="pillar-item" style="--i: 2">
+            <div class="icon-glow">🎓</div>
+            <h3>Moja wiedza</h3>
+        </div>
+        <div class="pillar-item" style="--i: 3">
+            <div class="icon-glow">🛠️</div>
+            <h3>Sprawdzone metody</h3>
+        </div>
+        <div class="pillar-item" style="--i: 4">
+            <div class="icon-glow">✅</div>
+            <h3>Gwarancja</h3>
+        </div>
+    </div>
+    <p class="trust-counter">Dlaczego warto? Stronę odwiedzono już <strong id="visit-count">...</strong> razy.</p>
+</section>
+
+<section class="instagram-container">
+    <video autoplay muted loop playsinline class="insta-bg-video">
+        <source src="video1.mp4" type="video/mp4">
+        Twój model przeglądarki nie wspiera wideo.
+    </video>
+    
+    <div class="insta-overlay"></div>
+
+    <div class="insta-content">
+        <div class="insta-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="insta-icon">
+            <h3>Moje Realizacje</h3>
+        </div>
+        <div class="insta-feed">
+            <p>Zobacz jak odmieniam auta moich klientów na bieżąco!</p>
+            <a href="https://www.instagram.com/cjaab99/" target="_blank" class="insta-link-btn">
+                Obserwuj mnie na Instagramie @cjaab99
+            </a>
+        </div>
+    </div>
+</section>
+</main>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script src="enhancements.js"></script>
+<script src="script.js"></script>
+
+<a href="https://wa.me/48731693089?text=Cześć!%20Obliczyłem%20cenę%20w%20kalkulatorze%20i%20chciałbym%20zapytać%20o%20wolny%20termin." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Napisz na WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="" width="35" height="35" decoding="async">
+</a>
+
+<footer>
+    <p>&copy; 2026 Car All Detailing | Karol Zagórski</p>
+</footer>
+
+<div class="info-float" onclick="toggleInfoModal()" role="button" tabindex="0" aria-label="Słownik detailera">
+    <span>?</span>
+</div>
+
+<div id="infoModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal" onclick="toggleInfoModal()">&times;</span>
+        <h3>Słownik Detailera</h3>
+        <p class="modal-subtitle">Kliknij pojęcie, aby dowiedzieć się więcej:</p>
+        
+        <div class="knowledge-accordion">
+    <details>
+        <summary>🚿 Mycie Detailingowe (Zewnątrz)</summary>
+        <p>To fundament bezpiecznej pielęgnacji. Proces zaczynamy od <strong>pianowania (Pre-Wash)</strong>, by zmiękczyć brud bez dotykania lakieru. Następnie stosujemy metodę <strong>"na dwa wiadra"</strong> z separatorami zanieczyszczeń i pędzelkujemy każdy detal: wnęki, emblematy oraz grill. Całość kończymy osuszaniem sprężonym powietrzem i grubymi ręcznikami, co eliminuje ryzyko powstawania mikrozarysowań typu <em>swirls</em>.</p>
+    </details>
+
+    <details>
+        <summary>🧼 Dekontaminacja i Deironizacja</summary>
+        <p>Usunięcie tego, czego nie widać na pierwszy rzut oka. <strong>Deironizacja</strong> chemicznie rozpuszcza wbite w lakier opiłki metalu z klocków hamulcowych (efekt "krwawiącego lakieru"). Dodatkowo usuwamy smołę, asfalt oraz soki z drzew. Dopiero po tym etapie lakier odzyskuje swoją naturalną czystość chemiczną, stając się idealną bazą pod woski i powłoki.</p>
+    </details>
+
+    <details>
+        <summary>🛡️ Wosk Premium (Twardy)</summary>
+        <p>Ekskluzywne zabezpieczenie na bazie <strong>brazylijskiej carnauby</strong> lub zaawansowanych polimerów. Tworzy na lakierze grubą, szklistą warstwę ochronną. Zapewnia ekstremalną hydrofobowość (zrzut wody), chroni przed promieniami UV i oksydacją, a przede wszystkim nadaje lakierowi legendarną głębię koloru i efekt "mokrego lustra".</p>
+    </details>
+
+    <details>
+        <summary>🐂 Pielęgnacja Skóry (Clean & Condition)</summary>
+        <p>Przywracamy skórze jej fabryczny, matowy wygląd i miękkość. Najpierw bezpiecznie usuwamy brud z porów skóry za pomocą dedykowanych pianek i szczoteczek z naturalnego włosia. Następnie impregnujemy ją <strong>conditionerym</strong>, który zapobiega wysuszaniu, pękaniu i transferowi barwnika z ubrań (np. z jeansów).</p>
+    </details>
+
+    <details>
+        <summary>✨ Jednoetapowe Odświeżenie (One-Step Polish)</summary>
+        <p>Złoty środek między myciem a pełną korektą. Za pomocą maszyny polerskiej i delikatnej pasty usuwamy do 50-60% drobnych zarysowań (matowienia, rysy po myjniach). Efektem jest drastyczny wzrost połysku, usunięcie utlenionej warstwy lakieru i przygotowanie auta pod sprzedaż lub nałożenie długofalowej ochrony.</p>
+    </details>
+
+    <details>
+        <summary>💎 Powłoka Ceramiczna / Grafenowa</summary>
+        <p>Najtrwalsza forma ochrony dostępna na rynku. Wiąże się na stałe z lakierem, tworząc warstwę o twardości do <strong>9H</strong>. Chroni przed chemią, solą drogową i drobnymi zarysowaniami przez okres od 2 do nawet 5 lat. Sprawia, że auto brudzi się znacznie wolniej, a mycie staje się banalnie proste dzięki potężnym właściwościom samooczyszczającym.</p>
+    </details>
+
+    <details>
+        <summary>🛞 Detailing Kół i Nadkoli</summary>
+        <p>Kompleksowe czyszczenie felg od strony wewnętrznej (po zdjęciu lub na aucie), usuwanie pyłu hamulcowego i zapieczonego asfaltu. Proces wieńczymy <strong>dressingiem opon</strong> (efekt nowej, satynowej opony) oraz zabezpieczeniem felg dedykowanym woskiem wysokotemperaturowym, który ułatwia późniejsze zmywanie pyłu z klocków.</p>
+    </details>
+
+    <details>
+        <summary>🕯️ Polerowanie Reflektorów</summary>
+        <p>Przywracamy przejrzystość zmatowiałym i żółtym lampom. Proces polega na wieloetapowym szlifowaniu zniszczonej warstwy poliwęglanu i mechanicznym polerowaniu na błysk. Na koniec nakładamy filtr UV, który zapobiega ponownemu utlenianiu się plastiku, co znacząco poprawia bezpieczeństwo jazdy w nocy.</p>
+    </details>
+
+    <details>
+        <summary>🖤 Odświeżenie Plastików Zewnętrznych</summary>
+        <p>Przywracamy głęboką czerń wyblakłym listwom, grillom i elementom podszybia. Używamy dressingów premium lub powłok ceramicznych do plastiku, które nie tylko przywracają kolor, ale tworzą barierę przed promieniami słońca, zapobiegając kruszeniu i ponownemu szarzeniu elementów.</p>
+    </details>
+
+    <details>
+        <summary>🧼 Czyszczenie Komory Silnika</summary>
+        <p>Bezpieczne usuwanie osadów olejowych i kurzu z serca Twojego auta. Używamy dielektrycznych środków i pary wodnej, aby nie uszkodzić elektroniki. Po czyszczeniu wszystkie elementy gumowe i plastikowe zostają zabezpieczone antystatycznym dressingiem, który chroni przed parbieniem i nadaje fabryczny wygląd.</p>
+    </details>
+    
+    <details>
+    <summary>💎 Dlaczego Detailing jest droższy od zwykłej myjni?</summary>
+    <p>
+        Wiele osób myli detailing ze zwykłym myciem, ale różnica tkwi w <strong>skali precyzji</strong> i <strong>bezpieczeństwie</strong>:
+        <br><br>
+        1. <strong>Czas to jakość:</strong> Zwykłe mycie trwa 30 minut. Kompleksowy detailing to od 8 do nawet 40 godzin rzemieślniczej pracy. Detailer poświęca czas na miejsca, których nie widać na pierwszy rzut oka – wnęki, szyny foteli, emblematy czy nadkola.
+        <br><br>
+        2. <strong>Technologia i bezpieczeństwo:</strong> Korzystamy z mierników grubości lakieru, specjalistycznych lamp inspekcyjnych i maszyn polerskich. Używamy chemii o bezpiecznym pH, która nie niszczy uszczelek ani chromów, co jest częstym problemem po agresywnej chemii na myjniach bezdotykowych.
+        <br><br>
+        3. <strong>Wiedza i odpowiedzialność:</strong> Lakier współczesnych aut jest cieńszy niż ludzki włos. Praca z maszyną polerską wymaga ogromnej wiedzy, by nie doprowadzić do nieodwracalnych uszkodzeń. Płacisz za doświadczenie, które gwarantuje, że auto wróci do Ciebie w lepszym stanie, niż wyjechało z salonu.
+        <br><br>
+        4. <strong>Inwestycja, nie koszt:</strong> Profesjonalny detailing drastycznie podnosi wartość rynkową auta przy odsprzedaży i chroni je przed korozją oraz degradacją materiałów. To konserwacja, która realnie oszczędza Twoje pieniądze w przyszłości.
+    </p>
+</details>
+</div>
+    </div>
+</div>
+
+</body>
+</html>
