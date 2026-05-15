@@ -1,2 +1,0 @@
-# cennik
-cennik detailingowy
