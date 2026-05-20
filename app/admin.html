@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#d4af37">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CAD Admin">
+    <link rel="manifest" href="admin-manifest.json">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+    <title>CAD Admin</title>
+</head>
+<body>
+    <header class="admin-top">
+        <div class="admin-top__brand">
+            <img src="icons/icon-192.png" alt="" width="36" height="36">
+            <div>
+                <strong>CAD Admin</strong>
+                <span id="admin-user-label">Panel wiadomości</span>
+            </div>
+        </div>
+        <div class="admin-top__actions" id="admin-top-actions" hidden>
+            <button type="button" class="icon-action" id="install-admin-btn" title="Ikona na ekran"><i class="fas fa-plus-square"></i></button>
+            <button type="button" class="icon-action" id="notify-btn" title="Powiadomienia"><i class="fas fa-bell"></i></button>
+            <button type="button" class="icon-action icon-action--muted" id="logout-btn" title="Wyloguj"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+    </header>
+
+    <div id="admin-toast" class="admin-toast" hidden role="status"></div>
+
+    <div id="admin-login" class="admin-login">
+        <div class="admin-card">
+            <h2>Logowanie</h2>
+            <p class="admin-card__sub">Tylko dla administratora (Firebase: e-mail + hasło).</p>
+            <form id="login-form">
+                <label>E-mail<input type="email" id="admin-email" required autocomplete="username"></label>
+                <label>Hasło<input type="password" id="admin-password" required autocomplete="current-password"></label>
+                <button type="submit" class="btn btn--primary">Zaloguj</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="admin-app" class="admin-app" hidden>
+        <div class="admin-layout">
+            <aside class="conv-sidebar">
+                <div class="conv-tabs" role="tablist">
+                    <button type="button" class="conv-tab active" data-tab="active">Aktywne</button>
+                    <button type="button" class="conv-tab" data-tab="archive">Archiwum</button>
+                </div>
+                <div class="conv-list" id="conv-list"></div>
+            </aside>
+            <section class="admin-thread">
+                <div class="admin-thread-header" id="admin-thread-header" hidden>
+                    <div class="admin-thread-meta">
+                        <strong id="admin-thread-title">Klient</strong>
+                        <span id="admin-thread-lang"></span>
+                    </div>
+                    <div class="admin-thread-actions">
+                        <button type="button" class="btn btn--sm btn--ghost" id="archive-btn">Archiwizuj</button>
+                        <button type="button" class="btn btn--sm btn--danger" id="delete-conv-btn">Usuń</button>
+                    </div>
+                </div>
+                <div class="chat-messages" id="admin-messages">
+                    <p class="admin-empty-hint">Wybierz rozmowę z listy.</p>
+                </div>
+                <div class="chat-compose">
+                    <input type="text" id="admin-reply" placeholder="Odpowiedz…" maxlength="1200" autocomplete="off">
+                    <button type="button" id="admin-send" class="btn-send" aria-label="Wyślij"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div id="admin-install-sheet" class="admin-sheet" hidden role="dialog" aria-modal="true">
+        <div class="admin-sheet__backdrop" data-admin-install-dismiss></div>
+        <div class="admin-sheet__panel">
+            <button type="button" class="admin-sheet__close" data-admin-install-dismiss aria-label="Zamknij"><i class="fas fa-times"></i></button>
+            <h2>Dodaj ikonę CAD Admin</h2>
+            <p class="admin-sheet__lead">Osobna ikona na ekranie — tylko ten panel (nie aplikacja klienta).</p>
+            <p id="admin-install-status" class="admin-sheet__status"></p>
+            <div id="admin-install-android" hidden>
+                <button type="button" class="btn btn--primary btn--block" id="admin-install-pwa-btn">Dodaj ikonę</button>
+            </div>
+            <ol id="admin-install-ios" class="admin-sheet__steps" hidden>
+                <li>Safari → <strong>Udostępnij</strong></li>
+                <li><strong>Dodaj do ekranu początkowego</strong></li>
+            </ol>
+            <button type="button" class="btn btn--ghost btn--block" data-admin-install-dismiss>Anuluj</button>
+        </div>
+    </div>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
+    <script src="js/chat-admin.js"></script>
+</body>
+</html>
