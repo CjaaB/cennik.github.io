@@ -214,6 +214,123 @@ body.cad-standalone .more-link--external::after {
   position: relative;
 }
 
+.install-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 12px calc(12px + env(safe-area-inset-bottom));
+}
+
+.install-sheet[hidden] {
+  display: none !important;
+}
+
+.install-sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.install-sheet__panel {
+  position: relative;
+  width: min(100%, 420px);
+  max-height: 88dvh;
+  overflow-y: auto;
+  padding: 22px 18px 18px;
+  border-radius: 24px 24px 20px 20px;
+  background: linear-gradient(160deg, #141414, #080808);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.5);
+}
+
+body.theme-light .install-sheet__panel {
+  background: linear-gradient(160deg, #fff, #f5f0e4);
+}
+
+.install-sheet__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.install-sheet__badge {
+  margin: 0 0 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.install-sheet__panel h2 {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  color: var(--gold-bright);
+  line-height: 1.3;
+  padding-right: 36px;
+}
+
+.install-sheet__lead {
+  margin: 0 0 16px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.install-sheet__block {
+  margin-bottom: 14px;
+}
+
+.install-sheet__primary {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.install-sheet__hint {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.install-sheet__steps {
+  margin: 0 0 16px;
+  padding-left: 1.2rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.install-sheet__steps li {
+  margin-bottom: 10px;
+}
+
+.install-sheet__later {
+  width: 100%;
+}
+
+.btn--gold {
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+  color: #111;
+  font-weight: 800;
+}
+
+.btn--ghost {
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: var(--gold-bright);
+}
+
 .install-banner {
   display: none;
   margin-bottom: 16px;
