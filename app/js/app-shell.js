@@ -120,6 +120,18 @@
         );
     }
 
+    function isMobileDevice() {
+        return /android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent);
+    }
+
+    function isIos() {
+        return /iphone|ipad|ipod/i.test(navigator.userAgent);
+    }
+
+    function isInAppBrowser() {
+        return /instagram|fbav|fb_iab|line\/|twitter/i.test(navigator.userAgent);
+    }
+
     function stripInstallQuery() {
         try {
             const url = new URL(location.href);
@@ -131,6 +143,60 @@
         }
     }
 
+    function showInstallSheet() {
+        const sheet = document.getElementById("install-sheet");
+        const androidBlock = document.getElementById("install-android-block");
+        const iosBlock = document.getElementById("install-ios-block");
+        if (!sheet) return;
+
+        const ios = isIos();
+        if (androidBlock) androidBlock.hidden = ios;
+        if (iosBlock) iosBlock.hidden = !ios;
+
+        sheet.hidden = false;
+        document.body.classList.add("install-sheet-open");
+    }
+
+    function hideInstallSheet() {
+        const sheet = document.getElementById("install-sheet");
+        if (!sheet) return;
+        sheet.hidden = true;
+        document.body.classList.remove("install-sheet-open");
+        markInstallSheetSeen();
+        stripInstallQuery();
+    }
+
+    async function triggerPwaInstall() {
+        if (!deferredInstallPrompt) {
+            showInstallSheet();
+            return;
+        }
+        deferredInstallPrompt.prompt();
+        try {
+            await deferredInstallPrompt.userChoice;
+        } catch (e) {
+            /* ignore */
+        }
+        deferredInstallPrompt = null;
+        hideInstallSheet();
+    }
+
+    function bindInstallSheet() {
+        document.getElementById("install-pwa-btn")?.addEventListener("click", () => triggerPwaInstall());
+        document.querySelectorAll("[data-install-dismiss]").forEach((el) => {
+            el.addEventListener("click", hideInstallSheet);
+        });
+    }
+
+    function setupInstallPromptCapture() {
+        window.addEventListener("beforeinstallprompt", (e) => {
+            e.preventDefault();
+            deferredInstallPrompt = e;
+            const btn = document.getElementById("install-pwa-btn");
+            if (btn) btn.disabled = false;
+        });
+    }
+
     function setupAutoInstallFromWebsite() {
         if (isStandaloneMode()) {
             stripInstallQuery();
@@ -138,31 +204,18 @@
         }
 
         const params = new URLSearchParams(location.search);
-        if (!params.has("install")) return;
+        const wantsInstall = params.has("install");
 
-        const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        setupInstallPromptCapture();
+        bindInstallSheet();
 
-        window.addEventListener("beforeinstallprompt", (e) => {
-            e.preventDefault();
-            deferredInstallPrompt = e;
-            if (params.has("install")) {
-                e.prompt().then(() => {
-                    deferredInstallPrompt = null;
-                    stripInstallQuery();
-                }).catch(() => {
-                    stripInstallQuery();
-                });
-            }
-        });
+        if (!wantsInstall && !isInAppBrowser()) return;
 
-        if (isIos) {
-            stripInstallQuery();
-            return;
-        }
+        showInstallSheet();
+    }
 
-        window.setTimeout(() => {
-            if (!deferredInstallPrompt) stripInstallQuery();
-        }, 12000);
+    function markInstallSheetSeen() {
+        localStorage.setItem("cad_install_sheet_seen", "1");
     }
 
     async function shareApp() {
@@ -211,6 +264,7 @@
         });
         document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
         document.getElementById("share-app-btn")?.addEventListener("click", shareApp);
+        document.getElementById("install-app-btn")?.addEventListener("click", showInstallSheet);
     }
 
     function initFromHash() {
@@ -230,7 +284,10 @@
         initFromHash();
         window.CAD_ChatClient?.init();
         window.CAD_AppHome?.init();
+
     }
+
+    window.CAD_showInstallSheet = showInstallSheet;
 
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", init);
