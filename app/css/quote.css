@@ -1,0 +1,66 @@
+body.cad-app-quote {
+  margin: 0;
+  padding: 10px 10px 24px;
+  font-family: "Outfit", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(212, 175, 55, 0.1), transparent 52%),
+    linear-gradient(rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.94)),
+    url("../../tlo.jpg") center center / cover no-repeat fixed;
+  color: #e8e4d8;
+}
+
+body.cad-app-quote .quote-app-main {
+  max-width: 100%;
+}
+
+body.cad-app-quote .main-header,
+body.cad-app-quote .promo-bar,
+body.cad-app-quote .float-dock,
+body.cad-app-quote footer {
+  display: none !important;
+}
+
+body.cad-app-quote .prefs-toolbar .prefs-group:first-child {
+  display: none;
+}
+
+body.cad-app-quote .size-selector,
+body.cad-app-quote .services-selection,
+body.cad-app-quote .summary-card {
+  border-color: rgba(212, 175, 55, 0.2) !important;
+}
+
+body.cad-app-quote .summary-card {
+  background:
+    radial-gradient(circle at 90% 0%, rgba(212,175,55,0.14), transparent 40%),
+    linear-gradient(145deg, rgba(18,18,18,0.98), rgba(8,8,8,0.94)) !important;
+  box-shadow: 0 16px 36px rgba(0,0,0,0.38);
+}
+
+body.cad-app-quote .service-item:hover,
+body.cad-app-quote .size-option:hover {
+  border-color: rgba(212, 175, 55, 0.42);
+}
+
+body.cad-app-quote .calculator-container {
+  gap: 14px;
+}
+
+body.cad-app-quote .print-btn,
+body.cad-app-quote .book-btn {
+  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.18);
+}
+
+@media (max-width: 900px) {
+  body.cad-app-quote .calculator-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.cad-app-quote .summary-card {
+    order: -1;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+}
