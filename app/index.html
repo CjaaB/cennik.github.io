@@ -155,6 +155,7 @@
             <div class="more-section">
                 <h3>App</h3>
                 <div class="more-links">
+                    <button type="button" class="more-link" id="install-app-btn" style="width:100%;border:none;font-family:inherit;cursor:pointer;text-align:left"><i class="fas fa-download"></i> <span data-i18n="moreInstall">Zainstaluj na telefon</span></button>
                     <button type="button" class="more-link" id="share-app-btn" style="width:100%;border:none;font-family:inherit;cursor:pointer"><i class="fas fa-share-alt"></i> <span data-i18n="moreShare">Udostępnij aplikację</span></button>
                 </div>
             </div>
@@ -168,6 +169,26 @@
         <button type="button" class="nav-btn" data-panel="chat"><i class="fas fa-comments"></i><span data-i18n="navChat">Chat</span><span class="nav-badge" id="chat-nav-badge"></span></button>
         <button type="button" class="nav-btn" data-panel="more"><i class="fas fa-ellipsis-h"></i><span data-i18n="navMore">Więcej</span></button>
     </nav>
+
+    <div id="install-sheet" class="install-sheet" hidden role="dialog" aria-labelledby="install-sheet-title" aria-modal="true">
+        <div class="install-sheet__backdrop" data-install-dismiss></div>
+        <div class="install-sheet__panel">
+            <button type="button" class="install-sheet__close" data-install-dismiss aria-label="Zamknij"><i class="fas fa-times"></i></button>
+            <p class="install-sheet__badge" data-i18n="installBadge">Na telefon</p>
+            <h2 id="install-sheet-title" data-i18n="installSheetTitle">Dodaj aplikację na ekran główny</h2>
+            <p class="install-sheet__lead" data-i18n="installSheetLead">To nie plik z sklepu — ikona na ekranie otwiera aplikację bez paska przeglądarki.</p>
+            <div id="install-android-block" class="install-sheet__block" hidden>
+                <button type="button" class="btn btn--gold install-sheet__primary" id="install-pwa-btn" data-i18n="installBtn">Zainstaluj teraz</button>
+                <p class="install-sheet__hint" data-i18n="installAndroidWait">Jeśli przycisk nie działa: menu Chrome (⋮) → Zainstaluj aplikację / Dodaj do ekranu głównego.</p>
+            </div>
+            <ol id="install-ios-block" class="install-sheet__steps" hidden>
+                <li data-i18n="installIosStep1">Otwórz link w Safari (nie w Instagramie ani Facebooku).</li>
+                <li data-i18n="installIosStep2">Na dole: ikona Udostępnij.</li>
+                <li data-i18n="installIosStep3">Wybierz: Dodaj do ekranu początkowego → Dodaj.</li>
+            </ol>
+            <button type="button" class="btn btn--ghost install-sheet__later" data-install-dismiss data-i18n="installLater">Później — korzystam w przeglądarce</button>
+        </div>
+    </div>
 </div>
 
 <script src="js/firebase-config.js"></script>
