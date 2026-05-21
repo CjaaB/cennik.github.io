@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Car All Detailing App — premium car care, quote calculator and direct chat.">
+    <meta name="theme-color" content="#d4af37">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CAD">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/app.css">
+    <title>Car All Detailing App</title>
+</head>
+<body>
+<div id="app-root">
+    <header class="app-header">
+        <div class="app-brand">
+            <img src="../logo1.png" alt="Car All Detailing">
+            <div class="app-brand__copy">
+                <strong>CAR ALL DETAILING</strong>
+                <small data-i18n="appSubtitle">Karol Zagórski</small>
+            </div>
+        </div>
+        <div class="app-header__actions">
+            <button type="button" class="lang-pill active" data-locale="pl" aria-label="Polski">PL</button>
+            <button type="button" class="lang-pill" data-locale="nl" aria-label="Nederlands">NL</button>
+            <button type="button" class="lang-pill" data-locale="en" aria-label="English">EN</button>
+            <button type="button" class="icon-btn" id="theme-toggle" aria-label="Theme"><i class="fas fa-sun"></i></button>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <section class="app-panel active" data-panel="home" id="panel-home">
+            <article class="hero-card">
+                <div class="hero-card__glow" aria-hidden="true"></div>
+                <p class="hero-kicker" data-i18n="heroKicker">EKSKLUZYWNA PIELĘGNACJA SAMOCHODOWA</p>
+                <h1 id="app-greeting">Dzień dobry!</h1>
+                <p class="hero-tagline" data-i18n="heroTitle">Ekskluzywna pielęgnacja auta</p>
+                <p class="hero-text" data-i18n="heroText">Wycena, rezerwacja i chat w jednej aplikacji.</p>
+            </article>
+
+            <div class="quote-resume" id="quote-resume" hidden>
+                <div class="quote-resume__icon" aria-hidden="true"><i class="fas fa-file-invoice-dollar"></i></div>
+                <div class="quote-resume__copy">
+                    <strong id="quote-resume-title">Twoja wycena</strong>
+                    <small id="quote-resume-meta">Kontynuuj w kalkulatorze</small>
+                </div>
+                <div class="quote-resume__actions">
+                    <button type="button" class="btn btn-gold btn-sm" data-goto="quote" data-i18n="quoteResumeOpen">Otwórz</button>
+                    <button type="button" class="btn btn-outline btn-sm" id="quote-to-chat-btn" data-i18n="quoteResumeChat">Wyślij na chat</button>
+                </div>
+            </div>
+
+            <section class="weather-widget weather-widget--collapsed" id="app-weather-widget" aria-label="Pogoda" aria-live="polite">
+                <button type="button" class="weather-bubble" id="app-weather-toggle" aria-expanded="false" aria-controls="app-weather-panel">
+                    <span class="weather-bubble__icon" aria-hidden="true"><i class="fas fa-cloud-sun"></i></span>
+                    <span class="weather-bubble__copy">
+                        <strong data-i18n="weatherBubbleTitle">Pogoda przed terminem</strong>
+                        <small data-i18n="weatherBubbleSub">Maarssen · 3 dni</small>
+                    </span>
+                </button>
+                <div class="weather-panel" id="app-weather-panel">
+                    <div class="weather-widget__header">
+                        <div class="weather-widget__icon" id="app-weather-main-icon" aria-hidden="true"><i class="fas fa-cloud-sun"></i></div>
+                        <div>
+                            <p class="weather-widget__kicker" data-i18n="weatherKicker">Pogoda a detailing</p>
+                            <p class="weather-widget__status" id="app-weather-status" data-i18n="weatherLoading">Ładowanie…</p>
+                        </div>
+                    </div>
+                    <div class="weather-days" id="app-weather-days"></div>
+                    <details class="weather-note">
+                        <summary data-i18n="weatherWhy">Dlaczego to ważne?</summary>
+                        <p data-i18n="weatherWhyText">Pracuję na zewnątrz przy myciu — deszcz, wiatr i niska temperatura mogą wpłynąć na termin zewnętrzny.</p>
+                    </details>
+                </div>
+            </section>
+            <div class="app-weather-advice" id="app-weather-advice" aria-live="polite"></div>
+
+            <div class="quick-grid">
+                <button type="button" class="quick-card" data-goto="quote">
+                    <span class="quick-card__icon"><i class="fas fa-calculator"></i></span>
+                    <strong data-i18n="quickQuote">Kalkulator</strong>
+                    <small data-i18n="quickQuoteDesc">Wycena pakietów</small>
+                </button>
+                <button type="button" class="quick-card" data-goto="chat">
+                    <span class="quick-card__icon"><i class="fas fa-comments"></i></span>
+                    <strong data-i18n="quickChat">Chat</strong>
+                    <small data-i18n="quickChatDesc">Wiadomość do Karola</small>
+                </button>
+                <button type="button" class="quick-card" data-goto="book">
+                    <span class="quick-card__icon"><i class="fas fa-calendar-check"></i></span>
+                    <strong data-i18n="quickBook">Rezerwacja</strong>
+                    <small data-i18n="quickBookDesc">Termin w aplikacji</small>
+                </button>
+                <a class="quick-card quick-card--link quick-card--external" href="https://wa.me/48731693089" rel="noopener noreferrer">
+                    <span class="quick-card__icon"><i class="fab fa-whatsapp"></i></span>
+                    <strong>WhatsApp</strong>
+                    <small data-i18n="quickWhatsappDesc">Otwiera WhatsApp</small>
+                </a>
+            </div>
+
+            <a class="insta-strip insta-strip--external" href="https://www.instagram.com/cjaab99/" rel="noopener noreferrer">
+                <span class="insta-strip__icon"><i class="fab fa-instagram"></i></span>
+                <span class="insta-strip__copy">
+                    <strong data-i18n="instaTitle">Realizacje na Instagramie</strong>
+                    <small data-i18n="instaDesc">Otwiera Instagram · @cjaab99</small>
+                </span>
+                <i class="fas fa-arrow-right insta-strip__arrow"></i>
+            </a>
+        </section>
+
+        <section class="app-panel app-panel--frame" data-panel="book" id="panel-book">
+            <iframe id="book-frame" title="Rezerwacja" src="https://calendly.com/yakasu1999/new-meeting?hide_gdpr_banner=1&background_color=050505&text_color=e8e4d8&primary_color=d4af37" loading="lazy"></iframe>
+        </section>
+
+        <section class="app-panel" data-panel="quote" id="panel-quote">
+            <div id="app-quote-root" class="app-quote"></div>
+        </section>
+
+        <section class="app-panel" data-panel="chat" id="panel-chat">
+            <div id="chat-status" class="chat-status" hidden></div>
+
+            <div class="chat-setup active" id="chat-setup">
+                <div class="chat-panel-head">
+                    <h2 data-i18n="chatTitle">Wiadomość do Karola</h2>
+                    <p data-i18n="chatIntro">Napisz pytanie lub termin.</p>
+                </div>
+                <form class="chat-form" onsubmit="return false">
+                    <label>
+                        <span data-i18n="chatName">Twoje imię</span>
+                        <input type="text" id="chat-client-name" maxlength="60" data-i18n-placeholder="chatNamePh" placeholder="np. Jan" autocomplete="name">
+                    </label>
+                    <label>
+                        <span data-i18n="chatEmail">E-mail (opcjonalnie)</span>
+                        <input type="email" id="chat-client-email" maxlength="120" data-i18n-placeholder="chatEmailPh" placeholder="np. jan@email.com" autocomplete="email">
+                    </label>
+                    <p class="chat-hours" id="chat-hours" hidden></p>
+                    <label>
+                        <span data-i18n="chatMessage">Wiadomość</span>
+                        <textarea id="chat-first-message" rows="4" maxlength="1200" data-i18n-placeholder="chatMessagePh" placeholder="Cześć Karol..."></textarea>
+                    </label>
+                    <button type="button" class="btn btn-gold" id="chat-start-btn" data-i18n="chatStart">Rozpocznij rozmowę</button>
+                </form>
+            </div>
+
+            <div class="chat-thread" id="chat-thread">
+                <div class="chat-thread-toolbar">
+                    <button type="button" class="btn btn-outline btn-sm" id="chat-notify-btn" hidden>
+                        <i class="fas fa-bell"></i> <span data-i18n="chatNotifyEnable">Włącz powiadomienia</span>
+                    </button>
+                </div>
+                <div class="chat-messages" id="chat-messages"></div>
+                <div class="chat-typing" id="chat-typing-indicator" hidden aria-live="polite">
+                    <span class="chat-typing__label" data-i18n="chatTypingAdmin">Karol pisze</span>
+                    <span class="chat-typing__dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                </div>
+                <div class="chat-compose">
+                    <input type="text" id="chat-reply-input" maxlength="1200" data-i18n-placeholder="chatPlaceholder" placeholder="Napisz wiadomość...">
+                    <button type="button" id="chat-send-btn" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="app-panel" data-panel="more" id="panel-more">
+            <div class="more-section">
+                <h3 data-i18n="moreContact">Kontakt</h3>
+                <div class="more-links">
+                    <a class="more-link more-link--external" href="https://wa.me/48731693089" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> <span data-i18n="moreWhatsapp">WhatsApp</span></a>
+                    <a class="more-link more-link--external" href="https://www.instagram.com/cjaab99/" rel="noopener noreferrer"><i class="fab fa-instagram"></i> <span data-i18n="moreInstagram">Instagram</span></a>
+                    <a class="more-link more-link--vcard" href="../kontakt-car-all-detailing.vcf" download><i class="fas fa-address-card"></i> <span data-i18n="moreVcard">Zapisz kontakt</span></a>
+                    <button type="button" class="more-link" data-goto="book" style="width:100%;border:none;font-family:inherit;cursor:pointer;text-align:left"><i class="fas fa-calendar-alt"></i> <span data-i18n="moreBook">Rezerwacja online</span></button>
+                </div>
+            </div>
+            <div class="more-section">
+                <h3 data-i18n="moreDocs">Dokumenty</h3>
+                <div class="more-links">
+                    <a class="more-link" href="../index.html"><i class="fas fa-globe"></i> <span data-i18n="moreSite">Pełna strona www</span></a>
+                    <a class="more-link" href="../regulamin.pdf" download="Regulamin_Car_All_Detailing.pdf"><i class="fas fa-file-pdf"></i> <span data-i18n="moreRegulamin">Regulamin (PDF)</span></a>
+                    <a class="more-link" href="../protokol-wzor.pdf" download="Protokol_Inspekcji_Car_All_Detailing.pdf"><i class="fas fa-file-contract"></i> <span data-i18n="moreProtocol">Wzór protokołu (PDF)</span></a>
+                </div>
+            </div>
+            <div class="more-section">
+                <h3>App</h3>
+                <div class="more-links">
+                    <button type="button" class="more-link" id="install-app-btn" style="width:100%;border:none;font-family:inherit;cursor:pointer;text-align:left"><i class="fas fa-download"></i> <span data-i18n="moreInstall">Zainstaluj na telefon</span></button>
+                    <button type="button" class="more-link" id="share-app-btn" style="width:100%;border:none;font-family:inherit;cursor:pointer"><i class="fas fa-share-alt"></i> <span data-i18n="moreShare">Udostępnij aplikację</span></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="app-nav" aria-label="Main">
+        <button type="button" class="nav-btn active" data-panel="home"><i class="fas fa-home"></i><span data-i18n="navHome">Start</span></button>
+        <button type="button" class="nav-btn" data-panel="quote"><i class="fas fa-calculator"></i><span data-i18n="navQuote">Wycena</span></button>
+        <button type="button" class="nav-btn" data-panel="book"><i class="fas fa-calendar-check"></i><span data-i18n="navBook">Termin</span></button>
+        <button type="button" class="nav-btn" data-panel="chat"><i class="fas fa-comments"></i><span data-i18n="navChat">Chat</span><span class="nav-badge" id="chat-nav-badge"></span></button>
+        <button type="button" class="nav-btn" data-panel="more"><i class="fas fa-ellipsis-h"></i><span data-i18n="navMore">Więcej</span></button>
+    </nav>
+
+    <div id="install-sheet" class="install-sheet" hidden role="dialog" aria-labelledby="install-sheet-title" aria-modal="true">
+        <div class="install-sheet__backdrop" data-install-dismiss></div>
+        <div class="install-sheet__panel">
+            <button type="button" class="install-sheet__close" data-install-dismiss aria-label="Zamknij"><i class="fas fa-times"></i></button>
+            <p class="install-sheet__badge" data-i18n="installBadge">Na telefon</p>
+            <h2 id="install-sheet-title" data-i18n="installSheetTitle">Dodaj aplikację na ekran główny</h2>
+            <p class="install-sheet__lead" data-i18n="installSheetLead">Szybki dostęp do wyceny, chatu i rezerwacji — jedna ikona Car All Detailing na telefonie.</p>
+            <p id="install-status" class="install-sheet__status" aria-live="polite"></p>
+            <div id="install-inapp-block" class="install-sheet__block install-sheet__warn" hidden>
+                <p data-i18n="installInAppWarn">Otworzyłeś link w Instagramie lub Facebooku — stąd ikona się nie doda.</p>
+                <button type="button" class="btn btn--gold" id="install-copy-link" data-i18n="installCopyLink">Skopiuj link i wklej w Chrome / Safari</button>
+            </div>
+            <div id="install-android-block" class="install-sheet__block" hidden>
+                <button type="button" class="btn btn--gold install-sheet__primary" id="install-pwa-btn" data-i18n="installBtn">Zainstaluj teraz</button>
+                <p class="install-sheet__hint" data-i18n="installAndroidWait">Jeśli przycisk nie działa: menu Chrome (⋮) → Zainstaluj aplikację / Dodaj do ekranu głównego.</p>
+            </div>
+            <ol id="install-ios-block" class="install-sheet__steps" hidden>
+                <li data-i18n="installIosStep1">Otwórz link w Safari (nie w Instagramie ani Facebooku).</li>
+                <li data-i18n="installIosStep2">Na dole: ikona Udostępnij.</li>
+                <li data-i18n="installIosStep3">Wybierz: Dodaj do ekranu początkowego → Dodaj.</li>
+            </ol>
+            <button type="button" class="btn btn--ghost install-sheet__later" data-install-dismiss data-i18n="installLater">Anuluj</button>
+        </div>
+    </div>
+</div>
+
+<script src="../config.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/cad-data.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
+<script src="js/chat-client.js"></script>
+<script src="js/app-weather.js"></script>
+<script src="js/app-quote.js"></script>
+<script src="js/app-home.js"></script>
+<script src="js/app-shell.js"></script>
+<script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(function () {});
+    }
+</script>
+</body>
+</html>
