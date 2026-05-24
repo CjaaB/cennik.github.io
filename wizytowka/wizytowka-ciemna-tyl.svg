@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="94mm" height="54mm" viewBox="0 0 940 540" role="img" aria-labelledby="title desc">
+  <title id="title">Car All Detailing - wizytówka ciemna, tył</title>
+  <desc id="desc">Profesjonalna ciemna wizytówka z kontaktem, adresem i kodem QR do strony.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#030303"/>
+      <stop offset="0.48" stop-color="#121212"/>
+      <stop offset="1" stop-color="#050505"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff2ae"/>
+      <stop offset="0.44" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#7a570d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="100%" cy="0%" r="85%">
+      <stop offset="0" stop-color="#d4af37" stop-opacity="0.28"/>
+      <stop offset="0.38" stop-color="#d4af37" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#d4af37" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="lines" width="22" height="22" patternUnits="userSpaceOnUse">
+      <path d="M0 22L22 0" stroke="#d4af37" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="940" height="540" rx="34" fill="url(#bg)"/>
+  <rect width="940" height="540" rx="34" fill="url(#glow)"/>
+  <rect width="940" height="540" rx="34" fill="url(#lines)"/>
+  <rect x="28" y="28" width="884" height="484" rx="28" fill="none" stroke="#d4af37" stroke-opacity="0.34" stroke-width="1.5"/>
+  <path d="M66 414H874" stroke="url(#gold)" stroke-width="1.4" opacity="0.55"/>
+
+  <g transform="translate(66 74)">
+    <text x="0" y="0" fill="#d4af37" font-family="Outfit, Arial, sans-serif" font-size="14" font-weight="900" letter-spacing="4">CAR ALL DETAILING</text>
+    <text x="0" y="56" fill="#ffffff" font-family="Outfit, Arial, sans-serif" font-size="38" font-weight="900">Karol Zagórski</text>
+    <text x="0" y="90" fill="#d7d0bd" font-family="Outfit, Arial, sans-serif" font-size="17" font-weight="600" letter-spacing="1.4">Auto detailing • czyszczenie • zabezpieczenie lakieru</text>
+
+    <g transform="translate(0 136)" font-family="Outfit, Arial, sans-serif" font-size="18" fill="#f7f0dc">
+      <rect x="0" y="-26" width="462" height="44" rx="22" fill="#d4af37" fill-opacity="0.09" stroke="#d4af37" stroke-opacity="0.22"/>
+      <text x="22" y="2">tel. +48 731 693 089</text>
+      <rect x="0" y="30" width="462" height="44" rx="22" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08"/>
+      <text x="22" y="58">Instagram: @cjaab99</text>
+      <rect x="0" y="86" width="462" height="44" rx="22" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08"/>
+      <text x="22" y="114">Planetenbaan 20, Maarssen</text>
+    </g>
+  </g>
+
+  <g transform="translate(588 72)">
+    <rect x="0" y="0" width="286" height="312" rx="30" fill="#050505" stroke="#d4af37" stroke-opacity="0.34"/>
+    <rect x="34" y="30" width="218" height="218" rx="20" fill="#fffdf7" stroke="#d4af37" stroke-opacity="0.5"/>
+    <image href="../qr/qr-car-all-detailing.png" x="52" y="48" width="182" height="182" preserveAspectRatio="xMidYMid meet"/>
+    <text x="143" y="278" text-anchor="middle" fill="#d4af37" font-family="Outfit, Arial, sans-serif" font-size="14" font-weight="900" letter-spacing="3">SCAN</text>
+    <text x="143" y="300" text-anchor="middle" fill="#f6efdc" font-family="Outfit, Arial, sans-serif" font-size="12" font-weight="800" letter-spacing="1.4">CENNIK I REZERWACJA</text>
+  </g>
+
+  <g transform="translate(66 454)">
+    <text x="0" y="0" fill="#d4af37" font-family="Outfit, Arial, sans-serif" font-size="13" font-weight="900" letter-spacing="3">WSTĘPNA WYCENA ONLINE</text>
+    <text x="302" y="0" fill="#f1d279" font-family="Outfit, Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="2.2">REZERWACJA PRZEZ WHATSAPP / CALENDLY</text>
+  </g>
+</svg>

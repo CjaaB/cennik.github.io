@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="94mm" height="54mm" viewBox="0 0 940 540" role="img" aria-labelledby="title desc">
+  <title id="title">Car All Detailing - wizytowka ciemna, front</title>
+  <desc id="desc">Premium dark business card front for Car All Detailing by Karol Zagórski.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#030303"/>
+      <stop offset="0.48" stop-color="#101010"/>
+      <stop offset="1" stop-color="#050505"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff2ae"/>
+      <stop offset="0.42" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#7a570d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#d4af37" stop-opacity="0.32"/>
+      <stop offset="0.42" stop-color="#d4af37" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#d4af37" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grain" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M2 2h1v1H2zM21 8h1v1h-1zM11 25h1v1h-1zM30 30h1v1h-1z" fill="#ffffff" opacity="0.08"/>
+    </pattern>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000000" flood-opacity="0.65"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="9" flood-color="#d4af37" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="940" height="540" rx="34" fill="url(#bg)"/>
+  <rect width="940" height="540" rx="34" fill="url(#grain)"/>
+  <circle cx="470" cy="120" r="330" fill="url(#glow)"/>
+  <path d="M34 70 C190 18, 348 30, 470 78 C610 132, 735 116, 906 54" fill="none" stroke="url(#gold)" stroke-width="2.4" opacity="0.8"/>
+  <path d="M34 470 C190 522, 348 510, 470 462 C610 408, 735 424, 906 486" fill="none" stroke="url(#gold)" stroke-width="2.4" opacity="0.5"/>
+
+  <rect x="28" y="28" width="884" height="484" rx="28" fill="none" stroke="#d4af37" stroke-opacity="0.34" stroke-width="1.5"/>
+  <rect x="46" y="46" width="848" height="448" rx="22" fill="none" stroke="#ffffff" stroke-opacity="0.06"/>
+
+  <image href="../assets/logo1.png" x="312" y="56" width="316" height="220" preserveAspectRatio="xMidYMid meet" filter="url(#softShadow)"/>
+
+  <text x="470" y="322" text-anchor="middle" fill="url(#gold)" font-family="Outfit, Montserrat, Arial, sans-serif" font-size="54" font-weight="800" letter-spacing="12">CAR ALL</text>
+  <text x="470" y="363" text-anchor="middle" fill="#f5f0df" font-family="Outfit, Montserrat, Arial, sans-serif" font-size="19" font-weight="600" letter-spacing="15">DETAILING</text>
+  <text x="470" y="410" text-anchor="middle" fill="#d4af37" font-family="'Dancing Script', 'Segoe Script', cursive" font-size="34">by Karol Zagórski</text>
+
+  <g transform="translate(186 445)">
+    <rect x="0" y="-22" width="568" height="44" rx="22" fill="#d4af37" fill-opacity="0.1" stroke="#d4af37" stroke-opacity="0.28"/>
+    <text x="284" y="7" text-anchor="middle" fill="#f4e7b8" font-family="Outfit, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="3">AUTO DETAILING STUDIO | MAARSSEN NL</text>
+  </g>
+</svg>
