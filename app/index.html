@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Car All Detailing App — premium car care, quote calculator and direct chat.">
+    <meta name="theme-color" content="#d4af37">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CAD">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/app-premium.css">
+    <title>Car All Detailing App</title>
+</head>
+<body>
+<div id="app-update-banner" class="app-update-banner" hidden role="status">
+    <span><i class="fas fa-sync-alt"></i> <span data-i18n="appUpdateBanner">Dostępna nowa wersja — odśwież aplikację.</span></span>
+    <button type="button" class="btn btn-gold btn-sm" id="app-update-reload" data-i18n="appUpdateReload">Odśwież</button>
+    <button type="button" class="app-update-banner__dismiss" id="app-update-dismiss" aria-label="Zamknij"><i class="fas fa-times"></i></button>
+</div>
+<div id="app-root">
+    <header class="app-header">
+        <div class="app-brand">
+            <img src="../assets/logo1.png" alt="Car All Detailing">
+            <div class="app-brand__copy">
+                <strong>CAR ALL DETAILING</strong>
+                <small data-i18n="appSubtitle">Karol Zagórski</small>
+            </div>
+        </div>
+        <div class="app-header__actions">
+            <div id="app-lang-switch-root" class="cad-lang-switch-host cad-lang-switch-host--inline"></div>
+            <button type="button" class="icon-btn" id="theme-toggle" aria-label="Theme"><i class="fas fa-sun"></i></button>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <section class="app-panel active" data-panel="home" id="panel-home">
+            <article class="home-hero home-hero--menu">
+                <div class="home-hero__media" aria-hidden="true">
+                    <img class="home-hero__bg" src="../assets/tlo-app.jpg" alt="" width="1280" height="1710" decoding="async" fetchpriority="high">
+                    <div class="home-hero__shade"></div>
+                </div>
+                <div class="home-hero__logo-wrap">
+                    <img class="home-hero__logo" src="../assets/logo1.png" alt="Car All Detailing">
+                </div>
+                <div class="home-hero__body">
+                    <div class="home-hero__text-plate">
+                        <p class="hero-kicker" data-i18n="heroKicker">EKSKLUZYWNA PIELĘGNACJA SAMOCHODOWA</p>
+                        <h1 id="app-greeting">Dzień dobry!</h1>
+                        <p class="hero-tagline" data-i18n="heroTitle">Ekskluzywna pielęgnacja auta</p>
+                        <p class="hero-text" data-i18n="menuLead">Wybierz kafelek, aby przejść do wybranej sekcji.</p>
+                    </div>
+                </div>
+            </article>
+
+            <div class="quote-resume" id="quote-resume" hidden>
+                <div class="quote-resume__icon" aria-hidden="true"><i class="fas fa-file-invoice-dollar"></i></div>
+                <div class="quote-resume__copy">
+                    <strong id="quote-resume-title">Twoja wycena</strong>
+                    <small id="quote-resume-meta">Kontynuuj w kalkulatorze</small>
+                </div>
+                <div class="quote-resume__actions">
+                    <button type="button" class="btn btn-gold btn-sm" data-goto="quote" data-i18n="quoteResumeOpen">Otwórz</button>
+                    <button type="button" class="btn btn-outline btn-sm" id="quote-to-chat-btn" data-i18n="quoteResumeChat">Wyślij na chat</button>
+                </div>
+            </div>
+
+            <nav class="app-menu-grid" aria-label="Menu główne">
+                <button type="button" class="app-menu-tile app-menu-tile--featured app-menu-tile--quote" data-goto="quote">
+                    <span class="app-menu-tile__icon"><i class="fas fa-calculator"></i></span>
+                    <span class="app-menu-tile__copy">
+                        <strong data-i18n="navQuote">Wycena</strong>
+                        <small data-i18n="quickQuoteDesc">Kalkulator pakietów</small>
+                    </span>
+                    <i class="fas fa-chevron-right app-menu-tile__arrow" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="app-menu-tile app-menu-tile--featured app-menu-tile--chat" data-goto="chat">
+                    <span class="app-menu-tile__icon"><i class="fas fa-comments"></i></span>
+                    <span class="app-menu-tile__copy">
+                        <strong data-i18n="navChat">Chat</strong>
+                        <small data-i18n="quickChatDesc">Wiadomość do Karola</small>
+                    </span>
+                    <span class="app-menu-tile__badge nav-badge" id="chat-nav-badge"></span>
+                    <i class="fas fa-chevron-right app-menu-tile__arrow" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="app-menu-tile app-menu-tile--book" data-goto="book">
+                    <span class="app-menu-tile__icon"><i class="fas fa-calendar-check"></i></span>
+                    <span class="app-menu-tile__copy">
+                        <strong data-i18n="navBook">Termin</strong>
+                        <small data-i18n="quickBookDesc">Rezerwacja online</small>
+                    </span>
+                    <i class="fas fa-chevron-right app-menu-tile__arrow" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="app-menu-tile app-menu-tile--more" data-goto="more">
+                    <span class="app-menu-tile__icon"><i class="fas fa-ellipsis-h"></i></span>
+                    <span class="app-menu-tile__copy">
+                        <strong data-i18n="navMore">Więcej</strong>
+                        <small data-i18n="menuMoreDesc">Kontakt, dokumenty, ustawienia</small>
+                    </span>
+                    <i class="fas fa-chevron-right app-menu-tile__arrow" aria-hidden="true"></i>
+                </button>
+                <a class="app-menu-tile app-menu-tile--link app-menu-tile--wa" href="https://wa.me/48731693089" rel="noopener noreferrer">
+                    <span class="app-menu-tile__icon"><i class="fab fa-whatsapp"></i></span>
+                    <span class="app-menu-tile__copy">
+                        <strong>WhatsApp</strong>
+                        <small data-i18n="quickWhatsappDesc">Szybki kontakt</small>
+                    </span>
+                    <i class="fas fa-external-link-alt app-menu-tile__arrow" aria-hidden="true"></i>
+                </a>
+                <a class="app-menu-tile app-menu-tile--link app-menu-tile--insta" href="https://www.instagram.com/cjaab99/" rel="noopener noreferrer">
+                    <span class="app-menu-tile__icon"><i class="fab fa-instagram"></i></span>
+                    <span class="app-menu-tile__copy">
+                        <strong data-i18n="instaTitle">Instagram</strong>
+                        <small data-i18n="instaDesc">@cjaab99 · realizacje</small>
+                    </span>
+                    <i class="fas fa-external-link-alt app-menu-tile__arrow" aria-hidden="true"></i>
+                </a>
+            </nav>
+
+            <div class="home-trust">
+                <p class="home-trust__kicker" data-i18n="homeTrustKicker">Chemia i narzędzia premium</p>
+                <div class="home-trust__logos" aria-hidden="true">
+                    <img src="../assets/logos/fxprotect.png" alt="FX Protect" loading="lazy">
+                    <img src="../assets/logos/adbl.png" alt="ADBL" loading="lazy">
+                    <img src="../assets/logos/cleantle.png" alt="Cleantle" loading="lazy">
+                    <img src="../assets/logos/goodstuff.png" alt="Good Stuff" loading="lazy">
+                    <img src="../assets/logos/monstershine.png" alt="Monster Shine" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <section class="app-panel app-panel--section app-panel--frame" data-panel="book" id="panel-book">
+            <header class="app-section-bar">
+                <button type="button" class="app-section-bar__back" data-goto="home">
+                    <i class="fas fa-th-large" aria-hidden="true"></i>
+                    <span data-i18n="backToMenu">Menu</span>
+                </button>
+                <h2 class="app-section-bar__title" data-i18n="navBook">Termin</h2>
+            </header>
+            <div class="book-mobile-bar">
+                <a class="btn btn-gold btn-sm" id="book-external-btn" href="#" target="_blank" rel="noopener noreferrer" data-i18n="bookOpenExternal">Otwórz kalendarz w Safari / Chrome</a>
+            </div>
+            <iframe id="book-frame" title="Rezerwacja" src="https://calendly.com/yakasu1999/new-meeting?hide_gdpr_banner=1&background_color=050505&text_color=e8e4d8&primary_color=d4af37" loading="lazy"></iframe>
+        </section>
+
+        <section class="app-panel app-panel--section" data-panel="quote" id="panel-quote">
+            <header class="app-section-bar">
+                <button type="button" class="app-section-bar__back" data-goto="home">
+                    <i class="fas fa-th-large" aria-hidden="true"></i>
+                    <span data-i18n="backToMenu">Menu</span>
+                </button>
+                <h2 class="app-section-bar__title" data-i18n="navQuote">Wycena</h2>
+            </header>
+            <div id="app-quote-root" class="app-quote"></div>
+        </section>
+
+        <section class="app-panel app-panel--section" data-panel="chat" id="panel-chat">
+            <header class="app-section-bar app-section-bar--chat" id="chat-section-bar">
+                <button type="button" class="app-section-bar__back" data-goto="home" id="chat-section-back">
+                    <i class="fas fa-th-large" aria-hidden="true"></i>
+                    <span data-i18n="backToMenu">Menu</span>
+                </button>
+                <h2 class="app-section-bar__title" data-i18n="navChat">Chat</h2>
+            </header>
+            <div id="chat-status" class="chat-status" hidden role="status" aria-live="polite"></div>
+
+            <div class="chat-setup active" id="chat-setup">
+                <div class="chat-setup-hero">
+                    <div class="chat-setup-hero__avatar" aria-hidden="true">
+                        <img src="../assets/logo1.png" alt="">
+                    </div>
+                    <div class="chat-setup-hero__copy">
+                        <strong data-i18n="chatThreadTitle">Karol · Car All Detailing</strong>
+                        <p data-i18n="chatSetupLead">Napisz wiadomość — odpowiadam w godzinach pracy.</p>
+                    </div>
+                </div>
+
+                <button type="button" class="chat-resume-btn" id="chat-resume-banner" hidden>
+                    <span class="chat-resume-btn__icon" aria-hidden="true"><i class="fas fa-comments"></i></span>
+                    <span class="chat-resume-btn__copy">
+                        <strong data-i18n="chatResumeTitle">Kontynuuj rozmowę</strong>
+                        <small id="chat-resume-preview"></small>
+                    </span>
+                    <i class="fas fa-chevron-right chat-resume-btn__chev" aria-hidden="true"></i>
+                </button>
+
+                <div class="chat-form-card">
+                    <form class="chat-form" id="chat-start-form" onsubmit="return false">
+                        <div class="chat-form-row">
+                            <label class="chat-field">
+                                <span class="chat-field__label" data-i18n="chatName">Imię</span>
+                                <span class="chat-field__input-wrap">
+                                    <i class="fas fa-user" aria-hidden="true"></i>
+                                    <input type="text" id="chat-client-name" maxlength="60" data-i18n-placeholder="chatNamePh" placeholder="Jan" autocomplete="name" required>
+                                </span>
+                            </label>
+                            <label class="chat-field">
+                                <span class="chat-field__label" data-i18n="chatEmail">E-mail</span>
+                                <span class="chat-field__input-wrap">
+                                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                                    <input type="email" id="chat-client-email" maxlength="120" required data-i18n-placeholder="chatEmailPh" placeholder="jan@email.com" autocomplete="email">
+                                </span>
+                            </label>
+                        </div>
+                        <label class="chat-field chat-field--message">
+                            <span class="chat-field__label" data-i18n="chatMessage">Wiadomość</span>
+                            <span class="chat-field__input-wrap chat-field__input-wrap--area">
+                                <textarea id="chat-first-message" rows="3" maxlength="1200" data-i18n-placeholder="chatMessagePh" placeholder="Cześć Karol, chciałbym..." required></textarea>
+                            </span>
+                        </label>
+                        <p class="chat-hours" id="chat-hours" hidden></p>
+                        <button type="submit" class="btn btn-gold btn-block chat-start-btn" id="chat-start-btn">
+                            <span class="chat-start-btn__label" data-i18n="chatStart">Wyślij wiadomość</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="chat-thread" id="chat-thread">
+                <header class="chat-thread-bar">
+                    <button type="button" class="chat-thread-bar__back" id="chat-back-btn" aria-label="Menu">
+                        <i class="fas fa-th-large" aria-hidden="true"></i>
+                    </button>
+                    <div class="chat-thread-bar__avatar" aria-hidden="true">
+                        <img src="../assets/logo1.png" alt="">
+                    </div>
+                    <div class="chat-thread-bar__meta">
+                        <strong data-i18n="chatThreadTitle">Karol · Car All Detailing</strong>
+                        <small id="chat-thread-sub" data-i18n="chatThreadSub">Odpowiadam w godzinach pracy</small>
+                    </div>
+                    <button type="button" class="chat-thread-bar__clear" id="chat-clear-btn" hidden title="Wyczyść konwersację" aria-label="Wyczyść konwersację">
+                        <i class="fas fa-eraser"></i>
+                    </button>
+                    <button type="button" class="chat-thread-bar__notify" id="chat-notify-btn" hidden aria-label="Powiadomienia">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                </header>
+                <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+                <div class="chat-typing" id="chat-typing-indicator" hidden aria-live="polite">
+                    <span class="chat-typing__label" data-i18n="chatTypingAdmin">Karol pisze</span>
+                    <span class="chat-typing__dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                </div>
+                <div class="chat-compose">
+                    <input type="file" id="chat-photo-input" accept="image/jpeg,image/png,image/webp" hidden>
+                    <button type="button" class="btn-attach" id="chat-photo-btn" title="Wyślij zdjęcie" aria-label="Wyślij zdjęcie"><i class="fas fa-camera"></i></button>
+                    <input type="text" id="chat-reply-input" maxlength="1200" enterkeyhint="send" data-i18n-placeholder="chatPlaceholder" placeholder="Napisz wiadomość...">
+                    <button type="button" class="chat-send-btn" id="chat-send-btn" aria-label="Send" data-i18n-aria="chatSend"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="app-panel app-panel--section" data-panel="more" id="panel-more">
+            <header class="app-section-bar">
+                <button type="button" class="app-section-bar__back" data-goto="home">
+                    <i class="fas fa-th-large" aria-hidden="true"></i>
+                    <span data-i18n="backToMenu">Menu</span>
+                </button>
+                <h2 class="app-section-bar__title" data-i18n="navMore">Więcej</h2>
+            </header>
+            <section class="weather-widget weather-widget--collapsed" id="app-weather-widget" aria-label="Pogoda" aria-live="polite">
+                <button type="button" class="weather-bubble" id="app-weather-toggle" aria-expanded="false" aria-controls="app-weather-panel">
+                    <span class="weather-bubble__icon" aria-hidden="true"><i class="fas fa-cloud-sun"></i></span>
+                    <span class="weather-bubble__copy">
+                        <strong data-i18n="weatherBubbleTitle">Pogoda przed terminem</strong>
+                        <small data-i18n="weatherBubbleSub">Maarssen · 3 dni</small>
+                    </span>
+                    <span class="weather-bubble__preview" id="app-weather-bubble-temp" aria-hidden="true">--°</span>
+                    <i class="fas fa-chevron-down weather-bubble__chev" aria-hidden="true"></i>
+                </button>
+                <div class="weather-panel" id="app-weather-panel">
+                    <p id="app-weather-status" class="sr-only" aria-live="polite" data-i18n="weatherLoading">Ładowanie…</p>
+                    <div class="weather-days" id="app-weather-days"></div>
+                    <details class="weather-note">
+                        <summary data-i18n="weatherWhy">Dlaczego to ważne?</summary>
+                        <p data-i18n="weatherWhyText">Pracuję na zewnątrz przy myciu — deszcz, wiatr i niska temperatura mogą wpłynąć na termin zewnętrzny.</p>
+                    </details>
+                </div>
+            </section>
+            <div class="app-weather-advice" id="app-weather-advice" aria-live="polite"></div>
+            <div class="more-section">
+                <h3 data-i18n="moreContact">Kontakt</h3>
+                <div class="more-links">
+                    <a class="more-link more-link--external" href="https://wa.me/48731693089" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> <span data-i18n="moreWhatsapp">WhatsApp</span></a>
+                    <a class="more-link more-link--external" href="https://www.instagram.com/cjaab99/" rel="noopener noreferrer"><i class="fab fa-instagram"></i> <span data-i18n="moreInstagram">Instagram</span></a>
+                    <a class="more-link more-link--vcard" href="../assets/kontakt-car-all-detailing.vcf" download><i class="fas fa-address-card"></i> <span data-i18n="moreVcard">Zapisz kontakt</span></a>
+                    <button type="button" class="more-link" data-goto="book" style="width:100%;border:none;font-family:inherit;cursor:pointer;text-align:left"><i class="fas fa-calendar-alt"></i> <span data-i18n="moreBook">Rezerwacja online</span></button>
+                </div>
+            </div>
+            <div class="more-section">
+                <h3 data-i18n="moreDocs">Dokumenty</h3>
+                <div class="more-links">
+                    <a class="more-link" href="../index.html"><i class="fas fa-globe"></i> <span data-i18n="moreSite">Pełna strona www</span></a>
+                    <a class="more-link" href="../assets/regulamin.pdf" download="Regulamin_Car_All_Detailing.pdf"><i class="fas fa-file-pdf"></i> <span data-i18n="moreRegulamin">Regulamin (PDF)</span></a>
+                    <a class="more-link" href="../assets/protokol-wzor.pdf" download="Protokol_Inspekcji_Car_All_Detailing.pdf"><i class="fas fa-file-contract"></i> <span data-i18n="moreProtocol">Wzór protokołu (PDF)</span></a>
+                </div>
+            </div>
+            <div class="more-section">
+                <h3 data-i18n="moreCurrency">Waluta wyceny</h3>
+                <div class="more-currency-row">
+                    <div class="app-currency-switch" role="group" aria-label="Waluta">
+                        <button type="button" class="lang-pill currency-pill active" data-currency="EUR" title="Euro" aria-label="Euro">€</button>
+                        <button type="button" class="lang-pill currency-pill" data-currency="PLN" title="Złoty" aria-label="Złoty">zł</button>
+                    </div>
+                    <p class="app-rate-line" id="more-currency-rate" data-currency-rate-hint hidden></p>
+                </div>
+            </div>
+            <div class="more-section">
+                <h3 data-i18n="moreAppSection">Aplikacja</h3>
+                <div class="more-links">
+                    <button type="button" class="more-link" id="install-app-btn" style="width:100%;border:none;font-family:inherit;cursor:pointer;text-align:left"><i class="fas fa-download"></i> <span data-i18n="moreInstall">Zainstaluj na telefon</span></button>
+                    <button type="button" class="more-link" id="share-app-btn" style="width:100%;border:none;font-family:inherit;cursor:pointer"><i class="fas fa-share-alt"></i> <span data-i18n="moreShare">Udostępnij aplikację</span></button>
+                    <p class="app-version" id="app-version-label"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="chat-confirm-sheet" class="install-sheet chat-confirm-sheet" hidden role="dialog" aria-modal="true" aria-labelledby="chat-confirm-title">
+        <div class="install-sheet__backdrop" data-chat-confirm-dismiss></div>
+        <div class="install-sheet__panel chat-confirm-sheet__panel">
+            <h2 id="chat-confirm-title" data-i18n="chatClear">Wyczyść konwersację</h2>
+            <p id="chat-confirm-message" class="install-sheet__lead"></p>
+            <div class="chat-confirm-sheet__actions">
+                <button type="button" class="btn btn--ghost" id="chat-confirm-cancel" data-i18n="chatClearCancel">Anuluj</button>
+                <button type="button" class="btn btn--gold" id="chat-confirm-ok" data-i18n="chatClearOk">Wyczyść</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="install-sheet" class="install-sheet" hidden role="dialog" aria-labelledby="install-sheet-title" aria-modal="true">
+        <div class="install-sheet__backdrop" data-install-dismiss></div>
+        <div class="install-sheet__panel">
+            <button type="button" class="install-sheet__close" data-install-dismiss aria-label="Zamknij"><i class="fas fa-times"></i></button>
+            <p class="install-sheet__badge" data-i18n="installBadge">Na telefon</p>
+            <h2 id="install-sheet-title" data-i18n="installSheetTitle">Dodaj aplikację na ekran główny</h2>
+            <p class="install-sheet__lead" data-i18n="installSheetLead">Szybki dostęp do wyceny, chatu i rezerwacji — jedna ikona Car All Detailing na telefonie.</p>
+            <p id="install-status" class="install-sheet__status" aria-live="polite"></p>
+            <div id="install-inapp-block" class="install-sheet__block install-sheet__warn" hidden>
+                <p data-i18n="installInAppWarn">Otworzyłeś link w Instagramie lub Facebooku — stąd ikona się nie doda.</p>
+                <button type="button" class="btn btn--gold" id="install-copy-link" data-i18n="installCopyLink">Skopiuj link i wklej w Chrome / Safari</button>
+            </div>
+            <div id="install-android-block" class="install-sheet__block" hidden>
+                <button type="button" class="btn btn--gold install-sheet__primary" id="install-pwa-btn" data-i18n="installBtn">Zainstaluj teraz</button>
+                <p class="install-sheet__hint" data-i18n="installAndroidWait">Jeśli przycisk nie działa: menu Chrome (⋮) → Zainstaluj aplikację / Dodaj do ekranu głównego.</p>
+            </div>
+            <ol id="install-ios-block" class="install-sheet__steps" hidden>
+                <li data-i18n="installIosStep1">Otwórz link w Safari (nie w Instagramie ani Facebooku).</li>
+                <li data-i18n="installIosStep2">Na dole: ikona Udostępnij.</li>
+                <li data-i18n="installIosStep3">Wybierz: Dodaj do ekranu początkowego → Dodaj.</li>
+            </ol>
+            <button type="button" class="btn btn--ghost install-sheet__later" data-install-dismiss data-i18n="installLater">Anuluj</button>
+        </div>
+    </div>
+</div>
+
+<script src="../config.js"></script>
+<script src="../site/js/lang-switch.js"></script>
+<script src="js/cad-version.js"></script>
+<script src="js/cad-chat-media.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/cad-currency.js"></script>
+<script src="js/cad-data.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
+<script src="js/chat-client.js"></script>
+<script src="js/app-weather.js"></script>
+<script src="js/app-quote.js"></script>
+<script src="js/app-home.js"></script>
+<script src="js/app-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="94mm" height="54mm" viewBox="0 0 940 540" role="img" aria-labelledby="title desc">
+  <title id="title">Car All Detailing - wizytowka jasna, tyl</title>
+  <desc id="desc">Jasna wizytowka - tyl.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#f5ead0"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7a570d"/>
+      <stop offset="0.5" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#7a570d"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="940" height="540" rx="24" fill="url(#paper)"/>
+  <rect x="20" y="20" width="900" height="500" rx="18" fill="none" stroke="#c89f25" stroke-opacity="0.45" stroke-width="1.5"/>
+
+  <line x1="560" y1="40" x2="560" y2="500" stroke="#c89f25" stroke-opacity="0.25" stroke-width="1"/>
+
+  <text x="48" y="72" fill="#7a570d" font-family="Outfit, Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="4">CAR ALL DETAILING</text>
+  <text x="48" y="118" fill="#1f1a13" font-family="Outfit, Arial, sans-serif" font-size="32" font-weight="900">Karol Zag&#243;rski</text>
+  <text x="48" y="148" fill="#6a5c48" font-family="Outfit, Arial, sans-serif" font-size="13" font-weight="500">Auto detailing  |  Mycie  |  Wnetrze  |  Lakier</text>
+
+  <text x="48" y="196" fill="#2b2110" font-family="Outfit, Arial, sans-serif" font-size="16" font-weight="600">
+    <tspan fill="#7a570d" font-size="11" font-weight="800" letter-spacing="2">TEL  </tspan>+48 731 693 089
+  </text>
+  <text x="48" y="248" fill="#2b2110" font-family="Outfit, Arial, sans-serif" font-size="16" font-weight="600">
+    <tspan fill="#7a570d" font-size="11" font-weight="800" letter-spacing="2">IG  </tspan>@cjaab99
+  </text>
+  <text x="48" y="300" fill="#2b2110" font-family="Outfit, Arial, sans-serif" font-size="16" font-weight="600">
+    <tspan fill="#7a570d" font-size="11" font-weight="800" letter-spacing="2">ADR  </tspan>Planetenbaan 20, Maarssen
+  </text>
+
+  <line x1="48" y1="340" x2="512" y2="340" stroke="#c89f25" stroke-opacity="0.25" stroke-width="1"/>
+  <text x="48" y="372" fill="#7a570d" font-family="Outfit, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="2">MYCIE  |  WNETRZE  |  WOSK  |  SHOWROOM</text>
+  <text x="48" y="400" fill="#8a7c68" font-family="Outfit, Arial, sans-serif" font-size="11" font-weight="500">Wycena online  |  WhatsApp  |  Calendly</text>
+
+  <rect x="600" y="100" width="300" height="300" rx="16" fill="#ffffff" stroke="#c89f25" stroke-opacity="0.5" stroke-width="1.5"/>
+  <rect x="618" y="118" width="264" height="264" rx="8" fill="#ffffff" stroke="#e8d8b0" stroke-width="1"/>
+  <image xlink:href="qr-car-all-detailing.svg" href="qr-car-all-detailing.svg" x="630" y="130" width="240" height="240" preserveAspectRatio="xMidYMid meet"/>
+  <text x="750" y="430" text-anchor="middle" fill="#7a570d" font-family="Outfit, Arial, sans-serif" font-size="12" font-weight="800" letter-spacing="3">SKANUJ  |  WYCENA</text>
+  <text x="750" y="454" text-anchor="middle" fill="#8a7c68" font-family="Outfit, Arial, sans-serif" font-size="10" font-weight="500">cennik i rezerwacja online</text>
+</svg>

@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Car All Detailing - Ekskluzywna pielęgnacja samochodowa Karola Zagórskiego. Kalkulator usług detailingowych online.">
+    <meta name="keywords" content="detailing, czyszczenie auta, pranie tapicerki, polerka, Karol Zagórski, car detailing">
+    <!-- Open Graph – podgląd linku w WhatsApp, Facebook, Messenger itd. -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Car All Detailing | Karol Zagórski">
+    <meta property="og:description" content="Ekskluzywna pielęgnacja samochodowa. Kalkulator cen detailingowych online – Maarssen (NL) i wkrótce Polska.">
+    <!-- Po wdrożeniu ustaw pełny URL obrazka, np. https://twoja-domena.pl/assets/logo1.png -->
+    <meta property="og:image" content="https://cjaab.github.io/cennik.github.io/assets/logo1.png">
+    <meta property="og:url" content="https://cjaab.github.io/cennik.github.io/">
+    <meta property="og:locale" content="pl_PL">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Car All Detailing | Karol Zagórski">
+    <meta name="twitter:description" content="Kalkulator usług detailingowych – sprawdź wycenę i umów termin.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/logo1.png" type="image/png">
+    <title>Car All Detailing | Karol Zagórski</title>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AutoDetailing",
+        "name": "Car All Detailing",
+        "description": "Ekskluzywna pielęgnacja samochodowa – kalkulator cen online.",
+        "url": "https://cjaab.github.io/cennik.github.io/",
+        "image": "https://cjaab.github.io/cennik.github.io/assets/logo1.png",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Maarssen",
+            "addressCountry": "NL"
+        },
+        "founder": { "@type": "Person", "name": "Karol Zagórski" },
+        "priceRange": "€€",
+        "sameAs": ["https://www.instagram.com/cjaab99/"]
+    }
+    </script>
+    <link rel="stylesheet" href="site/css/style.css?v=151">
+    <link rel="stylesheet" href="site/css/refined.css?v=151">
+    <link rel="stylesheet" href="site/css/weather-modal.css?v=151">
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+</head>
+<body>
+<div class="promo-bar" id="promo-bar" hidden aria-hidden="true" style="display:none">
+    <p id="promo-text"></p>
+    <button type="button" class="promo-close" id="promo-close-btn" aria-label="Zamknij pasek promocji" hidden>&times;</button>
+</div>
+
+<header class="main-header">
+    <video muted loop playsinline preload="none" class="header-bg-video">
+        <source data-src="assets/video2.mp4" type="video/mp4">
+    </video>
+    <div class="header-overlay"></div>
+
+    <div class="header-content">
+        <div class="logo-container">
+            <img src="assets/logo1.png" alt="Car All Detailing Logo" class="main-logo">
+            <span class="logo-soft-shine" aria-hidden="true"></span>
+            <div class="logo-description">
+                <h4 id="greeting-text">Siemanko!</h4>
+                <p id="logo-tip-text"><span class="hero-tip hero-tip--desktop">Detailing w Maarssen (NL). Sprawdź wycenę w kalkulatorze i umów termin — jasny zakres, bez niedomówień.</span><span class="hero-tip hero-tip--mobile">Detailing w Maarssen. Wycena online, jasny proces.</span></p>
+            </div>
+        </div>
+        <div class="brand-titles">
+            <h1>CAR ALL DETAILING</h1>
+            <p class="signature" aria-label="by Karol Zagórski">
+                <span class="signature-by">by</span>
+                <span class="signature-name">Karol Zagórski</span>
+                <svg class="signature-flourish" aria-hidden="true" viewBox="0 0 280 20" preserveAspectRatio="none">
+                    <path d="M2 14 Q 70 4, 140 12 T 278 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+            </p>
+            <p class="tagline">EKSKLUZYWNA PIELĘGNACJA SAMOCHODOWA</p>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- SEKCJA WYBORU ROZMIARU -->
+<div class="size-selector">
+    <div class="size-selector__heading">
+        <span>Klasa pojazdu</span>
+        <p>Wybierz rozmiar auta, a potem doprecyzuj model z listy.</p>
+    </div>
+    
+    <!-- To są Twoje nowe, interaktywne kafelki -->
+    <div class="size-picker">
+        <div class="size-option" data-value="S">
+            <span>S</span>
+            <small>Małe (np. Fiat 500)</small>
+        </div>
+        <div class="size-option" data-value="M">
+            <span>M</span>
+            <small>Średnie (np. Golf, Audi A3)</small>
+        </div>
+        <div class="size-option" data-value="L">
+            <span>L</span>
+            <small>Duże (np. Audi A6, BMW 5)</small>
+        </div>
+        <div class="size-option" data-value="XL">
+            <span>XL</span>
+            <small>SUV (np. BMW X5, Q7)</small>
+        </div>
+        <div class="size-option" data-value="XXL">
+            <span>XXL</span>
+            <small>VAN / BUS (np. Sprinter)</small>
+        </div>
+    </div>
+
+    <div class="car-model-panel" id="car-model-panel">
+        <div class="car-model-panel__header">
+            <span>Przykładowe auta w tej klasie</span>
+            <small>Wybierz model albo wpisz swój</small>
+        </div>
+        <div class="car-model-list" id="car-model-list" aria-label="Przykładowe modele aut"></div>
+        <label class="custom-car-label" for="custom-car-model">
+            Inny model:
+            <input type="text" id="custom-car-model" autocomplete="off" placeholder="np. Audi A4 Avant">
+        </label>
+        <p class="selected-car-model" id="selected-car-model" data-model="">Model auta nie został jeszcze wybrany.</p>
+    </div>
+
+    <!-- Oryginalny select zostaje ukryty w CSS, ale musi być w HTML, 
+         żeby reszta Twojego starego kodu JS nadal wiedziała, co liczyć -->
+    <select id="car-size">
+        <option value="S">S</option>
+        <option value="M" selected>M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+    </select>
+</div>
+
+    <div class="calculator-container">
+
+    <!-- LEWA STRONA: LISTA USŁUG -->
+    <div class="services-selection">
+        <h3>Pakiety Główne</h3>
+        
+        <label class="service-item" data-tip="Dokładne mycie auta z zewnątrz: karoseria, felgi i opony. Dobre, gdy auto jest po prostu brudne i chcesz je odświeżyć.">
+            <input type="checkbox" id="ext-basic" class="service" data-s="50" data-m="60" data-l="75" data-xl="90" data-xxl="110"> 
+            <span class="service-name"><strong>Mycie auta z zewnątrz</strong></span>
+            <span class="service-price">od €50</span>
+        </label>
+
+        <label class="service-item" data-tip="Porządne sprzątanie środka auta: odkurzanie, bagażnik, plastiki i szyby. Dobre, gdy wnętrze wymaga świeżości, ale bez głębokiego prania.">
+            <input type="checkbox" id="int-basic" class="service" data-s="75" data-m="85" data-l="105" data-xl="130" data-xxl="160"> 
+            <span class="service-name"><strong>Czyszczenie wnętrza auta</strong></span>
+            <span class="service-price">od €75</span>
+        </label>
+
+        <label class="service-item" data-tip="Najprostszy wybór, jeśli chcesz odświeżyć całe auto: mycie z zewnątrz plus czyszczenie wnętrza w jednej usłudze.">
+            <input type="checkbox" id="full-combo" class="service" data-s="115" data-m="140" data-l="175" data-xl="215" data-xxl="270"> 
+            <span class="service-name"><strong>PAKIET COMBO</strong></span>
+            <span class="service-price">od €115</span>
+        </label>
+
+        <label class="service-item" data-tip="Głębsze pranie materiałowych foteli i wykładzin. Pomaga przy plamach, zapachu i mocno zabrudzonej tapicerce.">
+            <input type="checkbox" id="deep-clean" class="service" data-s="125" data-m="145" data-l="170" data-xl="205" data-xxl="255" disabled> 
+            <span class="service-name"><strong>Pranie tapicerki materiałowej</strong> <span class="service-badge service-badge-dark">Wkrótce</span></span>
+            <span class="service-price">od €125</span>
+        </label>
+
+        <label class="service-item" data-tip="Najbardziej kompletny pakiet dla auta, które ma wyglądać możliwie najlepiej: dokładne wnętrze, zewnętrze i zabezpieczenie lakieru woskiem.">
+            <input type="checkbox" id="showroom" class="service" data-s="220" data-m="260" data-l="320" data-xl="380" data-xxl="460"> 
+            <span class="service-name"><strong>Pakiet Showroom</strong> <span class="service-badge service-badge-dark">Premium</span></span>
+            <span class="service-price">od €220</span>
+        </label>
+
+        <h3>Pielęgnacja Skóry</h3>
+        <label class="service-item" data-tip="Czyszczenie skórzanych elementów i nałożenie preparatu, który pomaga utrzymać skórę miękką oraz mniej podatną na pękanie.">
+            <input type="checkbox" id="leather-clean" class="service" data-static="70"> 
+            <span class="service-name">Czyszczenie i pielęgnacja skóry</span>
+            <span class="service-price">od €70</span>
+        </label>
+
+        <label class="service-item" data-tip="Dokładne czyszczenie kierownicy z tłuszczu, potu i zabrudzeń po dłoniach. Dobry dodatek, bo to najczęściej dotykane miejsce w aucie.">
+            <input type="checkbox" id="steering-wheel" class="service" data-static="20"> 
+            <span class="service-name">Czyszczenie kierownicy</span>
+            <span class="service-price">€20</span>
+        </label>
+
+        <h3>Tapicerka Materiałowa</h3>
+        <label class="service-item" data-tip="Lekkie odświeżenie materiałowych foteli i boczków drzwi. Dobre przy normalnym użytkowaniu, gdy nie potrzeba pełnego prania.">
+            <input type="checkbox" id="boneting-seats" class="service" data-static="45"> 
+            <span class="service-name">Odświeżenie foteli materiałowych</span>
+            <span class="service-price">€45</span>
+        </label>
+
+        <label class="service-item" data-tip="Szersze odświeżenie materiałów we wnętrzu: fotele, boczki drzwi i delikatne czyszczenie podsufitki.">
+            <input type="checkbox" id="boneting-full" class="service" data-static="85"> 
+            <span class="service-name">Odświeżenie materiałów we wnętrzu</span>
+            <span class="service-price">€85</span>
+        </label>
+
+        <h3>Dodatki Premium</h3>
+        <label class="service-item" data-tip="Usunięcie drobinek brudu, metalu i osadów, których zwykłe mycie nie zabiera. Po tym lakier jest gładszy w dotyku.">
+            <input type="checkbox" id="clay-deiron" class="service" data-static="55"> 
+            <span class="service-name">Dogłębne oczyszczenie lakieru</span>
+            <span class="service-price">od €55</span>
+        </label>
+
+        <label class="service-item" data-tip="Lepsza ochrona lakieru i mocniejszy połysk. Wosk sprawia, że woda szybciej spływa, a auto dłużej wygląda świeżo.">
+            <input type="checkbox" id="premiumWax" class="service" data-static="65"> 
+            <span class="service-name">Wosk premium na lakier</span>
+            <span class="service-price">€65</span>
+        </label>
+
+        <label class="service-item" data-tip="Szybkie nabłyszczenie i lekka ochrona lakieru. Dobre jako dodatek po myciu, gdy chcesz lepszy wygląd bez pełnego woskowania.">
+            <input type="checkbox" id="quickWax" class="service" data-static="30"> 
+            <span class="service-name">Szybki wosk po myciu</span>
+            <span class="service-price">€30</span>
+        </label>
+
+        <label class="service-item" data-tip="Odświeżenie zapachu we wnętrzu, np. po papierosach, zwierzętach albo wilgoci. Usługa będzie dostępna później.">
+            <input type="checkbox" class="service" data-static="50" disabled> 
+            <span class="service-name">Usuwanie zapachów z wnętrza <span class="service-badge service-badge-dark">Wkrótce</span></span>
+            <span class="service-price">€50</span>
+        </label>
+
+        <label class="service-item" data-tip="Ostrożne czyszczenie widocznych elementów pod maską oraz odświeżenie plastików. Dobre przed sprzedażą auta lub po długim czasie bez czyszczenia.">
+            <input type="checkbox" id="engine-bay" class="service" data-static="55"> 
+            <span class="service-name">Czyszczenie pod maską</span>
+            <span class="service-price">€55</span>
+        </label>
+
+        <label class="service-item" data-tip="Dodatkowy czas na wyciąganie sierści z foteli, dywaników i wykładzin. Warto dodać, jeśli w aucie często jeździ pies lub kot.">
+            <input type="checkbox" id="pet-hair" class="service" data-static="35"> 
+            <span class="service-name">Usuwanie sierści z wnętrza</span>
+            <span class="service-price">od €35</span>
+        </label>
+
+    </div>
+
+    <!-- PRAWA STRONA: KALKULATOR -->
+    <div class="summary-card">
+        <div class="summary-header">
+            <span class="summary-kicker">Kalkulator</span>
+            <h4>Wstępna wycena</h4>
+        </div>
+
+        <div class="summary-total-box">
+            <p class="summary-total-label" id="pay-label">DO ZAPŁATY:</p>
+            <p class="grand-total"><span><span id="res-gross" data-eur-total="0">0</span> <span id="currency-symbol">€</span></span></p>
+            <p class="summary-total-note">Kwota orientacyjna przed oględzinami auta.</p>
+        </div>
+
+        <section class="weather-widget weather-widget--collapsed" id="weather-widget" aria-label="Pogoda" aria-live="polite">
+            <button type="button" class="weather-bubble" id="weather-toggle" aria-expanded="false" aria-controls="weather-panel weatherModal">
+                <span class="weather-bubble__icon" aria-hidden="true"><i class="fas fa-cloud-sun"></i></span>
+                <span class="weather-bubble__copy">
+                    <strong id="weather-bubble-title">Pogoda</strong>
+                    <small id="weather-bubble-meta">Ładowanie…</small>
+                </span>
+                <span class="weather-bubble__preview" id="weather-bubble-preview" aria-hidden="true">--°</span>
+                <i class="fas fa-chevron-right weather-bubble__open-hint" aria-hidden="true"></i>
+            </button>
+            <div class="weather-panel" id="weather-panel">
+                <div class="weather-widget__header">
+                    <div class="weather-widget__icon" id="weather-main-icon" aria-hidden="true">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <div>
+                        <h3>Pogoda</h3>
+                        <p class="weather-widget__status" id="weather-status">Ładowanie…</p>
+                    </div>
+                </div>
+                <div class="weather-days" id="weather-days">
+                    <article class="weather-day weather-day--loading"><div class="weather-day__top"><span class="weather-day__label">Dziś</span></div><div class="weather-day__temp"><span class="weather-day__max">--°</span></div><div class="weather-day__meta"><span>…</span></div></article>
+                    <article class="weather-day weather-day--loading"><div class="weather-day__top"><span class="weather-day__label">Jutro</span></div><div class="weather-day__temp"><span class="weather-day__max">--°</span></div><div class="weather-day__meta"><span>…</span></div></article>
+                    <article class="weather-day weather-day--loading"><div class="weather-day__top"><span class="weather-day__label">Pojutrze</span></div><div class="weather-day__temp"><span class="weather-day__max">--°</span></div><div class="weather-day__meta"><span>…</span></div></article>
+                </div>
+                <div class="weather-guide" id="weather-guide" hidden></div>
+            </div>
+        </section>
+        <div class="weather-service-advice" id="weather-service-advice" aria-live="polite"></div>
+        
+        <div class="footer-info">
+            <p>• Ostateczna cena po oględzinach stanu pojazdu</p>
+        </div>
+        <div class="upsell-suggestion" id="upsell-suggestion" aria-live="polite"></div>
+        
+        <div class="summary-actions">
+            <a class="contact-card-btn" href="assets/kontakt-car-all-detailing.vcf" download="Karol_Zagorski_Car_All_Detailing.vcf">
+                <i class="fas fa-address-card"></i> Dodaj do kontaktów
+            </a>
+
+            <button id="download-offer-btn" class="print-btn" onclick="generateOfferPDF()">
+                <i class="fas fa-file-pdf"></i> Pobierz Ofertę (PDF)
+            </button>
+
+            <button type="button" class="book-btn" onclick="if (window.Calendly) { Calendly.showPopupWidget('https://calendly.com/yakasu1999/new-meeting'); } else { window.open('https://calendly.com/yakasu1999/new-meeting', '_blank', 'noopener'); } return false;">
+                <i class="fas fa-calendar-alt"></i> Zarezerwuj Termin Online
+            </button>
+        </div>
+    </div>
+
+</div> <!-- KONIEC  -->
+
+
+<section class="safety-section">
+    <div class="container">
+        <div class="safety-showcase">
+            <div class="safety-copy">
+                <span class="section-kicker">Dokumentacja i bezpieczeństwo</span>
+                <h3>Auto trafia w moje ręce na jasnych zasadach</h3>
+                <p>
+                    Przed rozpoczęciem pracy wykonuję oględziny auta i zapisuję najważniejsze informacje w protokole. Dzięki temu wiesz, jaki był stan pojazdu przy przyjęciu, co obejmuje usługa i jakie zasady obowiązują podczas realizacji.
+                </p>
+                <div class="detailer-checklist" aria-label="Co sprawdzam przy przyjęciu auta">
+                    <span><i class="fas fa-check"></i> stan lakieru</span>
+                    <span><i class="fas fa-check"></i> wnętrze i tapicerka</span>
+                    <span><i class="fas fa-check"></i> zakres prac</span>
+                </div>
+                <div class="safety-steps" aria-label="Proces przyjęcia auta">
+                    <span><i class="fas fa-search"></i> Inspekcja auta</span>
+                    <span><i class="fas fa-file-signature"></i> Protokół</span>
+                    <span><i class="fas fa-shield-alt"></i> Jasne zasady</span>
+                </div>
+                <div class="download-buttons">
+                    <a href="assets/protokol-wzor.pdf" download="Protokol_Inspekcji_Car_All_Detailing.pdf" class="btn-outline">
+                        <i class="fas fa-download"></i> Wzór protokołu
+                    </a>
+                    <a href="assets/regulamin.pdf" download="Regulamin_Car_All_Detailing.pdf" class="btn-outline">
+                        <i class="fas fa-download"></i> Regulamin
+                    </a>
+                </div>
+            </div>
+            <div class="document-mockup" aria-hidden="true">
+                <div class="document-sheet document-sheet-back">
+                    <span>Regulamin</span>
+                    <i></i><i></i><i></i>
+                </div>
+                <div class="document-sheet document-sheet-front">
+                    <div class="document-stamp"><i class="fas fa-shield-alt"></i></div>
+                    <span>Protokół przyjęcia</span>
+                    <h4>Car All Detailing</h4>
+                    <ul>
+                        <li><b></b> Stan pojazdu</li>
+                        <li><b></b> Zakres usługi</li>
+                        <li><b></b> Potwierdzenie zasad</li>
+                    </ul>
+                    <div class="document-signature"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="brands-section">
+        <h3 class="brands-title">Pracuję na profesjonalnych produktach</h3>
+        <p class="brands-lead">Marki, które dobrze znam i które trzymają profesjonalny poziom w detailingu.</p>
+        <div class="brand-story-carousel" aria-label="Marki detailingowe">
+            <div class="brand-story-track">
+                <article class="brand-story-card">
+                    <img src="assets/logos/adbl.png" alt="ADBL">
+                    <span>Polska marka • od 2014</span>
+                    <h4>ADBL</h4>
+                    <p>Chemia i akcesoria do mycia, felg i wnętrza — sprawdzone w codziennej pracy.</p>
+                </article>
+                <article class="brand-story-card">
+                    <img src="assets/logos/fxprotect.png" alt="FX Protect">
+                    <span>Polska marka • zabezpieczenia</span>
+                    <h4>FX Protect</h4>
+                    <p>Powłoki i zabezpieczenia lakieru — połysk i trwała ochrona.</p>
+                </article>
+                <article class="brand-story-card">
+                    <img src="assets/logos/cleantle.png" alt="Cleantle">
+                    <span>Polska marka • nowoczesne formuły</span>
+                    <h4>Cleantle</h4>
+                    <p>Skuteczna chemia do mycia, dekontaminacji i codziennej pielęgnacji.</p>
+                </article>
+                <article class="brand-story-card">
+                    <img src="assets/logos/fresso.png" alt="Fresso">
+                    <span>Polska marka • zapach i styl</span>
+                    <h4>Fresso</h4>
+                    <p>Eleganckie zapachy i estetyczne wykończenie wnętrza.</p>
+                </article>
+                <article class="brand-story-card">
+                    <img src="assets/logos/goodstuff.png" alt="Good Stuff">
+                    <span>Polska marka • od 2015</span>
+                    <h4>Good Stuff</h4>
+                    <p>Proste, skuteczne produkty do detailingu na co dzień.</p>
+                </article>
+                <article class="brand-story-card">
+                    <img src="assets/logos/kiurlab.png" alt="KiurLab">
+                    <span>Polska marka • laboratorium</span>
+                    <h4>KiurLab</h4>
+                    <p>Własne receptury testowane w praktyce — powtarzalny efekt.</p>
+                </article>
+                <article class="brand-story-card">
+                    <img src="assets/logos/swag.png" alt="Swag">
+                    <span>Polska marka • społeczność</span>
+                    <h4>Swag</h4>
+                    <p>Produkty i edukacja dla osób, które chcą rozumieć proces.</p>
+                </article>
+                <article class="brand-story-card">
+                    <img src="assets/logos/workstuff.png" alt="Work Stuff">
+                    <span>Polska marka • akcesoria</span>
+                    <h4>Work Stuff</h4>
+                    <p>Pędzle, mikrofibry i narzędzia do precyzyjnej pracy.</p>
+                </article>
+                <article class="brand-story-card">
+                    <img src="assets/logos/monstershine.png" alt="Monster Shine">
+                    <span>Polska marka • mikrofibry</span>
+                    <h4>Monster Shine</h4>
+                    <p>Miękkie mikrofibry i ręczniki do bezpiecznego osuszania.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="client-fit-section">
+        <p class="section-kicker">Dla kogo jest detailing?</p>
+        <h3>Nie tylko dla aut pokazowych</h3>
+        <p class="client-fit-lead">Detailing ma sens zawsze wtedy, gdy auto ma wyglądać lepiej, pachnieć świeżej i być łatwiejsze w utrzymaniu.</p>
+        <div class="client-fit-grid">
+            <article class="client-fit-card">
+                <i class="fas fa-tags" aria-hidden="true"></i>
+                <h4>Przed sprzedażą auta</h4>
+                <p>Czyste wnętrze, świeży lakier i zadbane detale pomagają zrobić lepsze pierwsze wrażenie przy oględzinach.</p>
+            </article>
+            <article class="client-fit-card">
+                <i class="fas fa-key" aria-hidden="true"></i>
+                <h4>Po zakupie używanego auta</h4>
+                <p>Dobry moment, żeby odświeżyć wnętrze po poprzednim właścicielu i zacząć użytkowanie auta od czystej bazy.</p>
+            </article>
+            <article class="client-fit-card">
+                <i class="fas fa-child" aria-hidden="true"></i>
+                <h4>Przy dzieciach i zwierzętach</h4>
+                <p>Okruchy, sierść, piasek i zapachy zbierają się szybko. Regularne czyszczenie pomaga utrzymać auto w ryzach.</p>
+            </article>
+            <article class="client-fit-card">
+                <i class="fas fa-cloud-sun" aria-hidden="true"></i>
+                <h4>Po zimie lub wakacjach</h4>
+                <p>Sól, błoto, owady i piach potrafią mocno obciążyć auto. Detailing przywraca świeżość i zabezpiecza powierzchnie.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <p class="section-kicker">FAQ</p>
+        <h3>Najczęstsze pytania przed wizytą</h3>
+        <div class="faq-grid">
+            <details>
+                <summary>Ile trwa detailing auta?</summary>
+                <p>To zależy od zakresu i stanu auta. Proste odświeżenie może zająć kilka godzin, a większy pakiet nawet cały dzień.</p>
+            </details>
+            <details>
+                <summary>Czy cena może się zmienić po obejrzeniu auta?</summary>
+                <p>Tak, jeśli auto jest mocno zabrudzone, ma dużo sierści, plam albo wymaga więcej czasu. Dlatego cena na stronie jest wstępna.</p>
+            </details>
+            <details>
+                <summary>Czy muszę przygotować auto przed oddaniem?</summary>
+                <p>Najlepiej zabrać prywatne rzeczy, dokumenty, foteliki i wartościowe przedmioty. Resztą czyszczenia zajmuję się ja.</p>
+            </details>
+            <details>
+                <summary>Czy usuniesz każdą plamę i zapach?</summary>
+                <p>Nie zawsze da się obiecać 100% efektu, szczególnie przy starych plamach. Zawsze informuję uczciwie, czego można się spodziewać.</p>
+            </details>
+            <details>
+                <summary>Czy detailing niszczy lakier albo wnętrze?</summary>
+                <p>Nie, jeśli jest robiony rozsądnie. Używam bezpiecznych metod, miękkich akcesoriów i chemii dobranej do powierzchni.</p>
+            </details>
+            <details>
+                <summary>Jak najlepiej umówić termin?</summary>
+                <p>Najprościej przez WhatsApp. Jeśli użyjesz kalkulatora, wiadomość może zawierać wybraną klasę auta, model i listę usług.</p>
+            </details>
+        </div>
+    </section>
+
+
+<section class="connect-hub" id="connect-hub" aria-label="Instagram i aplikacja mobilna">
+    <div class="connect-hub__grid">
+        <section class="instagram-container connect-hub__card">
+            <div class="insta-overlay"></div>
+            <div class="insta-content">
+                <div class="insta-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="insta-icon">
+                    <h3>Instagram</h3>
+                </div>
+                <div class="insta-showcase">
+                    <div class="insta-copy">
+                        <p class="insta-kicker">Aktualne realizacje i kulisy</p>
+                        <h4>Zobacz, jak wygląda praca na żywo</h4>
+                        <p>Na Instagramie wrzucam bieżące auta, proces czyszczenia i krótkie relacje z detailingu.</p>
+                        <div class="insta-mini-stats">
+                            <span>Stories</span>
+                            <span>Proces pracy</span>
+                            <span>Realizacje</span>
+                        </div>
+                        <a href="https://www.instagram.com/cjaab99/" target="_blank" rel="noopener noreferrer" class="insta-link-btn">Obserwuj @cjaab99</a>
+                    </div>
+                    <div class="insta-phone" aria-hidden="true">
+                        <div class="insta-phone__top"></div>
+                        <div class="insta-screen">
+                            <div class="insta-screen__header">
+                                <span class="insta-avatar"></span>
+                                <span class="insta-username">@cjaab99</span>
+                                <span class="insta-dots">•••</span>
+                            </div>
+                            <div class="insta-post-preview"><span>Detailing</span></div>
+                            <div class="insta-actions"><span></span><span></span><span></span></div>
+                            <div class="insta-phone__line wide"></div>
+                            <div class="insta-phone__grid"><span></span><span></span><span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="instagram-container connect-hub__card connect-hub__card--app">
+            <div class="insta-overlay"></div>
+            <div class="insta-content">
+                <div class="insta-header">
+                    <img src="assets/logo1.png" alt="Car All Detailing" class="insta-icon">
+                    <h3>Aplikacja</h3>
+                </div>
+                <div class="insta-showcase">
+                    <div class="insta-copy">
+                        <p class="insta-kicker">Aplikacja mobilna</p>
+                        <h4>Wycena, chat i rezerwacja w jednym miejscu</h4>
+                        <p>Kalkulator, rozmowa z Karolem i termin — wszystko w aplikacji Car All Detailing.</p>
+                        <div class="insta-mini-stats">
+                            <span>Wycena</span>
+                            <span>Chat</span>
+                            <span>Rezerwacja</span>
+                        </div>
+                        <a class="book-btn connect-app-btn" href="app/index.html?install=1" id="connect-app-btn">
+                            <i class="fas fa-download connect-app-btn__icon--mobile" aria-hidden="true"></i>
+                            <i class="fas fa-mobile-alt connect-app-btn__icon--desktop" aria-hidden="true"></i>
+                            <span class="connect-app-btn__label--mobile">Dodaj ikonę na ekran</span>
+                            <span class="connect-app-btn__label--desktop">Otwórz aplikację</span>
+                        </a>
+                        <p class="connect-app-ios-hint">Krótka instrukcja, potem dodanie ikony CAD na ekran główny.</p>
+                    </div>
+                    <div class="cad-app-mockup" aria-hidden="true">
+                        <div class="cad-install-phone">
+                            <div class="cad-install-phone__notch"></div>
+                            <div class="cad-install-phone__screen">
+                                <div class="cad-install-phone__status">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="cad-install-phone__app-head">
+                                    <img src="assets/logo1.png" alt="">
+                                    <strong>CAD</strong>
+                                </div>
+                                <div class="cad-install-phone__hero-mini">
+                                    <small>Wycena · Chat</small>
+                                </div>
+                                <div class="cad-install-phone__chips">
+                                    <span><i class="fas fa-calculator"></i></span>
+                                    <span><i class="fas fa-comments"></i></span>
+                                    <span><i class="fas fa-calendar-check"></i></span>
+                                </div>
+                                <div class="cad-install-phone__nav">
+                                    <span class="on"></span><span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+</main>
+
+<script src="config.js"></script>
+<script src="site/js/lang-switch.js"></script>
+<script src="site/js/app.js?v=151"></script>
+<script src="site/js/fun.js"></script>
+<script src="site/js/script.js?v=151"></script>
+<script src="site/js/refined.js?v=3"></script>
+
+<footer>
+    <p>&copy; 2026 Car All Detailing | Karol Zagórski</p>
+</footer>
+
+<aside class="float-dock" id="float-dock" aria-label="Szybkie akcje">
+    <button type="button" class="float-btn float-btn--theme" id="theme-toggle-btn" aria-label="Zmień motyw strony" aria-pressed="false">
+        <span class="theme-toggle-icon" aria-hidden="true"><i class="fas fa-sun"></i></span>
+        <span class="float-action-copy">
+            <strong>Motyw</strong>
+            <small>jasny / ciemny</small>
+        </span>
+    </button>
+    <button type="button" class="float-btn float-btn--info info-float" onclick="toggleInfoModal()" aria-label="Słownik detailera">
+        <span class="float-mockup-icon" aria-hidden="true">?</span>
+        <span class="float-action-copy">
+            <strong>Słowniczek</strong>
+            <small>poznaj pojęcia</small>
+        </span>
+    </button>
+    <a id="whatsapp-quote-btn" href="https://wa.me/48731693089?text=Cześć!%20Obliczyłem%20cenę%20w%20kalkulatorze%20i%20chciałbym%20zapytać%20o%20wolny%20termin." class="float-btn float-btn--wa whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Wyślij aktualną wycenę przez WhatsApp">
+        <span class="wa-chat-mockup" aria-hidden="true">
+            <i class="fab fa-whatsapp"></i>
+            <span></span>
+        </span>
+        <span class="float-action-copy">
+            <strong>WhatsApp</strong>
+            <small>wyślij wycenę</small>
+        </span>
+    </a>
+</aside>
+
+<div id="weatherModal" class="modal-overlay" style="display:none" aria-hidden="true" aria-labelledby="weather-modal-title">
+    <div class="modal-content modal-content--weather">
+        <button type="button" class="close-modal" data-weather-modal-close aria-label="Zamknij">&times;</button>
+        <h3 id="weather-modal-title">Pogoda</h3>
+        <p class="weather-modal-location"><i class="fas fa-location-dot" aria-hidden="true"></i><span id="weather-modal-subtitle">Ładowanie…</span></p>
+        <div class="weather-days" id="weather-modal-days"></div>
+        <div class="weather-guide" id="weather-modal-guide" hidden></div>
+    </div>
+</div>
+
+<div id="infoModal" class="modal-overlay">
+    <div class="modal-content modal-content--glossary">
+        <span class="close-modal" onclick="toggleInfoModal()">&times;</span>
+        <div class="glossary-modal-head">
+            <p class="glossary-modal-kicker">Car All Detailing · wiedza</p>
+            <h3>Słownik Detailera</h3>
+            <p class="modal-subtitle">Rozszerzony przewodnik: usługi, chemia i praktyka detailingu — wyjaśnione po ludzku, z przykładami z warsztatu.</p>
+            <div class="glossary-intro" aria-hidden="true">
+                <span class="glossary-intro__pill">21 pojęć</span>
+                <span class="glossary-intro__pill">Chemia i fakty</span>
+                <span class="glossary-intro__pill">Z przykładami</span>
+            </div>
+        </div>
+
+        <div class="knowledge-accordion glossary-accordion">
+            <details class="glossary-entry glossary-entry--wash">
+                <summary>
+                    <span class="glossary-entry__title">🚿 Mycie Detailingowe (Zewnątrz)</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p>To fundament bezpiecznej pielęgnacji lakieru — i najczęściej niedoceniany etap. Zwykła myjnia dociera tylko do „wierzchu” brudu; detailing zaczyna się od <strong>pianowania (Pre-Wash)</strong>: aktywna piana zmiękcza kurz, pył drogowy i sól, zanim dotkniemy lakieru gąbką. Dzięki temu zamiast przeciągać ziarenka po powierzchni, spłukujemy je pod niskim ciśnieniem.</p>
+                        <p>Kolejny krok to <strong>metoda „na dwa wiadra”</strong>: jedno wiadro z szamponem, drugie z czystą wodą do płukania gąbki. Separator w dnie wiadra zatrzymuje osad — to prosta fizyka, która drastycznie ogranicza mikrozarysowania (<em>swirls</em>). Pędzelkujemy wnęki drzwi, emblematy, grill i felgi osobno, bo tam gromadzi się najtwardszy brud. Na koniec: osuszanie sprężonym powietrzem (żeby woda nie wyschła w szczelinach) i grube ręczniki z mikrofibry — bez pocierania na sucho.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Dobry szampon detailingowy ma pH bliskie obojętnemu (ok. 7). Agresywne środki alkaliczne (pH 11–13) szybko zmywają brud, ale mogą matowić powłoki organiczne, wysuszać uszczelki i osłabiać warstwę wosku już po kilku myciach.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--decon">
+                <summary>
+                    <span class="glossary-entry__title">🧼 Dekontaminacja i Deironizacja</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p>Dekontaminacja to usunięcie zanieczyszczeń, których nie widać gołym okiem, a które zostają po zwykłym myciu. <strong>Deironizacja</strong> to środek na bazie kwasu (najczęściej glikolowy lub mlekowy), który chemicznie rozpuszcza wbite w lakier opiłki żelaza z klocków hamulcowych — stąd charakterystyczny fioletowy kolor i efekt „krwawiącego lakieru”. To nie uszkodzenie — to reakcja chemiczna, po której metal znika.</p>
+                        <p>Równolegle usuwamy <strong>smołę, asfalt, soki z drzew</strong> i pozostałości insektów dedykowanymi rozpuszczalnikami lub glinką. Dopiero wtedy lakier odzyskuje gładkość pod palcami i staje się idealną bazą pod wosk, sealant lub ceramikę. Pominięcie tego etapu to jak malowanie ściany na brudzie — powłoka nie przylegnie równomiernie.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Opiółki żelaza są magnetyczne — dlatego „przyklejają się” do lakieru, zwłaszcza na białych i jasnoszarych autach. Z czasem utleniają się i tworzą rdzawe punkty, których nie usuniesz szamponem. Deironizator zamienia tlenek żelaza w rozpuszczalny kompleks, który spłukujesz wodą.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--wax">
+                <summary>
+                    <span class="glossary-entry__title">🛡️ Wosk Premium (Twardy)</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p><strong>Wosk twardy (paste wax)</strong> to klasyczna ochrona lakieru — szczególnie ceniona przez pasjonatów głębi koloru. Na bazie <strong>carnaudy brazylijskiej</strong> (wosk z liści palm) lub zaawansowanych polimerów syntetycznych tworzy cienką, hydrofobową warstwę na powierzchni. Woda zbiera się w krople i spływa, zabierając lekki kurz — to tzw. efekt <em>lotus</em>.</p>
+                        <p>Wosk nie „wlewa się” w lakier jak ceramika — siedzi na nim i zużywa się z myciami, deszczem i UV. Dlatego wymaga odświeżenia co kilka tygodni lub miesięcy. W zamian daje coś, czego trudno podrobić syntetykiem: <strong>ciepły, szklisty połysk</strong> i wrażenie „mokrego lakieru” nawet na matowych odcieniach. Idealny wybór przed sezonem letnim lub na auto pokazowe.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Carnauba w czystej postaci jest twarda jak cukierek — dlatego produkcyjnie miesza się ją z rozpuszczalnikami i olejami nośnikowymi. Im wyższy % carnauby na etykiecie, tym trudniej aplikować wosk ręcznie, ale tym głębszy efekt wizualny po wypolerowaniu.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--leather">
+                <summary>
+                    <span class="glossary-entry__title">🐂 Pielęgnacja Skóry (Clean & Condition)</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p>Skóra naturalna to materiał żywy — z czasem traci oleje, wysycha w porach i może pękać w zgięciach foteli. <strong>Clean &amp; Condition</strong> to dwuetap: najpierw delikatne czyszczenie pianą o neutralnym pH i szczotkami z naturalnego włosia (żeby wyciągnąć tłuszcz, kurz i resztki kosmetyków z mikrostruktury), potem <strong>conditioner</strong> — emulsja z lanoliną lub olejami, która uzupełnia elastyczność.</p>
+                        <p>Dobry conditioner nie zostawia tłustej powłoki ani poślizgu — ma matowe, fabryczne wykończenie. Chroni też przed <strong>transferem barwnika</strong> z ciemnych jeansów na jasną skórę (częsty problem na boczkach foteli kierowcy). Skóra ekokoża wymaga innej chemii — tam unikamy mocnych rozpuszczalników i stosujemy dedykowane środki bez alkoholu.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Skóra ma pH ok. 4,5–5,5 (lekko kwaśne). Środki o wysokim pH (typowe „universal cleaners”) mogą z czasem rozluźniać pigment i uszkadzać wykończenie. Dlatego w detailingu wnętrz stawiamy na dedykowaną chemię skórzaną.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--polish">
+                <summary>
+                    <span class="glossary-entry__title">✨ Jednoetapowe Odświeżenie (One-Step Polish)</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p><strong>One-step polish</strong> to kompromis między szybkim odświeżeniem a pełną korektą lakieru. Jedna pasta polerska na maszynie (rotacyjnej lub orbitalnej) jednocześnie <strong>delikatnie ściera</strong> mikrowarstwę lakieru i domyka ją olejami w pastie — stąd natychmiastowy połysk. Realnie usuwa 50–60% drobnych zarysowań: matowienia po myjniach bezdotykowych, lekkie <em>swirls</em>, utlenienie po zimie.</p>
+                        <p>To nie jest „magiczna róbka” na głębokie rysy — te wymagają wieloetapowej korekty i często pomiaru grubości lakieru miernikiem. One-step jest idealny przed sprzedażą auta, po sezonie zimowym lub jako przygotowanie pod sealant. Efekt: wyraźnie żywszy kolor, gładsza powierzchnia i lepsza przyczepność powłoki ochronnej.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Pasty polerskie to zawiesina ścierniwa (np. krzemionka) w nośniku woskowym. Im niższy indeks ścierania (np. „finishing”), tym mniej usuwa z lakieru, ale tym bezpieczniej na cienkich fabrycznych warstwach — typowy lakier ma 80–140 µm grubości, czyli mniej niż grubość kartki papieru.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--ceramic">
+                <summary>
+                    <span class="glossary-entry__title">💎 Powłoka Ceramiczna / Grafenowa</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p><strong>Powłoka ceramiczna</strong> to liquid glass — roztwór prekursorów krzemionki (najczęściej <strong>SiO₂</strong> — ditlenek krzemu), który po aplikacji wiąże się z lakierem w trwałą sieć polimerową. Twardość marketingowa „9H” odnosi się do skali ołówka, nie do pancerza — ale realnie chroni przed mikrozarysowaniami, chemią, słem drogową i UV przez 2–5 lat (zależnie od produktu i pielęgnacji).</p>
+                        <p><strong>Grafen</strong> w powłokach to nowsza generacja — dodatek węgla w strukturze plastra miodu ma poprawiać przewodzenie ciepła i odporność na plamy wodne. Niezależnie od marki, kluczowy jest etap <strong>przygotowania</strong>: dekontaminacja, polerowanie, panel wipe IPA i aplikacja w kontrolowanych warunkach. Źle przygotowana baza = słabsza trwałość i smugi pod powłoką.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Podczas utwardzania ceramiki zachodzi <em>hydroliza i kondensacja</em> — cząsteczki SiO₂ tworzą sieć krzemowo-tlenową (jak szkło), która chemicznie wiąże się z grupami hydroksylowymi na lakierze. Dlatego ceramika nie „zmywa się” jak wosk — wymaga mechanicznego polerowania do usunięcia.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--wheels">
+                <summary>
+                    <span class="glossary-entry__title">🛞 Detailing Kół i Nadkoli</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p>Koła to najbardziej obciążona chemicznie strefa auta: pył hamulcowy (żelazo + węgiel), smoła, sól, błoto. <strong>Detailing kół</strong> obejmuje mycie zewnętrznej i wewnętrznej strony felgi (często po zdjęciu koła), czyszczenie bieżnika i <strong>nadkoli</strong> — tam gromadzi się kamień i rdza. Używamy kwasowych lub neutralnych środków zależnie od typu felgi (lakierowana, polerowana alu, chrom).</p>
+                        <p>Na koniec: <strong>dressing opon</strong> (satyna, nie poślizg jak na torze) oraz wosk wysokotemperaturowy na felgi — tworzy barierę, przez którą kolejny pył hamulcowy spływa łatwiej przy myciu. Zaniedbane koła to nie tylko wygląd — zbita warstwa pyłu kumuluje wilgoć i przyspiesza korozję śrub i powierzchni metalowych.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Pył hamulcowy jest lekko magnetyczny i ma ostre, mikroskopijne krawędzie. Gdy myjesz felgi tą samą gąbką co karoserię, przenosisz metaliczne ziarna na lakier — stąd zalecenie osobnych akcesoriów i środków do kół.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--lights">
+                <summary>
+                    <span class="glossary-entry__title">🕯️ Polerowanie Reflektorów</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p>Reflektory z poliwęglanu z czasem <strong>żółkną i matowieją</strong> pod wpływem UV — mikropęknięcia na powierzchni rozpraszają światło zamiast je skupiać. Polerowanie reflektorów to wieloetapowy proces: szlifowanie papierami o rosnącej drobności (usuwa utlenioną warstwę), potem polerowanie pastą i na koniec <strong>zabezpieczenie filtrem UV</strong> lub powłoką ceramiczną na plastik.</p>
+                        <p>Efekt to nie tylko estetyka — przywrócona przejrzystość oznacza lepszy zasięg światła drogowego i mniejsze zmęczenie wzroku w nocy. W niektórych krajach mocno zmatowiałe lampy to problem przy przeglądzie technicznym. Cały zabieg trwa krócej niż wymiana kloszy, ale wymaga precyzji — zbyt agresywny szlif może usunąć zbyt dużo materiału.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Żółknięcie to fotodegradacja — promienie UV rozbijają wiązania w polimerze i uwalniają mikroskopijne pory, w które osadza się kurz. Bez filtra UV po polerowaniu matowienie wraca często w ciągu 6–12 miesięcy.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--trim">
+                <summary>
+                    <span class="glossary-entry__title">🖤 Odświeżenie Plastików Zewnętrznych</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p>Plastiki zewnętrzne — listwy, lusterka, grill, elementy podszybia — <strong>wyblakają</strong> pod wpływem słońca, ozonu i mycia niewłaściwą chemią. Szary, kredowy wygląd to nie brud, tylko degradacja warstwy wierzchniej i wysuszenie polimeru. Dressing przywraca głębię koloru i satynę, ale tanie „błyszczyki” często zawierają silikony, które po kilku myciach zostawiają tłustą poświatę i przyciągają kurz.</p>
+                        <p>W detailingu stosujemy <strong>dressingi wodne lub ceramiczne do trimu</strong> — penetrują strukturę plastiku zamiast tylko leżeć na wierzchu. Powłoka ceramiczna na plastik daje trwalszy efekt (nawet rok) i odporność na UV. To ważny detal przy odsprzedaży — wyblakłe listwy psują wrażenie nawet na zadbanym lakierze.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Większość dressingsów to emulsja wody, polimerów i UV-absorberów. Silikonowe „wet look” produkty działają szybko, ale mogą powodować <em>streaking</em> — białe smugi po deszczu, bo silikon nie wiąże się z plastikiem, tylko na nim unosi.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--engine">
+                <summary>
+                    <span class="glossary-entry__title">🧼 Czyszczenie Komory Silnika</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p>Komora silnika to miejsce, gdzie gromadzi się mieszanka kurzu, oleju, spalin i pyłu drogowego — wygląda źle, ale też utrudnia wykrycie wycieków i obniża wartość przy oględzinach. <strong>Czyszczenie detailingowe</strong> to nie myjnia wysokociśnieniowa pod maską — to kontrolowane mycie parą lub niskim ciśnieniem z <strong>dielectricznymi środkami</strong> (nie przewodzą prądu), z zabezpieczeniem alternatora, ECU i wtyczek.</p>
+                        <p>Po myciu suszymy sprężonym powietrzem i nakładamy dressing na plastik i gumę — antystatyczny, matowy, odporny na temperaturę. Efekt: fabryczna świeżość, łatwiejsza diagnostyka i brak „parbienia” na plastikach po gorącym silniku. Regularna pielęgnacja komory to też profilaktyka — widać od razu, skąd kapie olej.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Środki <em>dielectric</em> zawierają rozpuszczalniki o wysokiej rezystywności — nie tworzą mostków przewodzących między pinami wtyczek. Mimo to zawsze zabezpieczamy elektronikę folią: woda pod ciśnieniem może dostać się gdzie indziej niż chemia.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--clay">
+                <summary>
+                    <span class="glossary-entry__title">🧽 Glinka Detailingowa (Clay Bar)</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p><strong>Glinka</strong> to fizyczna dekontaminacja — wyczuwalna pod palcami gładkość, której nie da szampon. Przesuwa się po lakierze z lubrykantem (płyn glinkowy lub rozcieńczony szampon) i jak magnes wyciąga wbite cząsteczki: smołę, resztki asfaltu, pył przemysłowy, czasem pozostałości po żywicach. Gdy lakier jest „szorstki”, słychać lekkie trzaski — to znak, że glinka pracuje.</p>
+                        <p>Glinkę stosuje się po myciu, często po deironizacji. Jest miękka, średnia lub agresywna — dobrać do stanu lakieru. Po glince lakier jest idealnie gładki pod powłokę. Pominięcie glinki przed woskiem to częsta przyczyna „szorstkiego” odczucia po aplikacji i słabszej przyczepności ochrony.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Glinka to syntetyczna glinka (np. na bazie żywicy) lub naturalna glinka montmorylonitowa. Nie „rozpuszcza” brudu jak chemia — otacza cząsteczki i wyciąga je z mikro-nierówności. Gdy spadnie na ziemię, wyrzucamy ją — zbiera piasek, który zarysuje lakier.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--ph">
+                <summary>
+                    <span class="glossary-entry__title">⚗️ pH i Bezpieczna Chemia Myjąca</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p>Skala <strong>pH</strong> mówi, czy środek jest kwaśny (1–6), obojętny (7) czy alkaliczny (8–14). W detailingu to nie abstrakcja z laboratorium — to różnica między bezpiecznym myciem a stopniowym niszczeniem powłok. <strong>Szampon neutralny</strong> (pH 6,5–7,5) jest codziennym standardem: myje bez matowienia wosku i bez podrażniania uszczelek.</p>
+                        <p><strong>Środki alkaliczne</strong> (pH 12+) — popularne w myjniach bezdotykowych — błyskawicznie rozpuszczają tłuszcz i brud drogowy, ale przy częstym stosowaniu mogą wysuszać plastiki, matowić trim i osłabiać sealanty. <strong>Środki kwaśne</strong> (pH 3–4) służą do kół i usuwania kamienia — nigdy na całą karoserię bez neutralizacji. Zasada detailera: mocniejsza chemia tylko tam, gdzie jest potrzebna, i zawsze z płukaniem.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Każdy punkt pH to dziesięciokrotna zmiana aktywności jonów wodoru. Skok z pH 7 do pH 10 to nie „trochę mocniej” — to chemia 1000× bardziej alkaliczna. Dlatego APC rozcieńczamy, a nie stosujemy na lakier w pełnej mocy.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--ipa">
+                <summary>
+                    <span class="glossary-entry__title">🧪 Izopropanol (IPA) — Panel Wipe</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p><strong>IPA (izopropyl alcohol)</strong> w rozcieńczeniu 10–15% to standardowy „panel wipe” przed nałożeniem powłoki ceramicznej, sealantu lub folii PPF. Rozpuszcza resztki past polerskich, olejów, silikonów z dressingów i fingerprints — wszystko, co mogłoby zablokować wiązanie chemiczne powłoki z lakierem.</p>
+                        <p>Stosujemy go na czystym, suchym lakierze, jednorazową mikrofibą, bez wcierania. Po IPA lakier jest chwilowo „głuchy” na dotyk — to normalne. Ważne: IPA nie zastępuje mycia ani dekontaminacji; to ostatni krok czyszczenia chemicznego przed aplikacją. Zbyt mocne IPA (70%+) na długo może wysuszyć uszczelki, jeśli zostawisz środek bez spłukania.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> IPA jest rozpuszczalnikiem polarowym — dobrze rozpuszcza oleje i wiele polimerów, ale słabiej radzi sobie z czystą smołą (tu lepsze dedykowane tar removery). Mieszanka IPA + woda zmniejsza szybkość odparowania i daje więcej czasu na przetarcie panelu.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--correction">
+                <summary>
+                    <span class="glossary-entry__title">🔧 Korekta Lakieru Wieloetapowa</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p>Pełna <strong>korekta lakieru</strong> to proces wieloetapowy: najpierw pasta tnąca (cutting) usuwa głębsze defekty, potem pasta finishingowa domyka powierzchnię i daje klarowny połysk bez hologramów. Na ciemnych kolorach (czarny, granat) często wymaga inspekcji pod lampą LED pod kątem 45° — inaczej zarysowania „wracają” w słońcu.</p>
+                        <p>Przed polerowaniem mierzymy <strong>grubość lakieru</strong> miernikiem indukcyjnym — fabryczny clearcoat ma zwykle 40–80 µm. Nie ma nieskończonej ilości materiału do ścierania. Korekta to godziny pracy, nie minuty — stąd różnica ceny względem one-step. Efekt końcowy: lustro na tyle głębokie, że widać odbicie chmur.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Hologramy to mikroskopijne rowki w lakierze, często po niewłaściwej tarczy lub zbyt szybkiej maszynie rotacyjnej. Finishing paste ma mniejsze ziarno ścierniwa i „wypala” te rowki na gładką powierzchnię — podobnie jak szlifowanie drewna coraz drobniejszym papierem.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--microfiber">
+                <summary>
+                    <span class="glossary-entry__title">🧵 Mikrofibra: GSM i Dlaczego Ma Znaczenie</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p><strong>Mikrofibra</strong> to tkanina z włókien poliestru i poliamidu (najczęściej 80/20 lub 70/30), splątanych tak cienko, że jedno włókno jest cieńsze od ludzkiego włosa. Dzięki temu chłonie wodę i kurz lepiej niż bawełna i — przy dobrej jakości — nie rysuje lakieru. Parametr <strong>GSM</strong> (gramy na m²) mówi o gramaturze: 300–400 GSM to uniwersał do osuszania, 500+ GSM to grube ręczniki „premium”.</p>
+                        <p>Różne kolory i typy służą różnym strefom: osobna mikrofibra do kół, do wnętrza, do szyb. Po myciu — pranie bez płynu zmiękczającego (zmiękczacz zatyka włókna i obniża chłonność) i bez suszarki na max — włókna mogą się stopić. Tania mikrofibra z marketu często ma ostre krawędzie szycia — obcinamy metki lub używamy do felg.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Poliester w mikrofibrze jest hydrofobowy, poliamid hydrofilowy — połączenie daje „pompę” capillary, która wciąga wodę do wnętrza włókna. Dlatego dobra mikrofibra zostawia lakier prawie suchy jednym przejściem, bez tarcia.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--waterspots">
+                <summary>
+                    <span class="glossary-entry__title">💧 Twarda Woda i Plamy (Water Spots)</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p><strong>Water spots</strong> to białe, kredowe plamy po wyschnięciu wody — w twardiej wodzie zostają minerały: wapń, magnez, krzemionka. Etap 1 to plamy wodne (usuwalne kwasem lub dedykowanym środkiem), etap 2 to już <strong>wyżarzone mineral deposits</strong> — minerał wniknął w lakier i wymaga polerowania.</p>
+                        <p>Profilaktyka: osuszanie po myciu, unikanie podlewania auta w słońcu, mycie szarą wodą lub filtrami demineralizującymi. Na powłokach ceramicznych plamy są łatwiejsze do usunięcia — hydrofobowa warstwa spowalnia parowanie i ogranicza kontakt minerałów z lakierem. Zaniedbane plamy na czarnym lakierze to jeden z najczęstszych powodów wizyt w studio korekty.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Twardość wody mierzy się w °dH lub ppm CaCO₃. W Polsce woda z kranu bywa 15–25°dH — wystarczająco, by po jednym deszczu zostawić ślady na nieosłoniętym lakierze. Kwasowe środki do water spots rozpuszczają węglany, nie „zdzierają” lakieru jak papier ścierny.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--apc">
+                <summary>
+                    <span class="glossary-entry__title">🫧 APC — Środek Wielozadaniowy</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p><strong>APC (All Purpose Cleaner)</strong> to koncentrat do wielu powierzchni: progi, wnęki, plastiki wewnętrzne, silnik, czasem tapicerka. Działa dzięki <strong>surfaktantom</strong> — cząsteczkom, które obniżają napięcie powierzchniowe wody i „odklejają” brud od materiału. W detailingu zawsze rozcieńczamy (np. 1:10 do lekkiego mycia, 1:3 do mocnych zabrudzeń).</p>
+                        <p>APC to nie zamiennik szamponu do lakieru w pełnej mocy — zbyt alkaliczny koncentrat na ciepłym lakierze może osłabić ochronę. Świetny do prep przed dressingiem, czyszczenia gumowych dywaników i detailingu stref, gdzie szampon jest za słaby, a kwasówka za agresywna. Po APC zawsze płuczemy lub przecieramy wilgotną mikrofibą.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Surfaktanty mają część „polarną” (lubi wodę) i „niepolarną” (lubi tłuszcz) — jak mydło. Brud otacza micela i spływa z powierzchni. Dlatego APC działa na tłuste plamy z McDrive’u na plastiku, których woda sama nie ruszy.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--qd">
+                <summary>
+                    <span class="glossary-entry__title">✨ Quick Detailer (QD) — Szybkie Odświeżenie</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p><strong>Quick Detailer</strong> to spray do błyskawicznego odświeżenia lakieru między pełnymi myciami: lekko odtłuszcza, zbiera kurz i zostawia cienką warstwę poślizgu (często polimery lub carnauba w rozcieńczeniu). Stosuj się na czystej, suchej lub lekko wilgotnej powierzchni — jedna mikrofibra do aplikacji, druga do polerowania na błysk.</p>
+                        <p>QD nie zastępuje mycia — jeśli na lakierze jest piasek, spray go przeciągniesz. To narzędzie po weekendowej jeździe, przed spotkaniem klubu, lub jako <strong>lubrykant</strong> przy lekkiej glince. Niektóre QD mają właściwości <em>clay lube</em>. Na powłoce ceramicznej wybieramy QD bez silikonów — inaczej maskują hydrofobowość i mylimy się co do stanu powłoki.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Wiele QD zawiera <em>dimetykon</em> lub polimery silikonowe — dają ślizg i połysk, ale nie wiążą się trwale. Na sealancie to plus (odświeżenie), pod ceramiką — minus (warstwa, która nie trzyma i zbiera kurz).</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--bio">
+                <summary>
+                    <span class="glossary-entry__title">🐦 Odchody Ptaków, Soki i Owady — Pilne!</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p>Biologiczne zanieczyszczenia to jedne z najbardziej <strong>agresywnych chemicznie</strong> dla lakieru. Odchody ptaków zawierają mocznik i kwasy — w ciągu 24–48 godzin na gorącej masce mogą trwale wyżarzyć clearcoat (tzw. <em>etching</em>). Soki z lipy, kasztanów czy jagód mają barwniki i kwasy, które wnikają w porowaty lakier. Owady zostawiają białkowe resztki, które utleniają się na słońcu.</p>
+                        <p>Reakcja: jak najszybciej zmiękczyć i usunąć — dedykowany <em>bird bomb remover</em> lub wilgotna mikrofibra, bez pocierania na sucho. Po usunięciu sprawdzamy lakier pod lampą; głębokie etching wymaga polerowania punktowego. Na ceramice ryzyko mniejsze, ale kwas i tak nie powinien leżeć godzinami — to nie magia, tylko opóźniona reakcja chemiczna.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Mocznik w odchodach ptaków rozkłada się do amoniaku i kwasów — pH może spaść poniżej 3. Lakier clearcoat jest odporny na krótki kontakt, ale ciepło słońca przyspiesza reakcję i „wypala” mikroobszar. Im ciemniejszy kolor, tym bardziej widać matową plamę.</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--swirls">
+                <summary>
+                    <span class="glossary-entry__title">🌀 Swirls, Hologramy i Rysy — Różnice</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p><strong>Swirls</strong> (mikrozarysowania) to sieć cienkich linii widocznych głównie w słońcu — typowo od myjni szczotkowych, brudnych gąbek lub ręczników papierowych. <strong>Hologramy</strong> to „tęczowe” smugi od złej techniki polerowania — zbyt agresywna pasta, za dużo ciśnienia, niewłaściwa tarcza. <strong>Rysy</strong> (scratches) sięgają głębiej — czasem do warstwy koloru — i wymagają wieloetapowej korekty lub lakierowania punktowego.</p>
+                        <p>Rozróżnienie ma znaczenie dla wyceny i oczekiwań: swirls usuwamy one-stepem lub korektą, hologramy — finishingiem, głębokie rysy — nie zawsze w 100%. Inspekcja pod lampą LED to standard w studio — światło boczne odsłania defekty niewidoczne w garażu. Po korekcie zawsze zabezpieczamy lakier — świeży clearcoat jest bardziej podatny na nowe swirls bez wosku lub ceramiki.</p>
+                        <aside class="glossary-fact"><strong>Ciekawostka chemiczna:</strong> Swirls to fizyczne wgłębienia w clearcoacie — światło odbija się nieregularnie (dyfrakcja na krawędziach rowków). Nie „znikną” samą chemą — trzeba wyrównać powierzchnię ścierniwem lub wypełnić je tymczasowo olejami w QD (efekt na kilka dni).</aside>
+                    </div>
+                </div>
+            </details>
+
+            <details class="glossary-entry glossary-entry--value">
+                <summary>
+                    <span class="glossary-entry__title">💎 Dlaczego Detailing jest droższy od zwykłej myjni?</span>
+                </summary>
+                <div class="glossary-entry__panel">
+                    <div class="glossary-entry__content">
+                        <p>
+                            Wiele osób myli detailing ze zwykłym myciem, ale różnica tkwi w <strong>skali precyzji</strong> i <strong>bezpieczeństwie</strong>:
+                            <br><br>
+                            1. <strong>Czas to jakość:</strong> Zwykłe mycie trwa 30 minut. Kompleksowy detailing to od 8 do nawet 40 godzin rzemieślniczej pracy. Detailer poświęca czas na miejsca, których nie widać na pierwszy rzut oka – wnęki, szyny foteli, emblematy czy nadkola.
+                            <br><br>
+                            2. <strong>Technologia i bezpieczeństwo:</strong> Korzystamy z mierników grubości lakieru, specjalistycznych lamp inspekcyjnych i maszyn polerskich. Używamy chemii o bezpiecznym pH, która nie niszczy uszczelek ani chromów, co jest częstym problemem po agresywnej chemii na myjniach bezdotykowych.
+                            <br><br>
+                            3. <strong>Wiedza i odpowiedzialność:</strong> Lakier współczesnych aut jest cieńszy niż ludzki włos. Praca z maszyną polerską wymaga ogromnej wiedzy, by nie doprowadzić do nieodwracalnych uszkodzeń. Płacisz za doświadczenie, które gwarantuje, że auto wróci do Ciebie w lepszym stanie, niż wyjechało z salonu.
+                            <br><br>
+                            4. <strong>Inwestycja, nie koszt:</strong> Profesjonalny detailing drastycznie podnosi wartość rynkową auta przy odsprzedaży i chroni je przed korozją oraz degradacją materiałów. To konserwacja, która realnie oszczędza Twoje pieniądze w przyszłości.
+                        </p>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </div>
+</div>
+
+<div id="site-install-modal" class="site-install-modal" hidden role="dialog" aria-labelledby="site-install-title" aria-modal="true">
+    <div class="site-install-modal__backdrop" data-site-install-close></div>
+    <div class="site-install-modal__panel">
+        <button type="button" class="site-install-modal__close" data-site-install-close aria-label="Zamknij"><i class="fas fa-times"></i></button>
+        <p class="site-install-modal__badge">Car All Detailing</p>
+        <h2 id="site-install-title">Dodaj ikonę na ekran główny</h2>
+        <p class="site-install-modal__lead">Wycena, chat i rezerwacja pod ręką. Zalecane: <strong>Chrome</strong> (Android) lub <strong>Safari</strong> (iPhone).</p>
+        <div id="site-install-android" class="site-install-modal__note">
+            <p><strong>Android:</strong> Kontynuuj → <strong>Dodaj ikonę</strong> → potwierdź — ikona <strong>CAD</strong> na ekranie głównym.</p>
+        </div>
+        <div id="site-install-ios" class="site-install-modal__note" hidden>
+            <p><strong>iPhone:</strong> Safari → <strong>Udostępnij</strong> → <strong>Dodaj do ekranu początkowego</strong>.</p>
+        </div>
+        <button type="button" class="book-btn site-install-modal__go" id="site-install-go">Kontynuuj</button>
+        <button type="button" class="site-install-modal__cancel" data-site-install-close">Anuluj</button>
+    </div>
+</div>
+
+<div class="calc-sticky-bar" id="calc-sticky-bar" hidden>
+    <div class="calc-sticky-bar__total">
+        <small>Suma orientacyjna</small>
+        <strong><span id="sticky-total">0</span> <span id="sticky-currency">€</span></strong>
+    </div>
+    <button type="button" class="book-btn calc-sticky-bar__btn" id="sticky-book-btn">
+        <i class="fas fa-calendar-alt"></i> Termin
+    </button>
+</div>
+
+</body>
+</html>
