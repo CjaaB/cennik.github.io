@@ -1,0 +1,950 @@
+/* Car All Detailing — dokumenty: podgląd, druk, PDF */
+:root {
+    --cad-doc-gold: #c9a227;
+    --cad-doc-gold-soft: rgba(201, 162, 39, 0.14);
+    --cad-doc-ink: #1a1712;
+    --cad-doc-muted: #5c564c;
+    --cad-doc-line: rgba(201, 162, 39, 0.28);
+    --cad-doc-paper: #faf8f3;
+    --cad-doc-paper-shadow: 0 28px 64px rgba(0, 0, 0, 0.38);
+    --cad-doc-toolbar-h: 58px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body.cad-doc-page {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201, 162, 39, 0.12), transparent 55%),
+        #0a0a0a;
+    color: var(--cad-doc-ink);
+    font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.cad-doc-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: var(--cad-doc-toolbar-h);
+    padding: 10px clamp(14px, 4vw, 28px);
+    border-bottom: 1px solid rgba(201, 162, 39, 0.18);
+    background: rgba(8, 8, 8, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.cad-doc-toolbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    color: #f5f0e4;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+}
+
+.cad-doc-toolbar__brand img {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.cad-doc-toolbar__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.cad-doc-toolbar__hint {
+    flex: 1 1 100%;
+    margin: 0;
+    padding-top: 2px;
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 0.72rem;
+    line-height: 1.4;
+    text-align: right;
+}
+
+.cad-doc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(201, 162, 39, 0.32);
+    background: rgba(201, 162, 39, 0.08);
+    color: #f1d279;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.cad-doc-btn:hover,
+.cad-doc-btn:focus-visible {
+    background: rgba(201, 162, 39, 0.16);
+    border-color: rgba(201, 162, 39, 0.5);
+    outline: none;
+    transform: translateY(-1px);
+}
+
+.cad-doc-btn--primary {
+    background: linear-gradient(160deg, #d4af37, #b8922a);
+    border-color: #d4af37;
+    color: #111;
+}
+
+.cad-doc-btn--ghost {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.14);
+    color: #d8d2c4;
+}
+
+.cad-doc-stage {
+    padding: clamp(20px, 4vw, 40px) clamp(12px, 3vw, 24px) 48px;
+}
+
+.cad-doc {
+    width: min(210mm, 100%);
+    margin: 0 auto;
+    background: var(--cad-doc-paper);
+    color: var(--cad-doc-ink);
+    box-shadow: var(--cad-doc-paper-shadow);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.cad-doc__masthead {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 18px;
+    align-items: center;
+    padding: 28px 32px 24px;
+    background: linear-gradient(145deg, #0d0d0d 0%, #17140f 100%);
+    color: #fff;
+    border-bottom: 3px solid var(--cad-doc-gold);
+}
+
+.cad-doc__masthead--split {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+}
+
+.cad-doc__masthead-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.cad-doc__masthead-meta {
+    text-align: right;
+}
+
+.cad-doc__meta-label {
+    display: block;
+    margin-bottom: 4px;
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.cad-doc__datetime {
+    display: block;
+    color: var(--cad-doc-gold);
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.35;
+    white-space: nowrap;
+}
+
+.cad-doc__intro {
+    margin: 0;
+    color: var(--cad-doc-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.cad-doc__section--lead {
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--cad-doc-line);
+}
+
+.cad-doc__section-note {
+    margin: 0;
+    color: var(--cad-doc-muted);
+    font-size: 0.86rem;
+    line-height: 1.5;
+}
+
+.cad-doc__logo {
+    display: block;
+    width: auto;
+    height: 56px;
+    max-width: 72px;
+    object-fit: contain;
+    border: none;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+}
+
+.cad-doc__brand-name {
+    margin: 0 0 4px;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+}
+
+.cad-doc__brand-sub {
+    margin: 0;
+    color: var(--cad-doc-gold);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.cad-doc__doc-kicker {
+    margin: 8px 0 0;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.cad-doc__body {
+    padding: 32px 32px 40px;
+}
+
+.cad-doc__title {
+    margin: 0 0 6px;
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.cad-doc__title-rule {
+    width: 72px;
+    height: 3px;
+    margin: 0 0 22px;
+    border-radius: 999px;
+    background: var(--cad-doc-gold);
+}
+
+.cad-doc__lead {
+    margin: 0 0 28px;
+    padding: 16px 18px;
+    border-left: 3px solid var(--cad-doc-gold);
+    background: var(--cad-doc-gold-soft);
+    color: var(--cad-doc-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    border-radius: 0 12px 12px 0;
+}
+
+.cad-doc__section {
+    margin-bottom: 26px;
+}
+
+.cad-doc__section h2 {
+    margin: 0 0 10px;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--cad-doc-ink);
+}
+
+.cad-doc__section h2::after {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 2px;
+    margin-top: 6px;
+    background: var(--cad-doc-gold);
+    border-radius: 999px;
+}
+
+.cad-doc__section p,
+.cad-doc__section li {
+    margin: 0 0 10px;
+    color: var(--cad-doc-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+.cad-doc__section ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cad-doc__section li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.cad-doc__section li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    margin-top: 7px;
+    border-radius: 2px;
+    background: var(--cad-doc-gold);
+}
+
+.cad-doc__field-grid {
+    display: grid;
+    gap: 14px;
+}
+
+.cad-doc__field-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 20px;
+}
+
+.cad-doc__field--full {
+    grid-column: 1 / -1;
+}
+
+.cad-doc__checks--2col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 16px;
+    margin-bottom: 14px;
+}
+
+.cad-doc__field {
+    display: grid;
+    grid-template-columns: 168px 1fr;
+    gap: 12px;
+    align-items: end;
+    font-size: 0.88rem;
+}
+
+.cad-doc--protocol .cad-doc__field {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    align-items: start;
+}
+
+.cad-doc__field label {
+    color: var(--cad-doc-muted);
+    font-weight: 600;
+}
+
+.cad-doc__field-line {
+    min-height: 22px;
+    border-bottom: 1px solid var(--cad-doc-line);
+}
+
+.cad-doc__checks {
+    display: grid;
+    gap: 10px;
+}
+
+.cad-doc__check {
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    gap: 10px;
+    align-items: start;
+    font-size: 0.88rem;
+    color: var(--cad-doc-ink);
+}
+
+.cad-doc__check-box {
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    border: 1.5px solid var(--cad-doc-gold);
+    border-radius: 3px;
+}
+
+.cad-doc__check-box--on {
+    position: relative;
+    background: var(--cad-doc-gold-soft);
+}
+
+.cad-doc__check-box--on::after {
+    content: "✓";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--cad-doc-gold);
+    line-height: 1;
+}
+
+.cad-doc__photos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.cad-doc--protocol .cad-doc__field + .cad-doc__photos {
+    margin-bottom: 6px;
+}
+
+.cad-doc--protocol .cad-doc__field-grid--2 > .cad-doc__photos {
+    grid-column: 1 / -1;
+}
+
+.cad-doc__photo {
+    margin: 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.cad-doc__photo img {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--cad-doc-line);
+}
+
+.cad-doc__photo figcaption {
+    margin-top: 4px;
+    color: var(--cad-doc-muted);
+    font-size: 0.68rem;
+    line-height: 1.35;
+}
+
+.cad-doc__note-box {
+    padding: 16px 18px;
+    border: 1px solid var(--cad-doc-line);
+    border-radius: 12px;
+    background: rgba(201, 162, 39, 0.06);
+}
+
+.cad-doc__note-box--tall {
+    min-height: 88px;
+}
+
+.cad-doc__signatures {
+    display: grid;
+    gap: 22px;
+    margin-top: 28px;
+}
+
+.cad-doc__sign-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.cad-doc__sign-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--cad-doc-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.cad-doc__sign-line {
+    height: 1px;
+    background: var(--cad-doc-line);
+}
+
+.cad-doc__footer {
+    margin-top: 32px;
+    padding-top: 14px;
+    border-top: 1px solid var(--cad-doc-line);
+    color: var(--cad-doc-muted);
+    font-size: 0.76rem;
+    text-align: center;
+}
+
+/* ── Wycena kalkulatora ── */
+.cad-doc--quote .cad-doc__meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 20px;
+    margin-bottom: 24px;
+}
+
+.cad-doc__meta-item {
+    padding: 12px 14px;
+    border: 1px solid var(--cad-doc-line);
+    border-radius: 12px;
+    background: #fff;
+}
+
+.cad-doc__meta-item span {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--cad-doc-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.cad-doc__meta-item strong {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--cad-doc-ink);
+}
+
+.cad-doc__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.88rem;
+}
+
+.cad-doc__table th {
+    padding: 11px 14px;
+    background: #111;
+    color: #fff;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.cad-doc__table th:last-child {
+    text-align: right;
+}
+
+.cad-doc__table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    vertical-align: top;
+}
+
+.cad-doc__table tr:nth-child(even) td {
+    background: rgba(201, 162, 39, 0.05);
+}
+
+.cad-doc__table td:last-child {
+    text-align: right;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.cad-doc__total {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 22px;
+}
+
+.cad-doc__total-box {
+    min-width: 220px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: linear-gradient(145deg, #111, #1a1712);
+    color: #fff;
+    text-align: right;
+}
+
+.cad-doc__total-box span {
+    display: block;
+    margin-bottom: 4px;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.cad-doc__total-box strong {
+    font-size: 1.45rem;
+    color: var(--cad-doc-gold);
+}
+
+.cad-doc__disclaimer {
+    margin: 0;
+    color: var(--cad-doc-muted);
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+/* ── Modal podglądu na stronie głównej ── */
+.cad-doc-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 12000;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: cadDocFadeIn 0.22s ease;
+}
+
+.cad-doc-modal[hidden] {
+    display: none !important;
+}
+
+.cad-doc-modal__panel {
+    display: flex;
+    flex-direction: column;
+    width: min(920px, 100%);
+    max-height: min(92vh, 900px);
+    border-radius: 18px;
+    border: 1px solid rgba(201, 162, 39, 0.22);
+    background: #0e0e0e;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
+}
+
+.cad-doc-modal__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(201, 162, 39, 0.14);
+}
+
+.cad-doc-modal__head strong {
+    color: #f5f0e4;
+    font-size: 0.92rem;
+}
+
+.cad-doc-modal__scroll {
+    flex: 1;
+    overflow: auto;
+    padding: 18px;
+    background:
+        radial-gradient(ellipse 70% 40% at 50% 0%, rgba(201, 162, 39, 0.08), transparent 60%),
+        #111;
+}
+
+.cad-doc-modal__scroll .cad-doc {
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42);
+}
+
+.cad-doc-modal__foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 12px 16px 14px;
+    border-top: 1px solid rgba(201, 162, 39, 0.12);
+}
+
+@keyframes cadDocFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (max-width: 720px) {
+    .cad-doc__masthead,
+    .cad-doc__masthead--split {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-items: center;
+    }
+
+    .cad-doc__masthead-brand {
+        flex-direction: column;
+    }
+
+    .cad-doc__masthead-meta {
+        text-align: center;
+    }
+
+    .cad-doc__datetime {
+        white-space: normal;
+    }
+
+    .cad-doc__field-grid--2,
+    .cad-doc__checks--2col {
+        grid-template-columns: 1fr;
+    }
+
+    .cad-doc__body {
+        padding: 24px 18px 32px;
+    }
+
+    .cad-doc__field {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .cad-doc--quote .cad-doc__meta {
+        grid-template-columns: 1fr;
+    }
+
+    .cad-doc__sign-row {
+        grid-template-columns: 1fr;
+    }
+
+    .cad-doc-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cad-doc-toolbar__actions {
+        justify-content: stretch;
+    }
+
+    .cad-doc-btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 10mm 12mm;
+    }
+
+    html,
+    body.cad-doc-page {
+        background: #fff !important;
+        min-height: 0;
+    }
+
+    .cad-doc-toolbar,
+    .cad-doc-toolbar__hint,
+    [data-screen-only],
+    .cad-doc-modal__head,
+    .cad-doc-modal__foot,
+    .cad-doc-modal {
+        display: none !important;
+    }
+
+    .cad-doc-stage,
+    .cad-doc-modal__scroll {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #fff !important;
+        overflow: visible !important;
+    }
+
+    .cad-doc {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        overflow: visible !important;
+    }
+
+    .cad-doc__masthead,
+    .cad-doc__masthead--split {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 8px 0 10px !important;
+        margin-bottom: 6px;
+        background: transparent !important;
+        color: #111 !important;
+        border-bottom: 2px solid #c9a227 !important;
+        break-after: avoid;
+        page-break-after: avoid;
+    }
+
+    .cad-doc__masthead-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .cad-doc__masthead-meta {
+        text-align: right;
+    }
+
+    .cad-doc__meta-label {
+        font-size: 0.58rem !important;
+        color: #888 !important;
+    }
+
+    .cad-doc__datetime {
+        font-size: 0.78rem !important;
+        color: #8a6b16 !important;
+        white-space: normal;
+    }
+
+    .cad-doc--protocol .cad-doc__section--lead {
+        display: none !important;
+    }
+
+    .cad-doc__logo {
+        width: auto !important;
+        height: 44px !important;
+        max-width: 56px !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: none !important;
+        box-shadow: none !important;
+    }
+
+    .cad-doc__brand-name {
+        font-size: 1rem !important;
+        color: #111 !important;
+    }
+
+    .cad-doc__brand-sub {
+        font-size: 0.72rem !important;
+        color: #8a6b16 !important;
+    }
+
+    .cad-doc__doc-kicker {
+        margin-top: 4px !important;
+        font-size: 0.62rem !important;
+        color: #666 !important;
+    }
+
+    .cad-doc__body {
+        padding: 0 !important;
+    }
+
+    .cad-doc__title {
+        margin: 0 0 4px !important;
+        font-size: 1.2rem !important;
+        break-after: avoid;
+        page-break-after: avoid;
+    }
+
+    .cad-doc__title-rule {
+        width: 56px;
+        height: 2px;
+        margin: 0 0 10px !important;
+    }
+
+    .cad-doc__lead {
+        margin: 0 0 14px !important;
+        padding: 10px 12px !important;
+        font-size: 0.8rem !important;
+        line-height: 1.4 !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .cad-doc__section {
+        margin-bottom: 14px !important;
+        break-inside: auto !important;
+        page-break-inside: auto !important;
+    }
+
+    .cad-doc__section h2 {
+        margin: 0 0 8px !important;
+        font-size: 0.92rem !important;
+        break-after: avoid;
+        page-break-after: avoid;
+    }
+
+    .cad-doc__section p,
+    .cad-doc__section li {
+        font-size: 0.82rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .cad-doc--protocol .cad-doc__field-grid--2 {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 16px;
+    }
+
+    .cad-doc--protocol .cad-doc__field {
+        display: block;
+        margin-bottom: 0 !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .cad-doc--protocol .cad-doc__field label {
+        display: block;
+        font-size: 0.68rem !important;
+        margin-bottom: 3px !important;
+    }
+
+    .cad-doc--protocol .cad-doc__checks--2col {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cad-doc__field-line {
+        min-height: 16px !important;
+    }
+
+    .cad-doc__checks {
+        gap: 6px !important;
+    }
+
+    .cad-doc__check {
+        font-size: 0.8rem !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .cad-doc__note-box {
+        min-height: 64px !important;
+        padding: 10px !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .cad-doc__signatures {
+        margin-top: 16px !important;
+        gap: 14px !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .cad-doc__sign-row {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .cad-doc__footer {
+        margin-top: 16px !important;
+        padding-top: 8px !important;
+        font-size: 0.68rem !important;
+    }
+
+    .cad-doc--terms .cad-doc__section {
+        margin-bottom: 12px !important;
+    }
+
+    .cad-doc__photos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        margin-top: 6px;
+    }
+
+    .cad-doc__photo {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .cad-doc__photo img {
+        border-radius: 6px;
+        border-color: #ddd;
+    }
+
+    .cad-doc__photo figcaption {
+        font-size: 0.62rem !important;
+    }
+}

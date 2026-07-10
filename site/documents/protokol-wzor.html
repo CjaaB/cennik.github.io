@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car All Detailing — protokół</title>
+    <link rel="stylesheet" href="../css/cad-documents.css?v=6">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+</head>
+<body class="cad-doc-page">
+    <header class="cad-doc-toolbar" data-screen-only>
+        <a class="cad-doc-toolbar__brand" href="../../index.html">
+            <img src="../../assets/logo1.png" alt="" width="34" height="34">
+            <span>Car All Detailing</span>
+        </a>
+        <div class="cad-doc-toolbar__actions">
+            <button type="button" class="cad-doc-btn cad-doc-btn--primary" id="cad-doc-print-btn">
+                <i class="fas fa-print" aria-hidden="true"></i> Drukuj / Zapisz jako PDF
+            </button>
+        </div>
+    </header>
+
+    <main class="cad-doc-stage">
+        <article class="cad-doc cad-doc--protocol">
+            <header class="cad-doc__masthead cad-doc__masthead--split">
+                <div class="cad-doc__masthead-brand">
+                    <img class="cad-doc__logo" src="../../assets/logo1.png" alt="" width="56" height="56">
+                    <div>
+                        <p class="cad-doc__brand-name">CAR ALL DETAILING</p>
+                        <p class="cad-doc__brand-sub">Karol Zagórski · Maarssen</p>
+                    </div>
+                </div>
+                <div class="cad-doc__masthead-meta">
+                    <span class="cad-doc__meta-label">Data dokumentu</span>
+                    <time class="cad-doc__datetime" id="cad-doc-now"></time>
+                </div>
+            </header>
+
+            <div class="cad-doc__body">
+                <section class="cad-doc__section cad-doc__section--lead">
+                    <p class="cad-doc__intro">Protokół stanu pojazdu, zakresu usługi i ustaleń przed rozpoczęciem prac.</p>
+                </section>
+
+                <section class="cad-doc__section">
+                    <h2>1. Dane klienta i pojazdu</h2>
+                    <div class="cad-doc__field-grid cad-doc__field-grid--2">
+                        <div class="cad-doc__field"><label>Imię i nazwisko / firma</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Telefon</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>E-mail</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Marka i model</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Nr rejestracyjny</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>VIN</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Przebieg (km)</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Kolor lakieru</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Data i godzina przyjęcia</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Planowany odbiór</label><div class="cad-doc__field-line"></div></div>
+                    </div>
+                </section>
+
+                <section class="cad-doc__section">
+                    <h2>2. Zakres zamówionych usług</h2>
+                    <div class="cad-doc__checks cad-doc__checks--2col">
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Mycie / detailing zewnętrzny</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Czyszczenie wnętrza</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Pranie tapicerki materiałowej</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Wosk / zabezpieczenie lakieru</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Czyszczenie skóry / kierownicy</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Dekontaminacja lakieru</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Usuwanie sierści / mocnych zabrudzeń</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Inne ustalenia</span></div>
+                    </div>
+                    <div class="cad-doc__field cad-doc__field--full"><label>Szczegóły innych ustaleń</label><div class="cad-doc__field-line"></div></div>
+                </section>
+
+                <section class="cad-doc__section">
+                    <h2>3. Stan pojazdu przed usługą</h2>
+                    <div class="cad-doc__field-grid cad-doc__field-grid--2">
+                        <div class="cad-doc__field"><label>Lakier i elementy zewnętrzne</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Zderzaki / progi / listwy</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Felgi / opony</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Szyby / lampy</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Wnętrze / tapicerka</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Skóra / plastiki / piano black</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Elementy wrażliwe / wcześniejsze naprawy</label><div class="cad-doc__field-line"></div></div>
+                        <div class="cad-doc__field"><label>Rysy, odpryski, plamy, zapachy</label><div class="cad-doc__field-line"></div></div>
+                    </div>
+                </section>
+
+                <section class="cad-doc__section">
+                    <h2>4. Rzeczy klienta i wyposażenie</h2>
+                    <div class="cad-doc__checks">
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Klient zabrał dokumenty, pieniądze i wartościowe rzeczy</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>W aucie pozostają rzeczy wskazane wykonawcy</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Foteliki / bagaż wymagają wyjęcia przed usługą</span></div>
+                    </div>
+                    <div class="cad-doc__field cad-doc__field--full"><label>Uwagi do wyposażenia</label><div class="cad-doc__field-line"></div></div>
+                </section>
+
+                <section class="cad-doc__section">
+                    <h2>5. Warunki wykonania i zgody</h2>
+                    <div class="cad-doc__checks">
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Część usług może być wykonywana na zewnątrz — pogoda może wpłynąć na termin.</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Cena z kalkulatora jest orientacyjna; ostateczna wycena po oględzinach.</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Nie każda plama, rysa lub zapach może zostać usunięta w 100%.</span></div>
+                        <div class="cad-doc__check"><span class="cad-doc__check-box"></span><span>Zgoda na zdjęcia dokumentacyjne przed i po usłudze.</span></div>
+                    </div>
+                </section>
+
+                <section class="cad-doc__section">
+                    <h2>6. Uwagi dodatkowe</h2>
+                    <div class="cad-doc__note-box cad-doc__note-box--tall"></div>
+                </section>
+
+                <section class="cad-doc__section">
+                    <h2>7. Potwierdzenie odbioru</h2>
+                    <p class="cad-doc__section-note">Klient odbiera pojazd w uzgodnionym terminie. Uwagi do zakresu lub efektu prac — najlepiej podczas odbioru.</p>
+                </section>
+
+                <div class="cad-doc__signatures">
+                    <div class="cad-doc__sign-row">
+                        <div class="cad-doc__sign-field"><label>Miejsce</label><div class="cad-doc__sign-line"></div></div>
+                        <div class="cad-doc__sign-field"><label>Data przyjęcia</label><div class="cad-doc__sign-line"></div></div>
+                    </div>
+                    <div class="cad-doc__sign-row">
+                        <div class="cad-doc__sign-field"><label>Podpis klienta</label><div class="cad-doc__sign-line"></div></div>
+                        <div class="cad-doc__sign-field"><label>Podpis wykonawcy</label><div class="cad-doc__sign-line"></div></div>
+                    </div>
+                    <div class="cad-doc__sign-row">
+                        <div class="cad-doc__sign-field"><label>Data odbioru</label><div class="cad-doc__sign-line"></div></div>
+                        <div class="cad-doc__sign-field"><label>Podpis klienta przy odbiorze</label><div class="cad-doc__sign-line"></div></div>
+                    </div>
+                </div>
+
+                <footer class="cad-doc__footer">caralldetailing.nl · +48 731 693 089</footer>
+            </div>
+        </article>
+    </main>
+
+    <script src="../js/cad-print.js?v=4"></script>
+    <script>
+        (function () {
+            const now = document.getElementById("cad-doc-now");
+            if (now) {
+                now.textContent = new Date().toLocaleString("pl-PL", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
+            }
+            document.getElementById("cad-doc-print-btn")?.addEventListener("click", () => {
+                window.CAD_printDocument?.(".cad-doc", "Car All Detailing");
+            });
+        })();
+    </script>
+</body>
+</html>

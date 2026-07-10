@@ -1,0 +1,69 @@
+CAD PROTOKÓŁ CYFROWY — instalacja
+=================================
+
+Prywatna aplikacja tylko dla Ciebie. Nie jest linkowana ze strony publicznej.
+
+
+INSTALACJA NA TELEFONIE SAMSUNG (zalecane)
+------------------------------------------
+
+1. Wgraj projekt na GitHub Pages (repo cennik.github.io).
+
+2. Na telefonie otwórz w Chrome:
+
+   https://cjaab.github.io/cennik.github.io/private/
+
+3. Na liście protokołów dotknij „Zainstaluj na telefonie”
+   LUB menu Chrome (⋮) → „Zainstaluj aplikację” / „Dodaj do ekranu głównego”.
+
+4. Potwierdź nazwę: CAD Protokół.
+
+5. Ikona pojawi się na ekranie głównym — działa jak zwykła aplikacja.
+
+
+ALTERNATYWA — sieć lokalna (test bez internetu)
+-----------------------------------------------
+
+1. Na PC uruchom: local\tools\uruchom-protokol.bat
+
+2. W oknie konsoli zobaczysz adres serwera. Na telefonie (ta sama sieć Wi-Fi)
+   otwórz w Chrome, np.:
+
+   http://192.168.x.x:5173/private/
+
+   (zamień 192.168.x.x na adres IP Twojego komputera)
+
+3. Zainstaluj jak wyżej (Chrome → Zainstaluj aplikację).
+
+
+UWAGA — file:// NIE instaluje PWA
+---------------------------------
+
+Dwuklik index.html (adres file://) działa do edycji protokołów,
+ale NIE pozwala zainstalować aplikacji na telefonie.
+Do instalacji potrzebny jest adres http:// lub https://.
+
+
+PIERWSZE URUCHOMIENIE
+---------------------
+
+- Ustaw 4-cyfrowy PIN (tylko na tym urządzeniu).
+- Dane i zdjęcia zapisują się lokalnie (IndexedDB).
+
+
+PRZY PRZYJĘCIU AUTA
+-------------------
+
+- Nowy → dane klienta i auta
+- Stan pojazdu → uwagi + zdjęcia z aparatu
+- Drukuj → podgląd wydruku / Zapisz jako PDF (z logo)
+
+
+BEZPIECZEŃSTWO
+--------------
+
+- PIN chroni przed przypadkowym wejściem.
+- Nie publikuj folderu private bez świadomości, że to narzędzie wewnętrzne.
+
+
+Zmiana PIN: przycisk PIN na liście protokołów.

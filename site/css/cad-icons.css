@@ -1,0 +1,175 @@
+.cad-ico-wrap,
+.cad-ico-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.15em;
+    height: 1.15em;
+    vertical-align: -0.14em;
+    color: inherit;
+    flex-shrink: 0;
+}
+
+.cad-ico-wrap svg,
+.cad-ico-brand svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.cad-ico-brand svg {
+    fill: currentColor;
+    stroke: none;
+}
+
+/* Lucide — cienkie, nowoczesne linie (wyraźnie inne niż Font Awesome) */
+.process-visual .cad-ico-wrap {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #f3df9a;
+    filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.4));
+}
+
+.home-cta-card__icon .cad-ico-wrap {
+    width: 1.7rem;
+    height: 1.7rem;
+    color: #e8c96a;
+}
+
+.home-cta-card__arrow.cad-ico-wrap {
+    width: 1.1rem;
+    height: 1.1rem;
+    opacity: 0.85;
+}
+
+.app-menu-tile__icon .cad-ico-wrap {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.float-mockup-icon .cad-ico-wrap,
+.theme-toggle-icon .cad-ico-wrap {
+    width: 1.35rem;
+    height: 1.35rem;
+}
+
+.float-mockup-icon--wa .cad-ico-brand {
+    width: 1.35rem;
+    height: 1.35rem;
+    color: #fff;
+}
+
+.float-mockup-icon--wa .cad-ico-brand svg {
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-carousel__nav .cad-ico-wrap,
+.gallery-lightbox__nav .cad-ico-wrap {
+    width: 1rem;
+    height: 1rem;
+}
+
+.quote-hub__teaser-icon.cad-ico-wrap,
+.quote-hub__teaser-icon .cad-ico-wrap {
+    width: 1.45rem;
+    height: 1.45rem;
+}
+
+.weather-day__icon.cad-ico-wrap,
+.weather-bubble__icon .cad-ico-wrap,
+.weather-widget__icon .cad-ico-wrap {
+    width: 1.35rem;
+    height: 1.35rem;
+}
+
+.safety-tile__icon .cad-ico-wrap {
+    width: 1.45rem;
+    height: 1.45rem;
+    color: #e8c96a;
+}
+
+.download-buttons .cad-ico-wrap,
+.btn-outline .cad-ico-wrap {
+    flex-shrink: 0;
+    color: var(--gold, #d4af37);
+}
+
+.document-stamp .cad-ico-wrap {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #e8c96a;
+}
+
+.weather-scenario__icon .cad-ico-wrap {
+    width: 1.35rem;
+    height: 1.35rem;
+}
+
+.weather-hub__chip .cad-ico-wrap {
+    width: 0.9rem;
+    height: 0.9rem;
+    color: var(--wx-sun-bright, #ffe9a8);
+}
+
+.weather-hub__icon .cad-ico-wrap {
+    width: 1.55rem;
+    height: 1.55rem;
+}
+
+.weather-hub__chev.cad-ico-wrap,
+.weather-hub__chev .cad-ico-wrap {
+    width: 0.85rem;
+    height: 0.85rem;
+}
+
+.service-detail-panel__icon .cad-ico-wrap {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: #e8c96a;
+}
+
+.cad-ico-brand--whatsapp {
+    color: #25d366;
+}
+
+.float-mockup-icon--wa .cad-ico-brand--whatsapp {
+    color: #fff;
+}
+
+.cad-ico-brand--instagram {
+    color: #e4405f;
+}
+
+/* Ikony Lucide w aplikacji */
+.app-menu-tile__icon .cad-ico-wrap,
+.app-quote-card__icon .cad-ico-wrap,
+.chat-resume-btn__icon .cad-ico-wrap,
+.quote-resume__icon .cad-ico-wrap,
+.more-link .cad-ico-wrap,
+.app-panel-toolbar .cad-ico-wrap,
+.icon-btn .cad-ico-wrap,
+.btn-attach .cad-ico-wrap,
+.chat-send-btn .cad-ico-wrap,
+.app-gallery-nav .cad-ico-wrap,
+.app-gallery-lightbox__close .cad-ico-wrap,
+.app-gallery-lightbox__nav .cad-ico-wrap,
+.weather-bubble__icon .cad-ico-wrap,
+.app-location-pin .cad-ico-wrap {
+    width: 1.15em;
+    height: 1.15em;
+}
+
+.app-menu-tile__icon .cad-ico-wrap {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.app-quote-card__icon .cad-ico-wrap {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--gold, #d4af37);
+}

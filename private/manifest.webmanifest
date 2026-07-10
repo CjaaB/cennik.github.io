@@ -1,0 +1,35 @@
+{
+  "name": "CAD Protokół — Karol",
+  "short_name": "CAD Protokół",
+  "description": "Prywatny protokół przyjęcia auta ze zdjęciami uszkodzeń",
+  "id": "cad-protocol-app",
+  "start_url": "./index.html?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#080808",
+  "theme_color": "#d4af37",
+  "lang": "pl",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

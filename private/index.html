@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CAD Protokół">
+    <meta name="theme-color" content="#d4af37">
+    <title>Car All Detailing — protokół</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/field-book.css?v=4">
+</head>
+<body>
+    <div id="fb-lock" class="fb-lock">
+        <div class="fb-lock__card">
+            <img class="fb-lock__logo" src="../assets/logo1.png" alt="" width="64" height="64">
+            <p class="fb-lock__brand">CAR ALL DETAILING</p>
+            <h1 class="fb-lock__title">Protokół cyfrowy</h1>
+            <p id="fb-pin-setup" class="fb-lock__text">Ustaw 4-cyfrowy PIN. Wszystkie dane zostają wyłącznie na tym urządzeniu.</p>
+            <p id="fb-pin-login" class="fb-lock__text fb-hidden">Wpisz PIN, aby otworzyć zapisane protokoły.</p>
+            <div class="fb-pin" aria-label="PIN">
+                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" aria-label="Cyfra 1">
+                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" aria-label="Cyfra 2">
+                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" aria-label="Cyfra 3">
+                <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" aria-label="Cyfra 4">
+            </div>
+            <p class="fb-lock__hint">Możesz dodać skrót na ekran główny telefonu.</p>
+        </div>
+    </div>
+
+    <div id="fb-app" class="fb-app fb-hidden">
+        <div id="fb-list-screen">
+            <header class="fb-topbar">
+                <div class="fb-topbar__brand">
+                    <img src="../assets/logo1.png" alt="" width="36" height="36">
+                    <div>
+                        <p class="fb-topbar__name">Protokoły</p>
+                        <p class="fb-topbar__sub">Lokalnie · prywatne</p>
+                    </div>
+                </div>
+                <div class="fb-topbar__actions">
+                    <button type="button" class="fb-btn fb-btn--primary" id="fb-install-open-btn">Instaluj</button>
+                    <button type="button" class="fb-btn fb-btn--ghost" id="fb-change-pin">PIN</button>
+                    <button type="button" class="fb-btn fb-btn--primary" id="fb-new-btn">Nowy</button>
+                </div>
+            </header>
+            <main class="fb-content">
+                <div id="fb-protocol-list" class="fb-list"></div>
+            </main>
+        </div>
+
+        <div id="fb-edit-screen" class="fb-hidden">
+            <header class="fb-topbar fb-topbar--editor">
+                <button type="button" class="fb-btn fb-btn--ghost fb-btn--icon" id="fb-back-btn" aria-label="Wróć do listy">Wstecz</button>
+                <div class="fb-topbar__title-wrap">
+                    <p class="fb-topbar__datetime" id="fb-edit-title">—</p>
+                    <p class="fb-topbar__vehicle" id="fb-edit-subtitle">—</p>
+                </div>
+                <button type="button" class="fb-btn fb-btn--danger fb-btn--icon" id="fb-delete-btn">Usuń</button>
+            </header>
+            <main class="fb-content" id="fb-editor"></main>
+            <div class="fb-bottom-bar">
+                <button type="button" class="fb-btn" id="fb-save-btn">Zapisz</button>
+                <button type="button" class="fb-btn fb-btn--primary" id="fb-export-btn">Drukuj</button>
+                <button type="button" class="fb-btn" id="fb-done-btn">Zamknij</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="fb-toast" class="fb-toast" aria-live="polite"></div>
+
+    <div id="fb-install-sheet" class="fb-install-sheet" hidden role="dialog" aria-modal="true" aria-labelledby="fb-install-title">
+        <div class="fb-install-sheet__backdrop" data-fb-install-dismiss></div>
+        <div class="fb-install-sheet__panel">
+            <button type="button" class="fb-install-sheet__close" data-fb-install-dismiss aria-label="Zamknij">Zamknij</button>
+            <p class="fb-install-sheet__badge">Na telefon</p>
+            <h2 id="fb-install-title">Zainstaluj CAD Protokół</h2>
+            <p class="fb-install-sheet__lead">Szybki dostęp do protokołów przyjęcia auta — jedna ikona na ekranie głównym.</p>
+            <p id="fb-install-status" class="fb-install-sheet__status" aria-live="polite"></p>
+            <div id="fb-install-inapp" class="fb-install-sheet__block" hidden>
+                <p>Otwórz tę stronę w przeglądarce Chrome, aby zainstalować aplikację.</p>
+            </div>
+            <div id="fb-install-android" class="fb-install-sheet__block" hidden>
+                <button type="button" class="fb-btn fb-btn--primary fb-install-sheet__primary" id="fb-install-btn">Zainstaluj teraz</button>
+                <p class="fb-install-sheet__hint">Jeśli przycisk nie działa: menu Chrome → Zainstaluj aplikację.</p>
+            </div>
+            <ol id="fb-install-ios" class="fb-install-sheet__steps" hidden>
+                <li>Dotknij ikony Udostępnij w Safari</li>
+                <li>Wybierz „Dodaj do ekranu początkowego”</li>
+                <li>Potwierdź nazwę CAD Protokół</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="../site/js/cad-print.js?v=4"></script>
+    <script src="js/field-book-db.js?v=1"></script>
+    <script src="js/field-book.js?v=6"></script>
+    <script src="js/protocol-shell.js?v=3"></script>
+</body>
+</html>
