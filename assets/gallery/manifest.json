@@ -1,0 +1,33 @@
+{
+    "images":  [
+                   {
+                       "File":  "01.jpg",
+                       "Alt":  "Detailing - zdjecie 1"
+                   },
+                   {
+                       "File":  "02.jpg",
+                       "Alt":  "Detailing - zdjecie 2"
+                   },
+                   {
+                       "File":  "03.jpg",
+                       "Alt":  "Detailing - zdjecie 3"
+                   },
+                   {
+                       "File":  "04.jpg",
+                       "Alt":  "Detailing - zdjecie 4"
+                   },
+                   {
+                       "File":  "05.jpg",
+                       "Alt":  "Detailing - zdjecie 5"
+                   },
+                   {
+                       "File":  "06.jpg",
+                       "Alt":  "Detailing - zdjecie 6"
+                   },
+                   {
+                       "File":  "07.jpg",
+                       "Alt":  "Detailing - zdjecie 7"
+                   }
+               ],
+    "note":  "Galeria wygenerowana z folderu unsplash."
+}
