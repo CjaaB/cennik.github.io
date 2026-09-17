@@ -1,0 +1,13 @@
+﻿Car All Detailing — accent photos (Pexels / Flickr CC)
+
+process-quote.jpg   — zdjęcie auta telefonem (Pexels) — wycena
+process-inspect.jpg — podpis / protokół na schowku (Pexels) — protokół / dokumentacja
+process-work.jpg    — polerowanie lakieru maszyną (Pexels) — realizacja
+connect-insta.jpg   — hand wash sponge (Pexels) — Instagram kulisy
+connect-app.jpg     — smartphone app in hand (Flickr CC BY) — aplikacja
+fit-sale.jpg        — clean Mercedes AMG (Pexels) — przed sprzedażą
+fit-used.jpg        — used Pontiac sedan (Flickr CC BY) — po zakupie używanego
+fit-family.jpg      — dog in car (Flickr CC BY) — dzieci / zwierzęta
+fit-season.jpg      — snow-covered car (Flickr CC BY) — zima / sezon
+
+If removing visual accents v1, delete this folder and related HTML/CSS marked removable.
